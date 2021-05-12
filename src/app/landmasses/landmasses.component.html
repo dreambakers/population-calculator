@@ -1,0 +1,59 @@
+<div class="mt-4">
+    <h1>World Name</h1>
+</div>
+
+<div class="d-flex justify-content-center align-items-center">
+    <mat-card class="w-100">
+        <h3 class="fw-bold">Select or add Landmass Calculation</h3>
+
+        <div *ngFor="let landmass of landmasses">
+            <div class="d-flex align-items-center">
+                <div class="p-2">
+                    <button mat-icon-button (click)="landmass.editing = !landmass.editing">
+                        <mat-icon>{{ landmass.editing ? 'done' : 'edit'}}</mat-icon>
+                    </button>
+                </div>
+                <div class="p-2 flex-grow-1">
+                    <span *ngIf="!landmass.editing; else editMode">
+                        {{landmass.name}}
+                    </span>
+
+                    <ng-template #editMode>
+                        <input matInput [(ngModel)]="landmass.name" placeholder="Landmass name...">
+                    </ng-template>
+                </div>
+
+                <div class="p-2">
+                    <button mat-icon-button (click)="copyLandmass(landmass)">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                </div>
+
+                <div class="p-2">
+                    <button mat-icon-button (click)="deleteLandmass(landmass)">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <div class="p-2">
+                <button mat-icon-button (click)="addLandmass()">
+                    <mat-icon>{{ addNewLandmass ? 'done' : 'add'}}</mat-icon>
+                </button>
+            </div>
+            <div class="p-2 flex-grow-1">
+                <span *ngIf="!addNewLandmass; else addNew">
+                    Add new landmass
+                </span>
+
+                <ng-template #addNew>
+                    <input matInput [(ngModel)]="newLandmass" placeholder="Landmass name...">
+                </ng-template>
+            </div>
+        </div>
+
+
+    </mat-card>
+</div>
