@@ -14,9 +14,9 @@
                     </button>
                 </div>
                 <div class="p-2 flex-grow-1">
-                    <span *ngIf="!landmass.editing; else editMode">
+                    <a *ngIf="!landmass.editing; else editMode" [routerLink]="['/calculations', landmass.id]">
                         {{landmass.name}}
-                    </span>
+                    </a>
 
                     <ng-template #editMode>
                         <input matInput [(ngModel)]="landmass.name" placeholder="Landmass name...">
@@ -45,7 +45,7 @@
             </div>
             <div class="p-2 flex-grow-1">
                 <span *ngIf="!addNewLandmass; else addNew">
-                    Add new landmass
+                    Add Landmass
                 </span>
 
                 <ng-template #addNew>

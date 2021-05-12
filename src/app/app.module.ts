@@ -19,10 +19,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 
-import { BaseCalculationComponent } from './base-calculation/base-calculation.component';
+import { BaseCalculationComponent } from './calculations/base-calculation/base-calculation.component';
 import { LandmassesComponent } from './landmasses/landmasses.component';
 import { HomeComponent } from './home/home.component';
 import { InputComponent } from './dialogs/input/input.component';
+import { CalculationsComponent } from './calculations/calculations.component';
+import { PopulationCalculationComponent } from './calculations/population-calculation/population-calculation.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { InputComponent } from './dialogs/input/input.component';
     BaseCalculationComponent,
     LandmassesComponent,
     HomeComponent,
-    InputComponent
+    InputComponent,
+    CalculationsComponent,
+    PopulationCalculationComponent
   ],
   imports: [
     BrowserModule,

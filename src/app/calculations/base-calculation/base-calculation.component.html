@@ -1,0 +1,22 @@
+<div>
+    <mat-card>
+        <mat-form-field appearance="fill" class="w-50 m-3">
+            <mat-label>Total Land Size</mat-label>
+            <input matInput [ngModel]="baseCalculation.a1" (ngModelChange)="onAreaUpdate($event)">
+        </mat-form-field>
+
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50 m-3">
+                <mat-label>Forest in Area</mat-label>
+                <input matInput [ngModel]="baseCalculation.f1" (ngModelChange)="onChange($event,'f1','f2')">
+            </mat-form-field>
+
+            <h4>=</h4>
+
+            <mat-form-field appearance="fill" class="w-50 m-3">
+                <mat-label>Forest in %</mat-label>
+                <input matInput [ngModel]="baseCalculation.f2" (ngModelChange)="onChange($event,'f2','f1')">
+            </mat-form-field>
+        </div>
+    </mat-card>
+</div>
