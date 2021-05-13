@@ -9,7 +9,7 @@
             </div>
             <mat-form-field appearance="fill" class="w-50">
                 <mat-label>Total Land Size</mat-label>
-                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.a1" (ngModelChange)="onModifierSelect($event, 'a1')">
+                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.a1" (ngModelChange)="onModifierSelect($event, 'a1')">
             </mat-form-field>
         </fieldset>
 
@@ -22,14 +22,14 @@
             <div class="d-flex align-items-center justify-content-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Forest in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.f1" (ngModelChange)="onChange($event,'f1','f2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f1" (ngModelChange)="onChange($event,'f1','f2')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Forest in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.f2" (ngModelChange)="onChange($event,'f2','f1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f2" (ngModelChange)="onChange($event,'f2','f1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -44,14 +44,14 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Dense Foliage in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.df1" (ngModelChange)="onChange($event,'df1','df2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.df1" (ngModelChange)="onChange($event,'df1','df2')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Dense Foliage in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.df2" (ngModelChange)="onChange($event,'df2','df1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.df2" (ngModelChange)="onChange($event,'df2','df1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -66,14 +66,14 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Mountains in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.m1" (ngModelChange)="onChange($event,'m1','m2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m1" (ngModelChange)="onChange($event,'m1','m2')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Mountains in Area%</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.m2" (ngModelChange)="onChange($event,'m2','m1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m2" (ngModelChange)="onChange($event,'m2','m1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -88,14 +88,14 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Rocky Hills in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ra1" (ngModelChange)="onChange($event,'ra1','ra2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra1" (ngModelChange)="onChange($event,'ra1','ra2')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Rocky Hills in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ra2" (ngModelChange)="onChange($event,'ra2','ra1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra2" (ngModelChange)="onChange($event,'ra2','ra1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -110,14 +110,14 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Freshwater in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.fw1" (ngModelChange)="onChange($event,'fw1','fw2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.fw1" (ngModelChange)="onChange($event,'fw1','fw2')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Freshwater in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.fw2" (ngModelChange)="onChange($event,'fw2','fw1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.fw2" (ngModelChange)="onChange($event,'fw2','fw1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -133,14 +133,14 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Desert & Tundra in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.dt1" (ngModelChange)="onChange($event,'dt1','dt2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.dt1" (ngModelChange)="onChange($event,'dt1','dt2')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Desert & Tundra in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.dt2" (ngModelChange)="onChange($event,'dt2','dt1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.dt2" (ngModelChange)="onChange($event,'dt2','dt1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -156,14 +156,14 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Cold & Hot Steppe in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ds1" (ngModelChange)="onChange($event,'ds1','ds2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ds1" (ngModelChange)="onChange($event,'ds1','ds2')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Cold & Hot Steppe in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ds2" (ngModelChange)="onChange($event,'ds2','ds1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ds2" (ngModelChange)="onChange($event,'ds2','ds1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -182,7 +182,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill">
                     <mat-label>Technology Modifier</mat-label>
-                    <mat-select [ngModel]="baseCalculation.tm1" (ngModelChange)="onModifierSelect($event, 'tm1')">
+                    <mat-select [ngModel]="baseCalculation.variables.tm1" (ngModelChange)="onModifierSelect($event, 'tm1')">
                       <mat-optgroup label="Bronze Age">
                         <mat-option [value]="0.8">0.8</mat-option>
                       </mat-optgroup>
@@ -242,7 +242,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill">
                     <mat-label>Magic Modifier</mat-label>
-                    <mat-select [ngModel]="baseCalculation.mm1" (ngModelChange)="onModifierSelect($event, 'mm1')">
+                    <mat-select [ngModel]="baseCalculation.variables.mm1" (ngModelChange)="onModifierSelect($event, 'mm1')">
                         <mat-option [value]="0.8">0.8</mat-option>
                     </mat-select>
                 </mat-form-field>

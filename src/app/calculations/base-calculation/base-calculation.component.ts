@@ -24,14 +24,14 @@ export class BaseCalculationComponent implements OnInit {
     */
     let variable = toUpdate.split(/([0-9]+)/);
     this.baseCalculation.precedanceMap[variable[0]] = variable[1];
-    this.baseCalculation[toUpdate] = newVal === '' ? null : +newVal;
+    this.baseCalculation.variables[toUpdate] = newVal === '' ? null : +newVal;
     const functionKey = `${impacts}_calc` as keyof BaseCalculation;
     this.baseCalculation[functionKey]();
     this.baseCalculation.performBackgroundCalculations();
   }
 
   onModifierSelect(newVal: string | MatSelectChange, key: keyof BaseCalculationVariables) {
-    this.baseCalculation[key] = +newVal;
+    this.baseCalculation.variables[key] = +newVal;
     this.baseCalculation.calculateAll();
   }
 }
