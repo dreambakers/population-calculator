@@ -1,22 +1,252 @@
 <div>
     <mat-card>
-        <mat-form-field appearance="fill" class="w-50 m-3">
-            <mat-label>Total Land Size</mat-label>
-            <input matInput [ngModel]="baseCalculation.a1" (ngModelChange)="onAreaUpdate($event)">
-        </mat-form-field>
-
-        <div class="d-flex align-items-center">
-            <mat-form-field appearance="fill" class="w-50 m-3">
-                <mat-label>Forest in Area</mat-label>
-                <input matInput [ngModel]="baseCalculation.f1" (ngModelChange)="onChange($event,'f1','f2')">
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Total Land Size</legend>
+                <mat-icon matSuffix matTooltip="The “Total Land Size” shows the entire area of the Landmass you want to calculate, it
+                is preferable for this file to use larger landmasses like a Continent or the entire world.
+                Smaller areas are possible to calculate in this step but might get some false results." class="ms-2">info</mat-icon>
+            </div>
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Total Land Size</mat-label>
+                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.a1" (ngModelChange)="onModifierSelect($event, 'a1')">
             </mat-form-field>
+        </fieldset>
 
-            <h4>=</h4>
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Forest</legend>
+                <mat-icon matSuffix matTooltip="“Forests” are liveable areas and thus have a smaller impact on the population amount." class="ms-2">info</mat-icon>
+            </div>
 
-            <mat-form-field appearance="fill" class="w-50 m-3">
-                <mat-label>Forest in %</mat-label>
-                <input matInput [ngModel]="baseCalculation.f2" (ngModelChange)="onChange($event,'f2','f1')">
-            </mat-form-field>
-        </div>
+            <div class="d-flex align-items-center justify-content-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Forest in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.f1" (ngModelChange)="onChange($event,'f1','f2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Forest in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.f2" (ngModelChange)="onChange($event,'f2','f1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Dense Foliage</legend>
+                <mat-icon matSuffix matTooltip="With “Dense Foliage” is meant the dense unkept ancient forests or Jungles, it can also
+                mean flora which regrows quickly or is not managed by man." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Dense Foliage in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.df1" (ngModelChange)="onChange($event,'df1','df2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Dense Foliage in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.df2" (ngModelChange)="onChange($event,'df2','df1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Mountains</legend>
+                <mat-icon matSuffix matTooltip="The “Mountain” are does not include the lush valley, only hard to inhabitable zones
+                like glaciers mountain peaks or rocky cliffs." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Mountains in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.m1" (ngModelChange)="onChange($event,'m1','m2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Mountains in Area%</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.m2" (ngModelChange)="onChange($event,'m2','m1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Rocky Hills</legend>
+                <mat-icon matSuffix matTooltip="The “Rocky Hills” show hills, or other areas that have a hard underground, usually
+                some rocks or gravel like substances which are tedious to remove for farmable land." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Rocky Hills in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ra1" (ngModelChange)="onChange($event,'ra1','ra2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Rocky Hills in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ra2" (ngModelChange)="onChange($event,'ra2','ra1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Freshwater</legend>
+                <mat-icon matSuffix matTooltip="“Freshwater” similar to the “Forests” do not have a high impact on the population
+                amount. It shows rivers or lakes made out of freshwater." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Freshwater in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.fw1" (ngModelChange)="onChange($event,'fw1','fw2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Freshwater in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.fw2" (ngModelChange)="onChange($event,'fw2','fw1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Deserts and Tundras</legend>
+                <mat-icon matSuffix matTooltip="“Deserts and Tundras” show the either hot and dry or cold and dry climates. These
+                climates are mostly uninhabited by man and its hard or impossible to grow plants. Ice
+                caps, Tundras, Hot and Cold Deserts are part of this classification." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Desert & Tundra in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.dt1" (ngModelChange)="onChange($event,'dt1','dt2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Desert & Tundra in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.dt2" (ngModelChange)="onChange($event,'dt2','dt1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Hot and Cold Steppes</legend>
+                <mat-icon matSuffix matTooltip="“Hot and Cold Steppes” are similar but less harsh to the flore and fauna as “Deserts
+                and Tundras” these include other less dry lands like hot and cold Semi-Arid Climates
+                Subarctic climates or tropical Savannas." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Cold & Hot Steppe in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ds1" (ngModelChange)="onChange($event,'ds1','ds2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Cold & Hot Steppe in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.ds2" (ngModelChange)="onChange($event,'ds2','ds1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Technology Modifier</legend>
+                <mat-icon matSuffix matTooltip="The “Technology Modifier” shows what medical technology (NO OTHER
+                TECHNOLOGY) your landmass or Continent is at. This assumes a steady climb from
+                very bad (Bronze Age) to very good (Futuristic). The decline of medical technology like
+                medieval Europe had compared to ancient Rome is not included in these modifiers.
+                Choose a previous modifier if your medical technology had a decline, or if your military
+                technology does not compare to your medical technology (either worse or better)" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Technology Modifier</mat-label>
+                    <mat-select [ngModel]="baseCalculation.tm1" (ngModelChange)="onModifierSelect($event, 'tm1')">
+                      <mat-optgroup label="Bronze Age">
+                        <mat-option [value]="0.8">0.8</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Early Antiquity">
+                        <mat-option [value]="1.0">1.0</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Antiquity">
+                        <mat-option [value]="1.1">1.1</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Late Antiquity">
+                        <mat-option [value]="1.2">1.2</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Early Medieval">
+                        <mat-option [value]="1.3">1.3</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Medieval">
+                        <mat-option [value]="1.5">1.5</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Late Medieval">
+                        <mat-option [value]="1.7">1.7</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Early Renaissance">
+                        <mat-option [value]="2.0">2.0</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Renaissance">
+                        <mat-option [value]="2.5">2.5</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Early Industrial">
+                        <mat-option [value]="5.0">5.0</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Industrial">
+                        <mat-option [value]="7.5">7.5</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Early Modern">
+                        <mat-option [value]="10.0">10.0</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Modern">
+                        <mat-option [value]="13.5">13.5</mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Futuristic">
+                        <mat-option [value]="20">20</mat-option>
+                      </mat-optgroup>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Magic Modifier</legend>
+                <mat-icon matSuffix matTooltip="The “Magical Modifier” shows roughly how many people in your Landmass or
+                Continent have the capabilities to use healing magic, fill out in %numbers from 0 -
+                100. This does not include the power level of the magic; this is balanced to rather lowlevel magic. If you have higher levels of magic multiply your percentage number by 2
+                and then type the result within the field. " class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Magic Modifier</mat-label>
+                    <mat-select [ngModel]="baseCalculation.mm1" (ngModelChange)="onModifierSelect($event, 'mm1')">
+                        <mat-option [value]="0.8">0.8</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </fieldset>
     </mat-card>
 </div>

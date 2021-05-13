@@ -18,6 +18,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { DigitOnlyModule } from '@uiowa/digit-only';
 
 import { BaseCalculationComponent } from './calculations/base-calculation/base-calculation.component';
 import { LandmassesComponent } from './landmasses/landmasses.component';
@@ -53,6 +56,8 @@ import { PopulationCalculationComponent } from './calculations/population-calcul
     MatInputModule,
     MatCardModule,
     MatSelectModule,
+    DigitOnlyModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

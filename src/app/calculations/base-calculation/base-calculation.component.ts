@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSelectChange } from '@angular/material/select';
+import { BaseCalculation, BaseCalculationVariables, DataService } from 'src/app/services/data.service';
 
 
 @Component({
@@ -8,53 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaseCalculationComponent implements OnInit {
 
-  baseCalculation:any = {
-    a1: null,
-    f1: null,
-    f2: null,
-    precedanceMap: {},
-
-    f1_calc: function() {
-      this.f1 = this.a1/100*this.f2;
-    },
-
-    f2_calc: function() {
-      this.f2 = this.f1/this.a1*100;
-    },
-
-    calculateAll: function() {
-      for (let key of Object.keys(this)) {
-        if (key.includes('_calc') && typeof this[key] === 'function') {
-          let variable = key.split(/([0-9]+)/);
-          // Only run the calculation function again if this variable wasn't modified by the user
-          if (this.precedanceMap[variable[0]] !== variable[1]) {
-            this[key]();
-          }
-        }
-      }
-    }
-  }
+  baseCalculation: BaseCalculation = DataService.world.landmasses[0].baseCalculation;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(JSON.parse(JSON.stringify(this.baseCalculation)))
   }
 
-  onChange(newVal: number, toUpdate: any, impacts: any) {
+  onChange(newVal: string, toUpdate: keyof BaseCalculationVariables, impacts: keyof BaseCalculationVariables) {
     /*
       keeping track of the variable which user intially inputs so
       it isn't impacted when the area is changed.
     */
     let variable = toUpdate.split(/([0-9]+)/);
-    this.baseCalculation['precedanceMap'][variable[0]] = variable[1];
-
-    this.baseCalculation[toUpdate] = newVal;
-    this.baseCalculation[`${impacts}_calc`]();
+    this.baseCalculation.precedanceMap[variable[0]] = variable[1];
+    this.baseCalculation[toUpdate] = newVal === '' ? null : +newVal;
+    const functionKey = `${impacts}_calc` as keyof BaseCalculation;
+    this.baseCalculation[functionKey]();
+    this.baseCalculation.performBackgroundCalculations();
   }
 
-  onAreaUpdate(newArea: number) {
-    this.baseCalculation['a1'] = newArea;
-    this.baseCalculation['calculateAll']();
+  onModifierSelect(newVal: string | MatSelectChange, key: keyof BaseCalculationVariables) {
+    this.baseCalculation[key] = +newVal;
+    this.baseCalculation.calculateAll();
   }
 }
