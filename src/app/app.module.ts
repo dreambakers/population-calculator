@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 
@@ -57,7 +58,8 @@ import { PopulationCalculationComponent } from './calculations/population-calcul
     MatCardModule,
     MatSelectModule,
     DigitOnlyModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

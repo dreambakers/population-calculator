@@ -36,7 +36,8 @@ export class LandmassesComponent implements OnInit {
       this.landmasses.push({
         name: this.newLandmass,
         id: uuid(),
-        baseCalculation: DataService.getDefaultBaseCalculationsObject()
+        baseCalculation: DataService.getDefaultBaseCalculationsObject(),
+        populationCalculation: DataService.getDefaultPopulationCalculationObject()
       });
       this.newLandmass = '';
     }

@@ -1,1 +1,210 @@
-<p>population-calculation works!</p>
+<div>
+    <mat-card *ngFor="let nation of populationCalculation.nations" class="mb-3">
+        <div class="d-flex align-items-center">
+            <div class="p-2">
+                <button mat-icon-button (click)="nation.editing = !nation.editing">
+                    <mat-icon>{{ nation.editing ? 'done' : 'edit'}}</mat-icon>
+                </button>
+            </div>
+            <div class="p-2 flex-grow-1">
+                <h4 class="m-0" *ngIf="!nation.editing; else editMode">
+                    {{nation.name}}
+                </h4>
+
+                <ng-template #editMode>
+                    <input matInput [(ngModel)]="nation.name" placeholder="Nation name..." autofocus>
+                </ng-template>
+            </div>
+
+            <div class="p-2">
+                <button mat-icon-button (click)="copyNation(nation)">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+            </div>
+
+            <div class="p-2">
+                <button mat-icon-button (click)="deleteNation(nation)">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <hr>
+        <div>
+            <div class="d-flex align-items-between w-100 justify-content-between">
+                <mat-label>Country Size Calculation Preference</mat-label>
+
+                <mat-radio-group aria-label="Select an option" [(ngModel)]="nation.countrySizeCalculationPreference">
+                    <mat-radio-button value="area" class="me-2">Area (Km²)</mat-radio-button>
+                    <mat-radio-button value="percentage">Percentage (%)</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Country Size</legend>
+                <mat-icon matSuffix matTooltip="The “Country Size” option shows the size of the current nation you want to calculate.
+                This is only important for the “Population Density” option, for other further
+                calculations is it not important and could be ignored." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Country Size in Km² </mat-label>
+                    <input [disabled]="nation.countrySizeCalculationPreference === 'percentage'" matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1" (ngModelChange)="onCountrySizeUpdate($event, nation)">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Country Size in %</mat-label>
+                    <input [disabled]="nation.countrySizeCalculationPreference === 'area'" matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2" (ngModelChange)="onCountrySizeUpdate($event, nation)">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Population Density</legend>
+                <mat-icon matSuffix matTooltip="The “Population Density” shows the amount of population per Km²" class="ms-2">info</mat-icon>
+            </div>
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Population Density</mat-label>
+                <input matInput type="text" [ngModel]="nation.variables.popd" disabled>
+            </mat-form-field>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Population Density</legend>
+                <mat-icon matSuffix matTooltip="The “Population Density” shows the amount of population per Km²" class="ms-2">info</mat-icon>
+            </div>
+
+                <table class="table w-100">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col">Males in %</th>
+                        <th scope="col">Females in %</th>
+                        <th scope="col">Total in %</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th></th>
+                        <th>Insert % Numbers</th>
+                        <td>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.m" (ngModelChange)="onTableValueUpdate(nation)">
+                        </td>
+                        <td>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.f" (ngModelChange)="onTableValueUpdate(nation)">
+                        </td>
+                        <td>{{(+nation.variables.m) + (+nation.variables.f)}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Elderly in %</th>
+                        <td>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ey1" (ngModelChange)="onTableValueUpdate(nation)">
+                        </td>
+                        <td>{{nation.variables.ey2}}</td>
+                        <td>{{nation.variables.ey3}}</td>
+                        <td>{{nation.variables.ey4}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Adults in %</th>
+                        <td>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ad1" (ngModelChange)="onTableValueUpdate(nation)">
+                        </td>
+                        <td>{{nation.variables.ad2}}</td>
+                        <td>{{nation.variables.ad3}}</td>
+                        <td>{{nation.variables.ad4}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Children in %</th>
+                        <td>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ch1" (ngModelChange)="onTableValueUpdate(nation)">
+                        </td>
+                        <td>{{nation.variables.ch2}}</td>
+                        <td>{{nation.variables.ch3}}</td>
+                        <td>{{nation.variables.ch4}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Total in %</th>
+                        <td>
+                            {{+nation.variables.ey1 + (+nation.variables.ad1) + (+nation.variables.ch1) }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Country Aggression</legend>
+                <mat-icon matSuffix matTooltip="The “Country Aggression” shows how aggressive this country is towards its neighbours.
+                A more aggressive nation tends to field a bigger army by default." class="ms-2">info</mat-icon>
+            </div>
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Country Aggression</mat-label>
+                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ca" (ngModelChange)="updateTTM(nation)">
+            </mat-form-field>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Internal Threats</legend>
+                <mat-icon matSuffix matTooltip="The “Internal Threats” shows how unstable the country is. The more unstable the more soldiers have to go around to secure the peace." class="ms-2">info</mat-icon>
+            </div>
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Internal Threats</mat-label>
+                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.it" (ngModelChange)="updateTTM(nation)">
+            </mat-form-field>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">External Threats</legend>
+                <mat-icon matSuffix matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies." class="ms-2">info</mat-icon>
+            </div>
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>External Threats</mat-label>
+                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.et" (ngModelChange)="updateTTM(nation)">
+            </mat-form-field>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Total Threat Modifier</legend>
+                <mat-icon matSuffix matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies." class="ms-2">info</mat-icon>
+            </div>
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Total Threat Modifier</mat-label>
+                <input matInput type="text" [(ngModel)]="nation.variables.ttm">
+            </mat-form-field>
+        </fieldset>
+    </mat-card>
+
+    <mat-card>
+        <div class="d-flex align-items-center">
+            <div class="p-2">
+                <button mat-icon-button (click)="addNation()">
+                    <mat-icon>{{ addNewNation ? 'done' : 'add'}}</mat-icon>
+                </button>
+            </div>
+            <div class="p-2 flex-grow-1">
+                <span *ngIf="!addNewNation; else addNew">
+                    Add Nation
+                </span>
+
+                <ng-template #addNew>
+                    <input matInput [(ngModel)]="newNation" placeholder="Nation name...">
+                </ng-template>
+            </div>
+        </div>
+    </mat-card>
+</div>

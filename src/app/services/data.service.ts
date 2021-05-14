@@ -1,6 +1,60 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 
+export interface NationCalculationVariables {
+  totalPopulation?: any;
+  npd1?: any;
+  npd2?: any;
+  cs1?: any;
+  cs2?: any;
+  cs3?: any;
+  cs4?: any;
+  popd?: any;
+  p1?: any;
+  p2?: any;
+  p3?: any;
+  m?: any;
+  f?: any;
+  ey1?: any;
+  ey2?: any;
+  ey3?: any;
+  ey4?: any;
+  ad1?: any;
+  ad2?: any;
+  ad3?: any;
+  ad4?: any;
+  ch1?: any;
+  ch2?: any;
+  ch3?: any;
+  ch4?: any;
+  ca?: any;
+  it?: any;
+  et?: any;
+  ttm?: any;
+}
+export interface Nation {
+  name: string;
+  id: string;
+  countrySizeCalculationPreference: 'area' | 'percentage';
+  variables: NationCalculationVariables;
+  editing?: boolean;
+  cs1_calc(area: any): void;
+  cs2_calc(area: any): void;
+  ey2_calc(): void;
+  ey3_calc(): void;
+  ey4_calc(): void;
+  ad2_calc(): void;
+  ad3_calc(): void;
+  ad4_calc(): void;
+  ch2_calc(): void;
+  ch3_calc(): void;
+  ch4_calc(): void;
+  ttm_calc(): void;
+  popd_cacl(): void;
+}
+export interface PopulationCalculation {
+  nations: Nation[];
+}
 export interface BaseCalculationVariables {
   a1?: any;
   f1?: any;
@@ -49,6 +103,7 @@ export interface Landmass {
   editing?: boolean;
   id: string;
   baseCalculation: BaseCalculation;
+  populationCalculation: PopulationCalculation;
 }
 
 export interface World {
@@ -64,7 +119,8 @@ export class DataService {
     name: 'test', landmasses: [{
       name: 'test',
       id: uuid(),
-      baseCalculation: DataService.getDefaultBaseCalculationsObject()
+      baseCalculation: DataService.getDefaultBaseCalculationsObject(),
+      populationCalculation: DataService.getDefaultPopulationCalculationObject()
     }]
   };
 
@@ -196,6 +252,115 @@ export class DataService {
       }
     }
     return baseCalculationObject;
+  }
+
+  public static getDefaultPopulationCalculationObject(): PopulationCalculation {
+    return {
+      nations: [
+        this.getDefaultNationObject()
+      ]
+    }
+  }
+
+  public static getDefaultNationObject(): Nation {
+    return {
+      name: 'test',
+      id: uuid(),
+      countrySizeCalculationPreference: 'area',
+      variables: {
+        p3: 50, //TODO: REMOVE THIS!!
+        m: 52,
+        f: 48,
+        ey1: 5,
+        ad1: 58,
+        ch1: 37,
+      },
+      cs1_calc: function(area) {
+        const result = area/100*this.variables.cs2;
+        if (!isNaN(result)) {
+          this.variables.cs1 = result;
+        }
+      },
+      cs2_calc: function(area) {
+        const result = this.variables.cs1/area*100;
+        if (!isNaN(result)) {
+          this.variables.cs2 = result;
+        }
+      },
+      popd_cacl: function() {
+        if (this.countrySizeCalculationPreference === 'area') {
+          const result = this.variables.p3/this.variables.cs1;
+          if (!isNaN(result)) {
+            this.variables.popd = result;
+          }
+        } else {
+          const result = this.variables.p3/this.variables.cs2;
+          if (!isNaN(result)) {
+            this.variables.popd = result;
+          }
+        }
+      },
+      ey2_calc: function() {
+        const result = (this.variables.p3/100*this.variables.m)/100*this.variables.ey1;
+        if (!isNaN(result)) {
+          this.variables.ey2 = result;
+        }
+      },
+      ey3_calc: function() {
+        const result = (this.variables.p3/100*this.variables.f)/100*this.variables.ey1;
+        if (!isNaN(result)) {
+          this.variables.ey3 = result;
+        }
+      },
+      ey4_calc: function() {
+        const result = this.variables.ey2 + this.variables.ey3;
+        if (!isNaN(result)) {
+          this.variables.ey4 = result;
+        }
+      },
+      ad2_calc: function() {
+        const result = (this.variables.p3/100*this.variables.m)/100*this.variables.ad1;
+        if (!isNaN(result)) {
+          this.variables.ad2 = result;
+        }
+      },
+      ad3_calc: function() {
+        const result = (this.variables.p3/100*this.variables.f)/100*this.variables.ad1;
+        if (!isNaN(result)) {
+          this.variables.ad3 = result;
+        }
+      },
+      ad4_calc: function() {
+        const result = this.variables.ad2 + this.variables.ad3;
+        if (!isNaN(result)) {
+          this.variables.ad4 = result;
+        }
+      },
+      ch2_calc: function() {
+        const result = (this.variables.p3/100*this.variables.m)/100*this.variables.ch1;
+        if (!isNaN(result)) {
+          this.variables.ch2 = result;
+        }
+      },
+      ch3_calc: function() {
+        const result = (this.variables.p3/100*this.variables.f)/100*this.variables.ch1;
+        if (!isNaN(result)) {
+          this.variables.ch3 = result;
+        }
+      },
+      ch4_calc: function() {
+        const result = this.variables.ch2 + this.variables.ch3;
+        if (!isNaN(result)) {
+          this.variables.ch4 = result;
+        }
+      },
+      ttm_calc: function() {
+        const result = this.variables.ca + this.variables.it + this.variables.et;
+        if (!isNaN(result)) {
+          this.variables.ttm = result;
+        }
+      }
+    };
   }
 
   constructor() { }
