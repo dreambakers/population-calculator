@@ -11,7 +11,12 @@ export interface SimpleAndPiechartDemographicsVariables {
     mc?: any;
     pp?: any;
     sp?: any;
-  }
+  };
+  ethnicityPerPopulation: [{
+    editing?: boolean,
+    name: string,
+    percentage: any
+  }];
 }
 
 export interface LandmassPopulationDemographics {
@@ -414,7 +419,11 @@ export class DataService {
       nationPopulationDemographics: [],
       landmassPopulationDemographics: {
         variables: {
-          classLevelsPerPopulation: {}
+          classLevelsPerPopulation: {},
+          ethnicityPerPopulation: [{
+            name: '',
+            percentage: ''
+          }]
         }
       }
     };

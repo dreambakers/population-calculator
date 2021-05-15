@@ -14,6 +14,10 @@ export class SimpleAndPiechartDemographicsComponent implements OnInit {
   simpleAndPieChartDemographics: SimpleAndPiechartDemographics = DataService.getSelectedLandmass().simpleAndPiechartDemographics;
   selectedDemographicsObject!: NationPopulationDemographics | LandmassPopulationDemographics;
   selectedPopulationObject!: Nation | Landmass;
+  addNewEthnicity: boolean = false;
+  newEthnicity = '';
+  hide = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -70,6 +74,38 @@ export class SimpleAndPiechartDemographicsComponent implements OnInit {
         }
       }
     );
+  }
+
+  addEthnicity() {
+    if (this.addNewEthnicity) {
+      this.selectedDemographicsObject.variables.ethnicityPerPopulation.push({
+        name: this.newEthnicity,
+        percentage: ''
+      });
+      this.newEthnicity = '';
+      this.hide = true;
+      setTimeout(() => {
+        // TODO: refactor
+        this.hide = false;
+      }, 1);
+    }
+    this.addNewEthnicity = !this.addNewEthnicity;
+  }
+
+  getEthnicityLabels() {
+    return this.ethnicities.map(
+      ethnicity => ethnicity.name
+    );
+  }
+
+  getEthnicityData() {
+    return this.ethnicities.map(
+      ethnicity => ethnicity.percentage
+    );
+  }
+
+  get ethnicities() {
+    return this.selectedDemographicsObject.variables.ethnicityPerPopulation;
   }
 
   get classLevelsPerPopulation() {

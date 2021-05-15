@@ -109,6 +109,65 @@
                     </canvas>
                 </div>
             </div>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Ethnicity per population</legend>
+                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="d-flex flex-column justify-content-between border mb-2 p-3" *ngFor="let ethnicity of ethnicities">
+                            <div class="d-flex">
+                                <div class="p-2">
+                                    <button mat-icon-button (click)="ethnicity.editing = !ethnicity.editing">
+                                        <mat-icon>{{ ethnicity?.editing ? 'done' : 'edit'}}</mat-icon>
+                                    </button>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Ethnicity Name</mat-label>
+                                        <input [disabled]="!!!ethnicity.editing" matInput [(ngModel)]="ethnicity.name" placeholder="Ethnicity Name...">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="ethnicity.percentage" placeholder="Ethnicity percentage...">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <canvas baseChart
+                            *ngIf="!hide"
+                            [data]="getEthnicityData()"
+                            [labels]="getEthnicityLabels()"
+                            chartType="pie"
+                            style="height: 200px">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="p-2">
+                        <button mat-icon-button (click)="addEthnicity()">
+                            <mat-icon>{{ addNewEthnicity ? 'done' : 'add'}}</mat-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <span *ngIf="!addNewEthnicity; else addNew">
+                            Add Ethnicity
+                        </span>
+
+                        <ng-template #addNew>
+                            <input matInput [(ngModel)]="newEthnicity" placeholder="Ethnicity name...">
+                        </ng-template>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </mat-card>
 </div>

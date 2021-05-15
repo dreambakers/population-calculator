@@ -30,7 +30,11 @@ export class PopulationCalculationComponent implements OnInit {
       this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics?.push({
         id: defaultNationObj.id,
         variables: {
-          classLevelsPerPopulation: {}
+          classLevelsPerPopulation: {},
+          ethnicityPerPopulation: [{
+            name: '',
+            percentage: ''
+          }]
         }
       });
       this.newNation = '';
@@ -47,7 +51,11 @@ export class PopulationCalculationComponent implements OnInit {
     this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics?.push({
       id: newNationCopy.id,
       variables: {
-        classLevelsPerPopulation: {}
+        classLevelsPerPopulation: {},
+        ethnicityPerPopulation: [{
+          name: '',
+          percentage: ''
+        }]
       }
     });
     console.log(this.selectedLandmass.simpleAndPiechartDemographics)
