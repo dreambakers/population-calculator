@@ -10,7 +10,7 @@ import { BaseCalculation, BaseCalculationVariables, DataService } from 'src/app/
 })
 export class BaseCalculationComponent implements OnInit {
 
-  baseCalculation: BaseCalculation = DataService.world.landmasses[0].baseCalculation;
+  baseCalculation: BaseCalculation = DataService.getSelectedLandmass().baseCalculation;
 
   constructor() { }
 
@@ -33,5 +33,10 @@ export class BaseCalculationComponent implements OnInit {
   onModifierSelect(newVal: string | MatSelectChange, key: keyof BaseCalculationVariables) {
     this.baseCalculation.variables[key] = +newVal;
     this.baseCalculation.calculateAll();
+    this.baseCalculation.performBackgroundCalculations();
+  }
+
+  isNaN(value: any) {
+    return isNaN(value);
   }
 }

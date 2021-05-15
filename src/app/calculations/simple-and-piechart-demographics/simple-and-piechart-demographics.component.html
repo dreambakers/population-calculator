@@ -1,0 +1,114 @@
+<div>
+    <mat-card>
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Total Population</legend>
+                <mat-icon matSuffix matTooltip="The “Total Population” shows either the one from the *Base Calculation* tab or one from your selected Countries." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Total Population</mat-label>
+                    <mat-select (selectionChange)="onPopulationSelectionChange($event)">
+                      <mat-optgroup label="Total Landmass Population">
+                        <mat-option [value]="landmass" [disabled]="isNaN(landmass.baseCalculation.variables.pop1)">
+                            <span *ngIf="!isNaN(landmass.baseCalculation.variables.pop1); else noValue">{{landmass.baseCalculation.variables.pop1}}</span>
+                            <ng-template #noValue>
+                                <i>Not calculated yet</i>
+                            </ng-template>
+                        </mat-option>
+                      </mat-optgroup>
+                      <mat-optgroup label="Nations">
+                        <mat-option [value]="nation" *ngFor="let nation of nations" [disabled]="isNaN(nation.variables.p3)">
+                            <span *ngIf="!isNaN(nation.variables.p3); else noValue">{{nation.name}} - {{nation.variables.p3}}</span>
+                            <ng-template #noValue>
+                                <i>Not calculated yet</i>
+                            </ng-template>
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+
+        <div *ngIf="selectedDemographicsObject">
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Magical Population in %</legend>
+                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+                </div>
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Magical Population in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp1" (ngModelChange)="onMagicalPopulationUpdate($event)">
+                </mat-form-field>
+            </fieldset>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Magical Population</legend>
+                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+                </div>
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Magical Population</mat-label>
+                    <input matInput disabled type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp2">
+                </mat-form-field>
+            </fieldset>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Non-Magical Population</legend>
+                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+                </div>
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Non-Magical Population</mat-label>
+                    <input matInput disabled type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp3">
+                </mat-form-field>
+            </fieldset>
+
+            <div class="d-flex align-items-center justify-content-between">
+
+                <div class="d-flex flex-column w-50">
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Class levels per population</legend>
+                            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex flex-column">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Wealthy Population in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.wp">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Middle Class Population in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.mc">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Poor Population in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.pp">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Slave Population in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.sp">
+                            </mat-form-field>
+                        </div>
+
+                    </fieldset>
+                </div>
+
+                <div *ngIf="classLevelsPerPopulation.wp && classLevelsPerPopulation.mc && classLevelsPerPopulation.pp && classLevelsPerPopulation.sp">
+                    <canvas baseChart
+                        [data]="getObjectValuesForChart(classLevelsPerPopulation)"
+                        [labels]="getClassLevelPerPopulationLabels()"
+                        chartType="pie"
+                        style="height: 200px">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

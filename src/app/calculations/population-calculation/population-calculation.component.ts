@@ -9,43 +9,68 @@ import { v4 as uuid } from 'uuid';
 })
 export class PopulationCalculationComponent implements OnInit {
 
-  populationCalculation: PopulationCalculation = DataService.world.landmasses[0].populationCalculation;
+  populationCalculation: PopulationCalculation = DataService.getSelectedLandmass().populationCalculation;
   addNewNation = false;
   newNation = '';
 
   constructor() { }
 
   ngOnInit(): void {
+     // TODO: REMOVE THIS!
+     this.copyNation(DataService.getSelectedLandmass().populationCalculation.nations[0])
   }
 
   addNation() {
     if (this.addNewNation) {
-      this.populationCalculation.nations.push(DataService.getDefaultNationObject());
+      const defaultNationObj = DataService.getDefaultNationObject();
+      this.populationCalculation.nations.push({
+        ...defaultNationObj,
+        name: this.newNation
+      });
+      this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics?.push({
+        id: defaultNationObj.id,
+        variables: {
+          classLevelsPerPopulation: {}
+        }
+      });
       this.newNation = '';
     }
     this.addNewNation = !this.addNewNation;
   }
 
   copyNation(nation: Nation) {
-    this.populationCalculation.nations.push({
+    const newNationCopy = {
       ...nation,
       id: uuid()
+    };
+    this.populationCalculation.nations.push(newNationCopy);
+    this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics?.push({
+      id: newNationCopy.id,
+      variables: {
+        classLevelsPerPopulation: {}
+      }
     });
+    console.log(this.selectedLandmass.simpleAndPiechartDemographics)
   }
 
   deleteNation(nation: Nation) {
     this.populationCalculation.nations = this.populationCalculation.nations.filter(
       _nation => _nation.id !== nation.id
     );
+    let nationPopulationDemographics = this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics;
+    const index = nationPopulationDemographics?.findIndex(_nation => _nation?.id === nation.id) || -1;
+    if (index > -1) {
+      nationPopulationDemographics?.splice(index, 1);
+    }
   }
 
   onCountrySizeUpdate(newVal: string, nation: Nation) {
     if (nation.countrySizeCalculationPreference === 'area') {
       nation.variables.cs1 = +newVal;
-      nation.cs2_calc(DataService.world.landmasses[0].baseCalculation.variables.a1);
+      nation.cs2_calc(this.selectedLandmass.baseCalculation.variables.a1);
     } else {
       nation.variables.cs2 = +newVal;
-      nation.cs1_calc(DataService.world.landmasses[0].baseCalculation.variables.a1);
+      nation.cs1_calc(this.selectedLandmass.baseCalculation.variables.a1);
     }
   }
 
@@ -65,5 +90,9 @@ export class PopulationCalculationComponent implements OnInit {
 
   updateTTM(nation: Nation) {
     nation.ttm_calc();
+  }
+
+  get selectedLandmass() {
+    return DataService.getSelectedLandmass();
   }
 }

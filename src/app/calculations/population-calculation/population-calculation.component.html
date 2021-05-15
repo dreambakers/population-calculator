@@ -30,16 +30,20 @@
         </div>
 
         <hr>
-        <div>
-            <div class="d-flex align-items-between w-100 justify-content-between">
-                <mat-label>Country Size Calculation Preference</mat-label>
 
-                <mat-radio-group aria-label="Select an option" [(ngModel)]="nation.countrySizeCalculationPreference">
-                    <mat-radio-button value="area" class="me-2">Area (Km²)</mat-radio-button>
-                    <mat-radio-button value="percentage">Percentage (%)</mat-radio-button>
-                </mat-radio-group>
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Total Population</legend>
+                <mat-icon matSuffix matTooltip="The “Total Population” is the same as the one in the *Base Calculation* Tab" class="ms-2">info</mat-icon>
             </div>
-        </div>
+
+            <div class="d-flex">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Total Population</mat-label>
+                    <input matInput disabled [ngModel]="selectedLandmass.baseCalculation.variables.pop1">
+                </mat-form-field>
+            </div>
+        </fieldset>
 
         <fieldset class="my-3">
             <div class="d-flex align-items-center mb-2">
@@ -47,6 +51,17 @@
                 <mat-icon matSuffix matTooltip="The “Country Size” option shows the size of the current nation you want to calculate.
                 This is only important for the “Population Density” option, for other further
                 calculations is it not important and could be ignored." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="my-3">
+                <div class="d-flex align-items-between w-100 justify-content-between">
+                    <mat-label>Country Size Calculation Preference</mat-label>
+
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="nation.countrySizeCalculationPreference">
+                        <mat-radio-button value="area" class="me-2">Area (Km²)</mat-radio-button>
+                        <mat-radio-button value="percentage">Percentage (%)</mat-radio-button>
+                    </mat-radio-group>
+                </div>
             </div>
 
             <div class="d-flex align-items-center justify-content-center">
@@ -184,7 +199,7 @@
             </div>
             <mat-form-field appearance="fill" class="w-50">
                 <mat-label>Total Threat Modifier</mat-label>
-                <input matInput type="text" [(ngModel)]="nation.variables.ttm">
+                <input matInput type="text" disabled [(ngModel)]="nation.variables.ttm">
             </mat-form-field>
         </fieldset>
     </mat-card>

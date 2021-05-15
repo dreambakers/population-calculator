@@ -1,6 +1,33 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuid } from 'uuid';
+import { Utility } from '../utils/utility';
+export interface SimpleAndPiechartDemographicsVariables {
+  pcd?: any;
+  mp1?: any;
+  mp2?: any;
+  mp3?: any;
+  classLevelsPerPopulation: {
+    wp?: any;
+    mc?: any;
+    pp?: any;
+    sp?: any;
+  }
+}
 
+export interface LandmassPopulationDemographics {
+  variables: SimpleAndPiechartDemographicsVariables;
+}
+
+export interface NationPopulationDemographics {
+  id: string;
+  variables: SimpleAndPiechartDemographicsVariables;
+}
+
+export interface SimpleAndPiechartDemographics {
+  selectedPopulation: 'nation' | 'landmass';
+  nationPopulationDemographics: [NationPopulationDemographics?];
+  landmassPopulationDemographics: LandmassPopulationDemographics;
+}
 export interface NationCalculationVariables {
   totalPopulation?: any;
   npd1?: any;
@@ -38,6 +65,7 @@ export interface Nation {
   countrySizeCalculationPreference: 'area' | 'percentage';
   variables: NationCalculationVariables;
   editing?: boolean;
+  type: 'nation';
   cs1_calc(area: any): void;
   cs2_calc(area: any): void;
   ey2_calc(): void;
@@ -104,25 +132,41 @@ export interface Landmass {
   id: string;
   baseCalculation: BaseCalculation;
   populationCalculation: PopulationCalculation;
+  simpleAndPiechartDemographics: SimpleAndPiechartDemographics;
+  type: 'landmass';
 }
 
 export interface World {
   name: string;
-  landmasses: Landmass[]
+  landmasses: Landmass[];
+  selectedLandmass?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  public static id = uuid(); //TODO: REMOVE
   public static world: World = {
-    name: 'test', landmasses: [{
+    name: 'test',
+    selectedLandmass: DataService.id,
+    landmasses: [{
       name: 'test',
-      id: uuid(),
+      id: DataService.id,
       baseCalculation: DataService.getDefaultBaseCalculationsObject(),
-      populationCalculation: DataService.getDefaultPopulationCalculationObject()
+      populationCalculation: DataService.getDefaultPopulationCalculationObject(),
+      simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject(),
+      type: 'landmass'
     }]
   };
+
+  public static setSelectedLandmass(selectedLandmassId: string) {
+    DataService.world.selectedLandmass = selectedLandmassId;
+  }
+
+  public static getSelectedLandmass(): Landmass {
+    return Utility.ensure(DataService.world.landmasses.find(landmass => landmass.id === DataService.world.selectedLandmass));
+  }
 
   public static getDefaultBaseCalculationsObject(): BaseCalculation {
     const baseCalculationObject: BaseCalculation = {
@@ -228,10 +272,10 @@ export class DataService {
       },
 
       performBackgroundCalculations: function () {
-        if ([this.variables.a1, this.variables.f1, this.variables.df1, this.variables.ra1, this.variables.m1, this.variables.fw1, this.variables.ds1].every(val => val !== null)) {
+        if ([this.variables.a1, this.variables.f1, this.variables.df1, this.variables.ra1, this.variables.m1, this.variables.fw1, this.variables.ds1].every(val => !isNaN(val))) {
           this.variables.fl1 = this.variables.a1 - ((this.variables.f1 / 7, 5) + (this.variables.df1 / 5) + (this.variables.ra1 / 2, 5) + (this.variables.m1 / 0, 5) + (this.variables.fw1 / 7, 5) + (this.variables.ds1 / 0, 5) + this.variables.dt1)
           this.variables.fm1 = this.variables.fl1 / this.variables.a1 * 100;
-          if (this.variables.tm1 !== null && this.variables.mm1 !== null) {
+          if (!isNaN(this.variables.tm1) && !isNaN(this.variables.mm1)) {
             this.variables.fmt1 = this.variables.fm1 * ((this.variables.tm1 / 10) + (this.variables.mm1 / 10 / 10));
             this.variables.pop1 = this.variables.a1*this.variables.fmt1;
           }
@@ -265,6 +309,7 @@ export class DataService {
   public static getDefaultNationObject(): Nation {
     return {
       name: 'test',
+      type: 'nation',
       id: uuid(),
       countrySizeCalculationPreference: 'area',
       variables: {
@@ -358,6 +403,18 @@ export class DataService {
         const result = this.variables.ca + this.variables.it + this.variables.et;
         if (!isNaN(result)) {
           this.variables.ttm = result;
+        }
+      }
+    };
+  }
+
+  public static getDefaultSimpleAndPiechartDemographicsObject(): SimpleAndPiechartDemographics {
+    return {
+      selectedPopulation: 'landmass',
+      nationPopulationDemographics: [],
+      landmassPopulationDemographics: {
+        variables: {
+          classLevelsPerPopulation: {}
         }
       }
     };

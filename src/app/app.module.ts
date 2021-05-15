@@ -22,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
+import { ChartsModule } from 'ng2-charts';
 
 import { BaseCalculationComponent } from './calculations/base-calculation/base-calculation.component';
 import { LandmassesComponent } from './landmasses/landmasses.component';
@@ -29,6 +30,7 @@ import { HomeComponent } from './home/home.component';
 import { InputComponent } from './dialogs/input/input.component';
 import { CalculationsComponent } from './calculations/calculations.component';
 import { PopulationCalculationComponent } from './calculations/population-calculation/population-calculation.component';
+import { SimpleAndPiechartDemographicsComponent } from './calculations/simple-and-piechart-demographics/simple-and-piechart-demographics.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { PopulationCalculationComponent } from './calculations/population-calcul
     HomeComponent,
     InputComponent,
     CalculationsComponent,
-    PopulationCalculationComponent
+    PopulationCalculationComponent,
+    SimpleAndPiechartDemographicsComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { PopulationCalculationComponent } from './calculations/population-calcul
     MatSelectModule,
     DigitOnlyModule,
     MatTooltipModule,
-    MatRadioModule
+    MatRadioModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
