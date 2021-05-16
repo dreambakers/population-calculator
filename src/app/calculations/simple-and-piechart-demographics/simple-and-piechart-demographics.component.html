@@ -36,7 +36,6 @@
             <fieldset class="my-3">
                 <div class="d-flex align-items-center mb-2">
                     <legend class="w-auto m-0">Magical Population in %</legend>
-                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
                 </div>
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Magical Population in %</mat-label>
@@ -47,7 +46,6 @@
             <fieldset class="my-3">
                 <div class="d-flex align-items-center mb-2">
                     <legend class="w-auto m-0">Magical Population</legend>
-                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
                 </div>
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Magical Population</mat-label>
@@ -58,7 +56,6 @@
             <fieldset class="my-3">
                 <div class="d-flex align-items-center mb-2">
                     <legend class="w-auto m-0">Non-Magical Population</legend>
-                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
                 </div>
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Non-Magical Population</mat-label>
@@ -72,7 +69,6 @@
                     <fieldset class="my-3">
                         <div class="d-flex align-items-center mb-2">
                             <legend class="w-auto m-0">Class levels per population</legend>
-                            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
                         </div>
 
                         <div class="d-flex flex-column">
@@ -103,7 +99,45 @@
                 <div *ngIf="classLevelsPerPopulation.wp && classLevelsPerPopulation.mc && classLevelsPerPopulation.pp && classLevelsPerPopulation.sp">
                     <canvas baseChart
                         [data]="getObjectValuesForChart(classLevelsPerPopulation)"
-                        [labels]="getClassLevelPerPopulationLabels()"
+                        [labels]="getChartLabelsForKey('classLevels')"
+                        chartType="pie"
+                        style="height: 200px">
+                    </canvas>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between">
+
+                <div class="d-flex flex-column w-50">
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Education per population</legend>
+                        </div>
+
+                        <div class="d-flex flex-column">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Well Educated in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.we">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Mediocre Educated in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.me">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>Illiterate rate in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.ir">
+                            </mat-form-field>
+                        </div>
+
+                    </fieldset>
+                </div>
+
+                <div *ngIf="educationPerPopulation.we && educationPerPopulation.me && educationPerPopulation.ir">
+                    <canvas baseChart
+                        [data]="getObjectValuesForChart(educationPerPopulation)"
+                        [labels]="getChartLabelsForKey('education')"
                         chartType="pie"
                         style="height: 200px">
                     </canvas>
@@ -113,24 +147,21 @@
             <fieldset class="my-3">
                 <div class="d-flex align-items-center mb-2">
                     <legend class="w-auto m-0">Ethnicity per population</legend>
-                    <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="w-50">
                         <div class="d-flex flex-column justify-content-between border mb-2 p-3" *ngFor="let ethnicity of ethnicities">
-                            <div class="d-flex">
+                            <div class="d-flex w-100">
                                 <div class="p-2">
                                     <button mat-icon-button (click)="ethnicity.editing = !ethnicity.editing">
                                         <mat-icon>{{ ethnicity?.editing ? 'done' : 'edit'}}</mat-icon>
                                     </button>
                                 </div>
-                                <div>
-                                    <mat-form-field appearance="fill">
-                                        <mat-label>Ethnicity Name</mat-label>
-                                        <input [disabled]="!!!ethnicity.editing" matInput [(ngModel)]="ethnicity.name" placeholder="Ethnicity Name...">
-                                    </mat-form-field>
-                                </div>
+                                <mat-form-field appearance="fill" class="flex-grow-1">
+                                    <mat-label>Ethnicity Name</mat-label>
+                                    <input [disabled]="!!!ethnicity.editing" matInput [(ngModel)]="ethnicity.name" placeholder="Ethnicity Name...">
+                                </mat-form-field>
                             </div>
 
                             <mat-form-field appearance="fill">
@@ -142,9 +173,9 @@
 
                     <div>
                         <canvas baseChart
-                            *ngIf="!hide"
-                            [data]="getEthnicityData()"
-                            [labels]="getEthnicityLabels()"
+                            *ngIf="!dynamicChartMap.ethnicity.rerender && ethnicities[0].name"
+                            [data]="getDataForDynamicChart(ethnicities)"
+                            [labels]="getLabelsForDynamicChart(ethnicities)"
                             chartType="pie"
                             style="height: 200px">
                         </canvas>
@@ -153,17 +184,297 @@
 
                 <div class="d-flex align-items-center">
                     <div class="p-2">
-                        <button mat-icon-button (click)="addEthnicity()">
-                            <mat-icon>{{ addNewEthnicity ? 'done' : 'add'}}</mat-icon>
+                        <button mat-icon-button (click)="addNewChartField(dynamicChartMap.ethnicity)">
+                            <mat-icon>{{ dynamicChartMap.ethnicity.addNew ? 'done' : 'add'}}</mat-icon>
                         </button>
                     </div>
                     <div class="p-2 flex-grow-1">
-                        <span *ngIf="!addNewEthnicity; else addNew">
+                        <span *ngIf="!dynamicChartMap.ethnicity.addNew; else addNewEthnicity">
                             Add Ethnicity
                         </span>
 
-                        <ng-template #addNew>
-                            <input matInput [(ngModel)]="newEthnicity" placeholder="Ethnicity name...">
+                        <ng-template #addNewEthnicity>
+                            <input matInput [(ngModel)]="dynamicChartMap.ethnicity.fieldName" placeholder="Ethnicity name...">
+                        </ng-template>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Culture per population</legend>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="w-50">
+                        <div class="d-flex flex-column justify-content-between border mb-2 p-3" *ngFor="let culture of cultures">
+                            <div class="d-flex w-100">
+                                <div class="p-2">
+                                    <button mat-icon-button (click)="culture.editing = !culture.editing">
+                                        <mat-icon>{{ culture?.editing ? 'done' : 'edit'}}</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-form-field appearance="fill" class="flex-grow-1">
+                                    <mat-label>Culture Name</mat-label>
+                                    <input [disabled]="!!!culture.editing" matInput [(ngModel)]="culture.name" placeholder="Culture Name...">
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="culture.percentage" placeholder="Culture percentage...">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <canvas baseChart
+                            *ngIf="!dynamicChartMap.culture.rerender && cultures[0].name"
+                            [data]="getDataForDynamicChart(cultures)"
+                            [labels]="getLabelsForDynamicChart(cultures)"
+                            chartType="pie"
+                            style="height: 200px">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="p-2">
+                        <button mat-icon-button (click)="addNewChartField(dynamicChartMap.culture)">
+                            <mat-icon>{{ dynamicChartMap.culture.addNew ? 'done' : 'add'}}</mat-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <span *ngIf="!dynamicChartMap.culture.addNew; else addNewCulture">
+                            Add Culture
+                        </span>
+
+                        <ng-template #addNewCulture>
+                            <input matInput [(ngModel)]="dynamicChartMap.culture.fieldName" placeholder="Culture name...">
+                        </ng-template>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Religion per population</legend>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="w-50">
+                        <div class="d-flex flex-column justify-content-between border mb-2 p-3" *ngFor="let religion of religions">
+                            <div class="d-flex w-100">
+                                <div class="p-2">
+                                    <button mat-icon-button (click)="religion.editing = !religion.editing">
+                                        <mat-icon>{{ religion?.editing ? 'done' : 'edit'}}</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-form-field appearance="fill" class="flex-grow-1">
+                                    <mat-label>Religion Name</mat-label>
+                                    <input [disabled]="!!!religion.editing" matInput [(ngModel)]="religion.name" placeholder="Religion Name...">
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="religion.percentage" placeholder="Religion percentage...">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <canvas baseChart
+                            *ngIf="!dynamicChartMap.religion.rerender && religions[0].name"
+                            [data]="getDataForDynamicChart(religions)"
+                            [labels]="getLabelsForDynamicChart(religions)"
+                            chartType="pie"
+                            style="height: 200px">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="p-2">
+                        <button mat-icon-button (click)="addNewChartField(dynamicChartMap.religion)">
+                            <mat-icon>{{ dynamicChartMap.religion.addNew ? 'done' : 'add'}}</mat-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <span *ngIf="!dynamicChartMap.religion.addNew; else addNewReligion">
+                            Add Religion
+                        </span>
+
+                        <ng-template #addNewReligion>
+                            <input matInput [(ngModel)]="dynamicChartMap.religion.fieldName" placeholder="Religion name...">
+                        </ng-template>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Race per population</legend>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="w-50">
+                        <div class="d-flex flex-column justify-content-between border mb-2 p-3" *ngFor="let race of races">
+                            <div class="d-flex w-100">
+                                <div class="p-2">
+                                    <button mat-icon-button (click)="race.editing = !race.editing">
+                                        <mat-icon>{{ race?.editing ? 'done' : 'edit'}}</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-form-field appearance="fill" class="flex-grow-1">
+                                    <mat-label>Race Name</mat-label>
+                                    <input [disabled]="!!!race.editing" matInput [(ngModel)]="race.name" placeholder="Race Name...">
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="race.percentage" placeholder="Race percentage...">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <canvas baseChart
+                            *ngIf="!dynamicChartMap.race.rerender && races[0].name"
+                            [data]="getDataForDynamicChart(races)"
+                            [labels]="getLabelsForDynamicChart(races)"
+                            chartType="pie"
+                            style="height: 200px">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="p-2">
+                        <button mat-icon-button (click)="addNewChartField(dynamicChartMap.race)">
+                            <mat-icon>{{ dynamicChartMap.race.addNew ? 'done' : 'add'}}</mat-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <span *ngIf="!dynamicChartMap.race.addNew; else addNewRace">
+                            Add Race
+                        </span>
+
+                        <ng-template #addNewRace>
+                            <input matInput [(ngModel)]="dynamicChartMap.race.fieldName" placeholder="Race name...">
+                        </ng-template>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Language per population</legend>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="w-50">
+                        <div class="d-flex flex-column justify-content-between border mb-2 p-3" *ngFor="let language of languages">
+                            <div class="d-flex w-100">
+                                <div class="p-2">
+                                    <button mat-icon-button (click)="language.editing = !language.editing">
+                                        <mat-icon>{{ language?.editing ? 'done' : 'edit'}}</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-form-field appearance="fill" class="flex-grow-1">
+                                    <mat-label>Language Name</mat-label>
+                                    <input [disabled]="!!!language.editing" matInput [(ngModel)]="language.name" placeholder="Language Name...">
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="language.percentage" placeholder="Language percentage...">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <canvas baseChart
+                            *ngIf="!dynamicChartMap.language.rerender && languages[0].name"
+                            [data]="getDataForDynamicChart(languages)"
+                            [labels]="getLabelsForDynamicChart(languages)"
+                            chartType="pie"
+                            style="height: 200px">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="p-2">
+                        <button mat-icon-button (click)="addNewChartField(dynamicChartMap.language)">
+                            <mat-icon>{{ dynamicChartMap.language.addNew ? 'done' : 'add'}}</mat-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <span *ngIf="!dynamicChartMap.language; else addNewLanguage">
+                            Add Language
+                        </span>
+
+                        <ng-template #addNewLanguage>
+                            <input matInput [(ngModel)]="dynamicChartMap.language.fieldName" placeholder="Language name...">
+                        </ng-template>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="my-3">
+                <div class="d-flex align-items-center mb-2">
+                    <legend class="w-auto m-0">Political Affliations per population</legend>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="w-50">
+                        <div class="d-flex flex-column justify-content-between border mb-2 p-3" *ngFor="let politicalAffliation of politicalAffliations">
+                            <div class="d-flex w-100">
+                                <div class="p-2">
+                                    <button mat-icon-button (click)="politicalAffliation.editing = !politicalAffliation.editing">
+                                        <mat-icon>{{ politicalAffliation?.editing ? 'done' : 'edit'}}</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-form-field appearance="fill" class="flex-grow-1">
+                                    <mat-label>Political Affliation</mat-label>
+                                    <input [disabled]="!!!politicalAffliation.editing" matInput [(ngModel)]="politicalAffliation.name" placeholder="Political Affliation Name...">
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="politicalAffliation.percentage" placeholder="Political Affliation percentage...">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div>
+                        <canvas baseChart
+                            *ngIf="!dynamicChartMap.politicalAffliation.rerender && politicalAffliations[0].name"
+                            [data]="getDataForDynamicChart(politicalAffliations)"
+                            [labels]="getLabelsForDynamicChart(politicalAffliations)"
+                            chartType="pie"
+                            style="height: 200px">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="p-2">
+                        <button mat-icon-button (click)="addNewChartField(dynamicChartMap.politicalAffliation)">
+                            <mat-icon>{{ dynamicChartMap.politicalAffliation.addNew ? 'done' : 'add'}}</mat-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <span *ngIf="!dynamicChartMap.politicalAffliation.addNew; else addNewPoliticalAffliation">
+                            Add Political Affliation
+                        </span>
+
+                        <ng-template #addNewPoliticalAffliation>
+                            <input matInput [(ngModel)]="dynamicChartMap.politicalAffliation.fieldName" placeholder="Political Affliation name...">
                         </ng-template>
                     </div>
                 </div>

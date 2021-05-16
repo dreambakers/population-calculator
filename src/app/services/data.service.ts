@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 import { Utility } from '../utils/utility';
+
+export interface DynamicDemographicChart {
+  editing?: boolean;
+  name: string;
+  percentage: any;
+}
 export interface SimpleAndPiechartDemographicsVariables {
   pcd?: any;
   mp1?: any;
@@ -12,11 +18,17 @@ export interface SimpleAndPiechartDemographicsVariables {
     pp?: any;
     sp?: any;
   };
-  ethnicityPerPopulation: [{
-    editing?: boolean,
-    name: string,
-    percentage: any
-  }];
+  educationPerPopulation: {
+    we?: any;
+    me?: any;
+    ir?: any;
+  };
+  ethnicityPerPopulation: DynamicDemographicChart[];
+  culturePerPopulation: DynamicDemographicChart[];
+  religionPerPopulation: DynamicDemographicChart[];
+  racePerPopulation: DynamicDemographicChart[];
+  languagePerPopulation: DynamicDemographicChart[];
+  politicalAffliationsPerPopulation: DynamicDemographicChart[];
 }
 
 export interface LandmassPopulationDemographics {
@@ -414,16 +426,20 @@ export class DataService {
   }
 
   public static getDefaultSimpleAndPiechartDemographicsObject(): SimpleAndPiechartDemographics {
+    const defaultDynamicDemographicChartObject = { name: '', percentage: ''}
     return {
       selectedPopulation: 'landmass',
       nationPopulationDemographics: [],
       landmassPopulationDemographics: {
         variables: {
           classLevelsPerPopulation: {},
-          ethnicityPerPopulation: [{
-            name: '',
-            percentage: ''
-          }]
+          educationPerPopulation: {},
+          culturePerPopulation: [{...defaultDynamicDemographicChartObject}],
+          ethnicityPerPopulation: [{...defaultDynamicDemographicChartObject}],
+          religionPerPopulation: [{...defaultDynamicDemographicChartObject}],
+          racePerPopulation: [{...defaultDynamicDemographicChartObject}],
+          languagePerPopulation: [{...defaultDynamicDemographicChartObject}],
+          politicalAffliationsPerPopulation: [{...defaultDynamicDemographicChartObject}]
         }
       }
     };

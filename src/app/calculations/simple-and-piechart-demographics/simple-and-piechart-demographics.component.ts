@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { SingleOrMultiDataSet } from 'ng2-charts';
-import { DataService, Landmass, LandmassPopulationDemographics, Nation, NationPopulationDemographics, SimpleAndPiechartDemographics } from 'src/app/services/data.service';
+import { MultiLineLabel, SingleOrMultiDataSet } from 'ng2-charts';
+import { constants } from 'src/app/app.constants';
+import { DataService, Landmass, LandmassPopulationDemographics, Nation, NationPopulationDemographics, SimpleAndPiechartDemographics, SimpleAndPiechartDemographicsVariables } from 'src/app/services/data.service';
 import { Utility } from '../../utils/utility';
 
 @Component({
@@ -10,13 +11,41 @@ import { Utility } from '../../utils/utility';
   styleUrls: ['./simple-and-piechart-demographics.component.scss']
 })
 export class SimpleAndPiechartDemographicsComponent implements OnInit {
-
+  constants = constants;
   simpleAndPieChartDemographics: SimpleAndPiechartDemographics = DataService.getSelectedLandmass().simpleAndPiechartDemographics;
   selectedDemographicsObject!: NationPopulationDemographics | LandmassPopulationDemographics;
   selectedPopulationObject!: Nation | Landmass;
-  addNewEthnicity: boolean = false;
-  newEthnicity = '';
-  hide = false;
+  private commonChartMapFields = {
+    fieldName: '',
+    addNew: false,
+    rerender: false,
+  };
+  dynamicChartMap = {
+    ethnicity: {
+      key: 'ethnicityPerPopulation',
+      ...this.commonChartMapFields
+    },
+    culture: {
+      key: 'culturePerPopulation',
+      ...this.commonChartMapFields
+    },
+    religion: {
+      key: 'religionPerPopulation',
+      ...this.commonChartMapFields
+    },
+    race: {
+      key: 'racePerPopulation',
+      ...this.commonChartMapFields
+    },
+    language: {
+      key: 'languagePerPopulation',
+      ...this.commonChartMapFields
+    },
+    politicalAffliation: {
+      key: 'politicalAffliationsPerPopulation',
+      ...this.commonChartMapFields
+    }
+  }
 
   constructor() { }
 
@@ -40,8 +69,6 @@ export class SimpleAndPiechartDemographicsComponent implements OnInit {
         )
       );
     }
-
-    console.log(this.selectedDemographicsObject)
   }
 
   onMagicalPopulationUpdate(newValue: string) {
@@ -57,55 +84,64 @@ export class SimpleAndPiechartDemographicsComponent implements OnInit {
     return Object.values(obj) as any as SingleOrMultiDataSet;
   }
 
-  getClassLevelPerPopulationLabels() {
-    return Object.keys(this.selectedDemographicsObject.variables.classLevelsPerPopulation).map(
-      key => {
-        switch(key) {
-          case 'wp':
-            return 'Wealthy Population';
-          case 'mc':
-            return 'Middle Class';
-          case 'pp':
-            return 'Poor Population';
-          case 'sp':
-            return 'Slave Population';
-          default:
-            return ''
-        }
-      }
-    );
+  getChartLabelsForKey(key: keyof typeof constants.chartLabels) {
+    return Object.values(this.constants.chartLabels[key]) as any as MultiLineLabel;
   }
 
-  addEthnicity() {
-    if (this.addNewEthnicity) {
-      this.selectedDemographicsObject.variables.ethnicityPerPopulation.push({
-        name: this.newEthnicity,
+  addNewChartField(chart: any) {
+    if (chart.addNew) {
+      const demographicObjectKey = chart.key as keyof SimpleAndPiechartDemographicsVariables;
+      this.selectedDemographicsObject.variables[demographicObjectKey].push({
+        name: chart.fieldName,
         percentage: ''
       });
-      this.newEthnicity = '';
-      this.hide = true;
+      chart.fieldName = '';
+      chart.rerender = true;
       setTimeout(() => {
-        // TODO: refactor
-        this.hide = false;
+        chart.rerender = false;
       }, 1);
     }
-    this.addNewEthnicity = !this.addNewEthnicity;
+    chart.addNew = !chart.addNew;
   }
 
-  getEthnicityLabels() {
-    return this.ethnicities.map(
-      ethnicity => ethnicity.name
+  getLabelsForDynamicChart(object: any) {
+    return object.map(
+      (object: any) => object.name
     );
   }
 
-  getEthnicityData() {
-    return this.ethnicities.map(
-      ethnicity => ethnicity.percentage
+  getDataForDynamicChart(object: any) {
+    return object.map(
+      (object: any) => object.percentage
     );
+  }
+
+  get cultures() {
+    return this.selectedDemographicsObject.variables.culturePerPopulation;
   }
 
   get ethnicities() {
     return this.selectedDemographicsObject.variables.ethnicityPerPopulation;
+  }
+
+  get religions() {
+    return this.selectedDemographicsObject.variables.religionPerPopulation;
+  }
+
+  get languages() {
+    return this.selectedDemographicsObject.variables.languagePerPopulation;
+  }
+
+  get politicalAffliations() {
+    return this.selectedDemographicsObject.variables.politicalAffliationsPerPopulation;
+  }
+
+  get races() {
+    return this.selectedDemographicsObject.variables.racePerPopulation;
+  }
+
+  get educationPerPopulation() {
+    return this.selectedDemographicsObject.variables.educationPerPopulation;
   }
 
   get classLevelsPerPopulation() {

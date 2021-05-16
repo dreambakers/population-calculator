@@ -22,6 +22,7 @@ export class PopulationCalculationComponent implements OnInit {
 
   addNation() {
     if (this.addNewNation) {
+      const defaultDynamicDemographicChartObject = { name: '', percentage: ''}
       const defaultNationObj = DataService.getDefaultNationObject();
       this.populationCalculation.nations.push({
         ...defaultNationObj,
@@ -31,10 +32,13 @@ export class PopulationCalculationComponent implements OnInit {
         id: defaultNationObj.id,
         variables: {
           classLevelsPerPopulation: {},
-          ethnicityPerPopulation: [{
-            name: '',
-            percentage: ''
-          }]
+          educationPerPopulation: {},
+          culturePerPopulation: [{...defaultDynamicDemographicChartObject}],
+          ethnicityPerPopulation: [{...defaultDynamicDemographicChartObject}],
+          religionPerPopulation: [{...defaultDynamicDemographicChartObject}],
+          racePerPopulation: [{...defaultDynamicDemographicChartObject}],
+          languagePerPopulation: [{...defaultDynamicDemographicChartObject}],
+          politicalAffliationsPerPopulation: [{...defaultDynamicDemographicChartObject}]
         }
       });
       this.newNation = '';
@@ -43,6 +47,7 @@ export class PopulationCalculationComponent implements OnInit {
   }
 
   copyNation(nation: Nation) {
+    const defaultDynamicDemographicChartObject = { name: '', percentage: ''}
     const newNationCopy = {
       ...nation,
       id: uuid()
@@ -52,13 +57,15 @@ export class PopulationCalculationComponent implements OnInit {
       id: newNationCopy.id,
       variables: {
         classLevelsPerPopulation: {},
-        ethnicityPerPopulation: [{
-          name: '',
-          percentage: ''
-        }]
+        educationPerPopulation: {},
+        culturePerPopulation: [{...defaultDynamicDemographicChartObject}],
+        ethnicityPerPopulation: [{...defaultDynamicDemographicChartObject}],
+        religionPerPopulation: [{...defaultDynamicDemographicChartObject}],
+        racePerPopulation: [{...defaultDynamicDemographicChartObject}],
+        languagePerPopulation: [{...defaultDynamicDemographicChartObject}],
+        politicalAffliationsPerPopulation: [{...defaultDynamicDemographicChartObject}]
       }
     });
-    console.log(this.selectedLandmass.simpleAndPiechartDemographics)
   }
 
   deleteNation(nation: Nation) {
