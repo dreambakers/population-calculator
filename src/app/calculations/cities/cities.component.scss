@@ -1,0 +1,13 @@
+#cityCalculation {
+    .table-input {
+        max-width: 100px;
+    }
+
+    td,th {
+        vertical-align: middle;
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

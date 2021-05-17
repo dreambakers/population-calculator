@@ -39,7 +39,8 @@ export class LandmassesComponent implements OnInit {
         id: uuid(),
         baseCalculation: DataService.getDefaultBaseCalculationsObject(),
         populationCalculation: DataService.getDefaultPopulationCalculationObject(),
-        simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject()
+        simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject(),
+        cityCalculation: DataService.getDefaultCityCalculationObject()
       });
       this.newLandmass = '';
     }

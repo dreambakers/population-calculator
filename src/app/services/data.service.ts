@@ -2,6 +2,69 @@ import { Injectable } from '@angular/core';
 import { v4 as uuid } from 'uuid';
 import { Utility } from '../utils/utility';
 
+export interface CityCalculationVariables {
+  rr1?: any;
+  rr2?: any;
+  rr3?: any;
+  rr4?: any;
+  rr5?: any;
+  rr6?: any;
+  rr7?: any;
+  rp1?: any;
+  rp2?: any;
+  rp3?: any;
+  rp4?: any;
+  rp5?: any;
+  rp6?: any;
+  rp7?: any;
+
+  ur1?: any;
+  ur2?: any;
+  ur3?: any;
+  ur4?: any;
+  ur5?: any;
+  ur6?: any;
+  ur7?: any;
+  up1?: any;
+  up2?: any;
+  up3?: any;
+  up4?: any;
+  up5?: any;
+  up6?: any;
+  up7?: any;
+
+  cp1?:any;
+  cp2?:any;
+  cp3?:any;
+  cp4?:any;
+  cp5?:any;
+  cp6?:any;
+  cp7?:any;
+  cp8?:any;
+  cp9?:any;
+  cp10?:any;
+  cp11?:any;
+  cp12?:any;
+  cp13?:any;
+  cp14?:any;
+}
+
+export interface LandmassCityCalculation {
+  variables: CityCalculationVariables;
+}
+
+export interface NationCityCalculation {
+  id: string;
+  variables: CityCalculationVariables;
+}
+
+export interface CityCalculation {
+  selectedPopulation: 'nation' | 'landmass';
+  selectedCalculation: 'rural' | 'urban';
+  nationCityCalculation: [NationCityCalculation?];
+  landmassCityCalculation: LandmassCityCalculation;
+}
+
 export interface DynamicDemographicChart {
   editing?: boolean;
   name: string;
@@ -150,6 +213,7 @@ export interface Landmass {
   baseCalculation: BaseCalculation;
   populationCalculation: PopulationCalculation;
   simpleAndPiechartDemographics: SimpleAndPiechartDemographics;
+  cityCalculation: CityCalculation;
   type: 'landmass';
 }
 
@@ -173,6 +237,7 @@ export class DataService {
       baseCalculation: DataService.getDefaultBaseCalculationsObject(),
       populationCalculation: DataService.getDefaultPopulationCalculationObject(),
       simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject(),
+      cityCalculation: DataService.getDefaultCityCalculationObject(),
       type: 'landmass'
     }]
   };
@@ -425,22 +490,70 @@ export class DataService {
     };
   }
 
+  public static getDefaultSimpleAndPiechartDemographicVariables(): SimpleAndPiechartDemographicsVariables {
+    const defaultChartObject = { name: '', percentage: ''}
+    return {
+      classLevelsPerPopulation: {},
+      educationPerPopulation: {},
+      culturePerPopulation: [{...defaultChartObject}],
+      ethnicityPerPopulation: [{...defaultChartObject}],
+      religionPerPopulation: [{...defaultChartObject}],
+      racePerPopulation: [{...defaultChartObject}],
+      languagePerPopulation: [{...defaultChartObject}],
+      politicalAffliationsPerPopulation: [{...defaultChartObject}]
+    }
+  }
+
   public static getDefaultSimpleAndPiechartDemographicsObject(): SimpleAndPiechartDemographics {
-    const defaultDynamicDemographicChartObject = { name: '', percentage: ''}
     return {
       selectedPopulation: 'landmass',
       nationPopulationDemographics: [],
       landmassPopulationDemographics: {
-        variables: {
-          classLevelsPerPopulation: {},
-          educationPerPopulation: {},
-          culturePerPopulation: [{...defaultDynamicDemographicChartObject}],
-          ethnicityPerPopulation: [{...defaultDynamicDemographicChartObject}],
-          religionPerPopulation: [{...defaultDynamicDemographicChartObject}],
-          racePerPopulation: [{...defaultDynamicDemographicChartObject}],
-          languagePerPopulation: [{...defaultDynamicDemographicChartObject}],
-          politicalAffliationsPerPopulation: [{...defaultDynamicDemographicChartObject}]
-        }
+        variables: DataService.getDefaultSimpleAndPiechartDemographicVariables()
+      }
+    };
+  }
+
+  public static getDefaultCityCalculationVariables(): CityCalculationVariables {
+    return {
+      rr1: 1.0,
+      rr2: 2.5,
+      rr3: 1.8,
+      rr4: 4.1,
+      rr5: 3.5,
+      rr6: 3.1,
+      rr7: 84,
+      rp1: 130000,
+      rp2: 22000,
+      rp3: 12000,
+      rp4: 7000,
+      rp5: 2000,
+      rp6: 500,
+      rp7: 80,
+      ur1: 28,
+      ur2: 14,
+      ur3: 18,
+      ur4: 15,
+      ur5: 13,
+      ur6: 8,
+      ur7: 4,
+      up1: 1500000,
+      up2: 800000,
+      up3: 250000,
+      up4: 70000,
+      up5: 10000,
+      up6: 1500,
+      up7: 120
+    }
+  }
+
+  public static getDefaultCityCalculationObject(): CityCalculation {
+    return {
+      selectedPopulation: 'landmass',
+      selectedCalculation: 'rural',
+      nationCityCalculation: [],
+      landmassCityCalculation: {
+        variables: DataService.getDefaultCityCalculationVariables()
       }
     };
   }

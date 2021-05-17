@@ -22,24 +22,19 @@ export class PopulationCalculationComponent implements OnInit {
 
   addNation() {
     if (this.addNewNation) {
-      const defaultDynamicDemographicChartObject = { name: '', percentage: ''}
       const defaultNationObj = DataService.getDefaultNationObject();
       this.populationCalculation.nations.push({
         ...defaultNationObj,
         name: this.newNation
       });
+      // TODO: REFACTOR THIS
       this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics?.push({
         id: defaultNationObj.id,
-        variables: {
-          classLevelsPerPopulation: {},
-          educationPerPopulation: {},
-          culturePerPopulation: [{...defaultDynamicDemographicChartObject}],
-          ethnicityPerPopulation: [{...defaultDynamicDemographicChartObject}],
-          religionPerPopulation: [{...defaultDynamicDemographicChartObject}],
-          racePerPopulation: [{...defaultDynamicDemographicChartObject}],
-          languagePerPopulation: [{...defaultDynamicDemographicChartObject}],
-          politicalAffliationsPerPopulation: [{...defaultDynamicDemographicChartObject}]
-        }
+        variables: DataService.getDefaultSimpleAndPiechartDemographicVariables()
+      });
+      this.selectedLandmass.cityCalculation.nationCityCalculation?.push({
+        id: defaultNationObj.id,
+        variables: DataService.getDefaultCityCalculationVariables()
       });
       this.newNation = '';
     }
@@ -47,24 +42,19 @@ export class PopulationCalculationComponent implements OnInit {
   }
 
   copyNation(nation: Nation) {
-    const defaultDynamicDemographicChartObject = { name: '', percentage: ''}
     const newNationCopy = {
       ...nation,
       id: uuid()
     };
     this.populationCalculation.nations.push(newNationCopy);
+    // TODO: REFACTOR THIS
     this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics?.push({
       id: newNationCopy.id,
-      variables: {
-        classLevelsPerPopulation: {},
-        educationPerPopulation: {},
-        culturePerPopulation: [{...defaultDynamicDemographicChartObject}],
-        ethnicityPerPopulation: [{...defaultDynamicDemographicChartObject}],
-        religionPerPopulation: [{...defaultDynamicDemographicChartObject}],
-        racePerPopulation: [{...defaultDynamicDemographicChartObject}],
-        languagePerPopulation: [{...defaultDynamicDemographicChartObject}],
-        politicalAffliationsPerPopulation: [{...defaultDynamicDemographicChartObject}]
-      }
+      variables: DataService.getDefaultSimpleAndPiechartDemographicVariables()
+    });
+    this.selectedLandmass.cityCalculation.nationCityCalculation?.push({
+      id: newNationCopy.id,
+      variables: DataService.getDefaultCityCalculationVariables()
     });
   }
 
@@ -72,10 +62,16 @@ export class PopulationCalculationComponent implements OnInit {
     this.populationCalculation.nations = this.populationCalculation.nations.filter(
       _nation => _nation.id !== nation.id
     );
+    // TODO: REFACTOR THIS
     let nationPopulationDemographics = this.selectedLandmass.simpleAndPiechartDemographics.nationPopulationDemographics;
-    const index = nationPopulationDemographics?.findIndex(_nation => _nation?.id === nation.id) || -1;
-    if (index > -1) {
-      nationPopulationDemographics?.splice(index, 1);
+    let nationCityCalculation = this.selectedLandmass.cityCalculation.nationCityCalculation;
+    const index1 = nationPopulationDemographics?.findIndex(_nation => _nation?.id === nation.id) || -1;
+    const index2 = nationCityCalculation?.findIndex(_nation => _nation?.id === nation.id) || -1;
+    if (index1 > -1) {
+      nationPopulationDemographics?.splice(index1, 1);
+    }
+    if (index2 > -1) {
+      nationCityCalculation?.splice(index2, 1);
     }
   }
 
