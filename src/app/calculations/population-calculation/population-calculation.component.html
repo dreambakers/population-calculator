@@ -92,11 +92,9 @@
 
         <fieldset class="my-3">
             <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Population Density</legend>
-                <mat-icon matSuffix matTooltip="The “Population Density” shows the amount of population per Km²" class="ms-2">info</mat-icon>
+                <legend class="w-auto m-0">Population Division</legend>
             </div>
-
-                <table class="table w-100">
+                <table class="table table-hover w-100" id="populationDivision">
                     <thead>
                       <tr>
                         <th scope="col"></th>
@@ -111,17 +109,17 @@
                         <th></th>
                         <th>Insert % Numbers</th>
                         <td>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.m" (ngModelChange)="onTableValueUpdate(nation)">
+                            <input class="form-control table-input"  type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.m" (ngModelChange)="onTableValueUpdate(nation)">
                         </td>
                         <td>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.f" (ngModelChange)="onTableValueUpdate(nation)">
+                            <input class="form-control table-input"  type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.f" (ngModelChange)="onTableValueUpdate(nation)">
                         </td>
                         <td>{{(+nation.variables.m) + (+nation.variables.f)}}</td>
                       </tr>
                       <tr>
                         <th scope="row">Elderly in %</th>
                         <td>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ey1" (ngModelChange)="onTableValueUpdate(nation)">
+                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ey1" (ngModelChange)="onTableValueUpdate(nation)">
                         </td>
                         <td>{{nation.variables.ey2}}</td>
                         <td>{{nation.variables.ey3}}</td>
@@ -130,7 +128,7 @@
                       <tr>
                         <th scope="row">Adults in %</th>
                         <td>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ad1" (ngModelChange)="onTableValueUpdate(nation)">
+                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ad1" (ngModelChange)="onTableValueUpdate(nation)">
                         </td>
                         <td>{{nation.variables.ad2}}</td>
                         <td>{{nation.variables.ad3}}</td>
@@ -139,7 +137,7 @@
                       <tr>
                         <th scope="row">Children in %</th>
                         <td>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ch1" (ngModelChange)="onTableValueUpdate(nation)">
+                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ch1" (ngModelChange)="onTableValueUpdate(nation)">
                         </td>
                         <td>{{nation.variables.ch2}}</td>
                         <td>{{nation.variables.ch3}}</td>
