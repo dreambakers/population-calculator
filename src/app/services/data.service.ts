@@ -1,227 +1,12 @@
 import { Injectable } from '@angular/core';
 import { v4 as uuid } from 'uuid';
+import { BaseCalculation } from '../calculations/models/base.model';
+import { Nation, PopulationCalculation } from '../calculations/models/population.model';
+import { CityCalculation, CityCalculationFunctions, CityCalculationVariables } from '../calculations/models/city.model';
+import { SimpleAndPiechartDemographics, SimpleAndPiechartDemographicsVariables } from '../calculations/models/simple-and-piechart-demographics.model';
 import { Utility } from '../utils/utility';
-
-export interface CityCalculationVariables {
-  rr1?: any;
-  rr2?: any;
-  rr3?: any;
-  rr4?: any;
-  rr5?: any;
-  rr6?: any;
-  rr7?: any;
-  rp1?: any;
-  rp2?: any;
-  rp3?: any;
-  rp4?: any;
-  rp5?: any;
-  rp6?: any;
-  rp7?: any;
-
-  ur1?: any;
-  ur2?: any;
-  ur3?: any;
-  ur4?: any;
-  ur5?: any;
-  ur6?: any;
-  ur7?: any;
-  up1?: any;
-  up2?: any;
-  up3?: any;
-  up4?: any;
-  up5?: any;
-  up6?: any;
-  up7?: any;
-
-  cp1?:any;
-  cp2?:any;
-  cp3?:any;
-  cp4?:any;
-  cp5?:any;
-  cp6?:any;
-  cp7?:any;
-  cp8?:any;
-  cp9?:any;
-  cp10?:any;
-  cp11?:any;
-  cp12?:any;
-  cp13?:any;
-  cp14?:any;
-}
-
-export interface LandmassCityCalculation {
-  variables: CityCalculationVariables;
-}
-
-export interface NationCityCalculation {
-  id: string;
-  variables: CityCalculationVariables;
-}
-
-export interface CityCalculation {
-  selectedPopulation: 'nation' | 'landmass';
-  selectedCalculation: 'rural' | 'urban';
-  nationCityCalculation: [NationCityCalculation?];
-  landmassCityCalculation: LandmassCityCalculation;
-}
-
-export interface DynamicDemographicChart {
-  editing?: boolean;
-  name: string;
-  percentage: any;
-}
-export interface SimpleAndPiechartDemographicsVariables {
-  pcd?: any;
-  mp1?: any;
-  mp2?: any;
-  mp3?: any;
-  classLevelsPerPopulation: {
-    wp?: any;
-    mc?: any;
-    pp?: any;
-    sp?: any;
-  };
-  educationPerPopulation: {
-    we?: any;
-    me?: any;
-    ir?: any;
-  };
-  ethnicityPerPopulation: DynamicDemographicChart[];
-  culturePerPopulation: DynamicDemographicChart[];
-  religionPerPopulation: DynamicDemographicChart[];
-  racePerPopulation: DynamicDemographicChart[];
-  languagePerPopulation: DynamicDemographicChart[];
-  politicalAffliationsPerPopulation: DynamicDemographicChart[];
-}
-
-export interface LandmassPopulationDemographics {
-  variables: SimpleAndPiechartDemographicsVariables;
-}
-
-export interface NationPopulationDemographics {
-  id: string;
-  variables: SimpleAndPiechartDemographicsVariables;
-}
-
-export interface SimpleAndPiechartDemographics {
-  selectedPopulation: 'nation' | 'landmass';
-  nationPopulationDemographics: [NationPopulationDemographics?];
-  landmassPopulationDemographics: LandmassPopulationDemographics;
-}
-export interface NationCalculationVariables {
-  totalPopulation?: any;
-  npd1?: any;
-  npd2?: any;
-  cs1?: any;
-  cs2?: any;
-  cs3?: any;
-  cs4?: any;
-  popd?: any;
-  p1?: any;
-  p2?: any;
-  p3?: any;
-  m?: any;
-  f?: any;
-  ey1?: any;
-  ey2?: any;
-  ey3?: any;
-  ey4?: any;
-  ad1?: any;
-  ad2?: any;
-  ad3?: any;
-  ad4?: any;
-  ch1?: any;
-  ch2?: any;
-  ch3?: any;
-  ch4?: any;
-  ca?: any;
-  it?: any;
-  et?: any;
-  ttm?: any;
-}
-export interface Nation {
-  name: string;
-  id: string;
-  countrySizeCalculationPreference: 'area' | 'percentage';
-  variables: NationCalculationVariables;
-  editing?: boolean;
-  type: 'nation';
-  cs1_calc(area: any): void;
-  cs2_calc(area: any): void;
-  ey2_calc(): void;
-  ey3_calc(): void;
-  ey4_calc(): void;
-  ad2_calc(): void;
-  ad3_calc(): void;
-  ad4_calc(): void;
-  ch2_calc(): void;
-  ch3_calc(): void;
-  ch4_calc(): void;
-  ttm_calc(): void;
-  popd_cacl(): void;
-}
-export interface PopulationCalculation {
-  nations: Nation[];
-}
-export interface BaseCalculationVariables {
-  a1?: any;
-  f1?: any;
-  f2?: any;
-  df1?: any;
-  df2?: any;
-  m1?: any;
-  m2?: any;
-  ra1?: any;
-  ra2?: any;
-  fw1?: any;
-  fw2?: any;
-  dt1?: any;
-  dt2?: any;
-  ds1?: any;
-  ds2?: any;
-  fl1?: any;
-  fm1?: any;
-  tm1?: any;
-  mm1?: any;
-  fmt1?: any;
-  pop1?: any;
-}
-export interface BaseCalculation {
-  variables: BaseCalculationVariables;
-  precedanceMap: any;
-  f1_calc(): void;
-  f2_calc(): void;
-  df1_calc(): void;
-  df2_calc(): void;
-  m1_calc(): void;
-  m2_calc(): void;
-  ra1_calc(): void;
-  ra2_calc(): void;
-  fw1_calc(): void;
-  fw2_calc(): void;
-  dt1_calc(): void;
-  dt2_calc(): void;
-  ds1_calc(): void;
-  ds2_calc(): void;
-  performBackgroundCalculations(): void;
-  calculateAll(): void;
-}
-export interface Landmass {
-  name: string;
-  editing?: boolean;
-  id: string;
-  baseCalculation: BaseCalculation;
-  populationCalculation: PopulationCalculation;
-  simpleAndPiechartDemographics: SimpleAndPiechartDemographics;
-  cityCalculation: CityCalculation;
-  type: 'landmass';
-}
-
-export interface World {
-  name: string;
-  landmasses: Landmass[];
-  selectedLandmass?: string;
-}
+import { World } from '../calculations/models/world.model';
+import { Landmass } from '../calculations/models/landmass.model';
 
 @Injectable({
   providedIn: 'root'
@@ -554,6 +339,144 @@ export class DataService {
       nationCityCalculation: [],
       landmassCityCalculation: {
         variables: DataService.getDefaultCityCalculationVariables()
+      },
+      cp1_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        result = p3/100*(this.selectedCalculation === 'rural' ? +variables?.rr1 : +variables?.ur1);
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp1 = result;
+        }
+      },
+      cp2_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        result = variables?.cp1/(this.selectedCalculation === 'rural' ? +variables?.rp1 : +variables?.up1);
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp2 = result;
+        }
+      },
+      cp3_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        if (variables?.cp2 === 0) {
+          result = (p3/100*variables.rr2)+variables.cp1;
+        } else {
+          result = p3/100*variables?.rr2;
+        }
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp3 = result;
+        }
+      },
+      cp4_calc: function(p3) {
+        let variables = this.selectedCalculationObj?.variables;
+        let result = variables?.cp3/variables?.rp2;
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp4 = result;
+        }
+      },
+      cp5_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        if (variables?.cp4 === 0) {
+          result = (p3/100*variables.rr3)+variables.cp3;
+        } else {
+          result = p3/100*variables?.rr3;
+        }
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp5 = result;
+        }
+      },
+      cp6_calc: function(p3) {
+        let variables = this.selectedCalculationObj?.variables;
+        let result = variables?.cp5/variables?.rp3;
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp6 = result;
+        }
+      },
+      cp7_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        if (variables?.cp6 === 0) {
+          result = (p3/100*variables.rr4)+variables.cp5;
+        } else {
+          result = p3/100*variables?.rr4;
+        }
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp7 = result;
+        }
+      },
+      cp8_calc: function(p3) {
+        let variables = this.selectedCalculationObj?.variables;
+        let result = variables?.cp7/variables?.rp4;
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp8 = result;
+        }
+      },
+      cp9_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        if (variables?.cp8 === 0) {
+          result = (p3/100*variables.rr5)+variables.cp7;
+        } else {
+          result = p3/100*variables?.rr5;
+        }
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp9 = result;
+        }
+      },
+      cp10_calc: function(p3) {
+        let variables = this.selectedCalculationObj?.variables;
+        let result = variables?.cp9/variables?.rp5;
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp10 = result;
+        }
+      },
+      cp11_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        if (variables?.cp10 === 0) {
+          result = (p3/100*variables.rr6)+variables.cp9;
+        } else {
+          result = p3/100*variables?.rr6;
+        }
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp11 = result;
+        }
+      },
+      cp12_calc: function(p3) {
+        let variables = this.selectedCalculationObj?.variables;
+        let result = variables?.cp11/variables?.rp6;
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp12 = result;
+        }
+      },
+      cp13_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        if (variables?.cp12 === 0) {
+          result = (p3/100*variables.rr7)+variables.cp11;
+        } else {
+          result = p3/100*variables?.rr7;
+        }
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp13 = result;
+        }
+      },
+      cp14_calc: function(p3) {
+        let variables = this.selectedCalculationObj?.variables;
+        let result = variables?.cp13/variables?.rp7;
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp14 = result;
+        }
+      },
+      calculateAll: function (p3) {
+        Object.keys(this).forEach((_key) => {
+          const key = _key as keyof CityCalculationFunctions;
+          if (key.includes('_calc') && typeof this[key] === 'function') {
+            this[key](p3);
+          }
+        });
       }
     };
   }

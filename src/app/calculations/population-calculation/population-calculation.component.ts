@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService, Nation, NationCalculationVariables, PopulationCalculation } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { v4 as uuid } from 'uuid';
+import { Nation, PopulationCalculation } from '../models/population.model';
 
 @Component({
   selector: 'app-population-calculation',

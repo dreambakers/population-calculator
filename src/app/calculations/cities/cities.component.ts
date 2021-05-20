@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { CityCalculation, CityCalculationVariables, DataService, Landmass, LandmassCityCalculation, Nation, NationCityCalculation } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { Utility } from 'src/app/utils/utility';
+import { Nation } from '../models/population.model';
+import { CityCalculation, CityCalculationVariables, LandmassCityCalculation, NationCityCalculation } from '../models/city.model';
+import { Landmass } from '../models/landmass.model';
 
 @Component({
   selector: 'app-cities',
@@ -23,10 +26,10 @@ export class CitiesComponent implements OnInit {
      // Landmass Calculation Selected
      this.selectedPopulationObject = $event.value;
      if ($event.value.type === 'landmass') {
-       this.selectedCalculationObject = this.cityCalculation.landmassCityCalculation;
+       this.cityCalculation.selectedCalculationObj = this.cityCalculation.landmassCityCalculation;
      } else {
        console.log(this.cityCalculation?.nationCityCalculation)
-       this.selectedCalculationObject = Utility.ensure(
+       this.cityCalculation.selectedCalculationObj = Utility.ensure(
          this.cityCalculation?.nationCityCalculation?.find(
            nation => nation?.id === $event.value.id
          )

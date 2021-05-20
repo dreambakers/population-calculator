@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService, Landmass } from '../services/data.service';
+import { DataService } from '../services/data.service';
 import { v4 as uuid } from 'uuid';
+import { Landmass } from '../calculations/models/landmass.model';
 
 @Component({
   selector: 'app-landmasses',

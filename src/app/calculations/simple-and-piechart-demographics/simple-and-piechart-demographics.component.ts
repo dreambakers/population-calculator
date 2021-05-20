@@ -2,8 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { MultiLineLabel, SingleOrMultiDataSet } from 'ng2-charts';
 import { constants } from 'src/app/app.constants';
-import { DataService, Landmass, LandmassPopulationDemographics, Nation, NationPopulationDemographics, SimpleAndPiechartDemographics, SimpleAndPiechartDemographicsVariables } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { Utility } from '../../utils/utility';
+import { Landmass } from '../models/landmass.model';
+import { Nation } from '../models/population.model';
+import {
+  LandmassPopulationDemographics,
+  NationPopulationDemographics,
+  SimpleAndPiechartDemographics,
+  SimpleAndPiechartDemographicsVariables
+} from '../models/simple-and-piechart-demographics.model';
 
 @Component({
   selector: 'app-simple-and-piechart-demographics',

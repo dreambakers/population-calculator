@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { BaseCalculation, BaseCalculationVariables, DataService } from 'src/app/services/data.service';
+import { DataService } from 'src/app/services/data.service';
+import { BaseCalculation, BaseCalculationVariables } from '../models/base.model';
 
 
 @Component({
