@@ -14,7 +14,6 @@ import { Landmass } from '../models/landmass.model';
 export class CitiesComponent implements OnInit {
 
   cityCalculation: CityCalculation = DataService.getSelectedLandmass().cityCalculation;
-  selectedCalculationObject!: NationCityCalculation | LandmassCityCalculation;
   selectedPopulationObject!: Nation | Landmass;
 
   constructor() { }
@@ -37,11 +36,16 @@ export class CitiesComponent implements OnInit {
      }
   }
 
-  getTableValueKey(variableKey: string) {
-    const urbanOrRuralModifier = this.cityCalculation.selectedCalculation === 'rural' ? 'r' : 'u';
-    const key = `${urbanOrRuralModifier}${variableKey}` as keyof CityCalculationVariables;
-    console.log(key)
-    return this.selectedCalculationObject.variables[key];
+  onTableValueUpdate(newValue: string, key: keyof CityCalculationVariables) {
+    if (this.cityCalculation.selectedCalculationObj) {
+      this.cityCalculation.selectedCalculationObj.variables[key] = +newValue;
+      this.calculateAll();
+    }
+  }
+
+  calculateAll() {
+    let population = this.selectedPopulationObject.type === 'landmass' ? this.selectedPopulationObject.baseCalculation.variables.pop1 : this.selectedPopulationObject.variables.p3;
+    this.cityCalculation.calculateAll(population);
   }
 
   isNaN(value: any) {
@@ -56,4 +60,7 @@ export class CitiesComponent implements OnInit {
     return this.landmass.populationCalculation.nations;
   }
 
+  get selectedCalculationObject() {
+    return this.cityCalculation.selectedCalculationObj;
+  }
 }

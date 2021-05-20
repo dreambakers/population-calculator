@@ -1,214 +1,369 @@
 <div>
-    <mat-card>
+  <mat-card>
+    <fieldset class="my-3">
+      <div class="d-flex align-items-center mb-2">
+        <legend class="w-auto m-0">Total Population</legend>
+        <mat-icon matSuffix
+          matTooltip="The “Total Population” shows either the one from the *Base Calculation* tab or one from your selected Countries."
+          class="ms-2">info</mat-icon>
+      </div>
 
+      <div class="d-flex align-items-center">
+        <mat-form-field appearance="fill">
+          <mat-label>Total Population</mat-label>
+          <mat-select (selectionChange)="onPopulationSelectionChange($event)">
+            <mat-optgroup label="Total Landmass Population">
+              <mat-option [value]="landmass" [disabled]="isNaN(landmass.baseCalculation.variables.pop1)">
+                <span
+                  *ngIf="!isNaN(landmass.baseCalculation.variables.pop1); else noValue">{{landmass.baseCalculation.variables.pop1}}</span>
+                <ng-template #noValue>
+                  <i>Not calculated yet</i>
+                </ng-template>
+              </mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="Nations">
+              <mat-option [value]="nation" *ngFor="let nation of nations" [disabled]="isNaN(nation.variables.p3)">
+                <span *ngIf="!isNaN(nation.variables.p3); else noValue">{{nation.name}} - {{nation.variables.p3}}</span>
+                <ng-template #noValue>
+                  <i>Not calculated yet</i>
+                </ng-template>
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </fieldset>
+
+    <div *ngIf="cityCalculation.selectedCalculationObj">
       <fieldset class="my-3">
-          <div class="d-flex align-items-center mb-2">
-              <legend class="w-auto m-0">Total Population</legend>
-              <mat-icon matSuffix matTooltip="The “Total Population” shows either the one from the *Base Calculation* tab or one from your selected Countries." class="ms-2">info</mat-icon>
-          </div>
+        <div class="d-flex align-items-center mb-2">
+          <legend class="w-auto m-0">Calculation</legend>
+          <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
 
-          <div class="d-flex align-items-center">
-              <mat-form-field appearance="fill">
-                  <mat-label>Total Population</mat-label>
-                  <mat-select (selectionChange)="onPopulationSelectionChange($event)">
-                    <mat-optgroup label="Total Landmass Population">
-                      <mat-option [value]="landmass" [disabled]="isNaN(landmass.baseCalculation.variables.pop1)">
-                          <span *ngIf="!isNaN(landmass.baseCalculation.variables.pop1); else noValue">{{landmass.baseCalculation.variables.pop1}}</span>
-                          <ng-template #noValue>
-                              <i>Not calculated yet</i>
-                          </ng-template>
-                      </mat-option>
-                    </mat-optgroup>
-                    <mat-optgroup label="Nations">
-                      <mat-option [value]="nation" *ngFor="let nation of nations" [disabled]="isNaN(nation.variables.p3)">
-                          <span *ngIf="!isNaN(nation.variables.p3); else noValue">{{nation.name}} - {{nation.variables.p3}}</span>
-                          <ng-template #noValue>
-                              <i>Not calculated yet</i>
-                          </ng-template>
-                      </mat-option>
-                    </mat-optgroup>
-                  </mat-select>
-              </mat-form-field>
-          </div>
+        <div class="d-flex align-items-center">
+          <mat-form-field appearance="fill">
+            <mat-label>Calculation</mat-label>
+            <mat-select [(ngModel)]="cityCalculation.selectedCalculation" (selectionChange)="calculateAll()">
+              <mat-option value="rural">
+                Rural
+              </mat-option>
+              <mat-option value="urban">
+                Urban
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </fieldset>
 
-      <div *ngIf="selectedCalculationObject">
-        <fieldset class="my-3">
-          <div class="d-flex align-items-center mb-2">
-              <legend class="w-auto m-0">Calculation</legend>
-              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
-          </div>
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+          <legend class="w-auto m-0">Population Division</legend>
+        </div>
+        <table class="table table-bordered w-100" id="cityCalculation">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" colspan="2" class="text-center">Pre Industrial</th>
+              <th scope="col" colspan="2" class="text-center">Industrial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Types of Cities</th>
+              <th>Pop % per City Size</th>
+              <th>People per City</th>
+              <th>Pop % per City Size</th>
+              <th>People per City</th>
+            </tr>
+            <tr>
+              <th scope="row">Urban Mega City</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true">
+              </td>
 
-          <div class="d-flex align-items-center">
-              <mat-form-field appearance="fill">
-                  <mat-label>Calculation</mat-label>
-                  <mat-select [(ngModel)]="cityCalculation.selectedCalculation">
-                      <mat-option value="rural">
-                        Rural
-                      </mat-option>
-                      <mat-option value="urban">
-                        Urban
-                      </mat-option>
-                  </mat-select>
-              </mat-form-field>
-          </div>
-        </fieldset>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true">
+              </td>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Population Division</legend>
-            </div>
-                <table class="table table-bordered w-100" id="cityCalculation">
-                    <thead>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col" colspan="2" class="text-center">Pre Industrial</th>
-                        <th scope="col" colspan="2" class="text-center">Industrial</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th>Types of Cities</th>
-                        <th>Pop % per City Size</th>
-                        <th>People per City</th>
-                        <th>Pop % per City Size</th>
-                        <th>People per City</th>
-                      </tr>
-                      <tr>
-                        <th scope="row">Urban Mega City</th>
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true">
-                        </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true">
+              </td>
 
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true">
-                        </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true">
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Urban Capital City</th>
 
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true">
-                        </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rr1" (ngModelChange)="onTableValueUpdate($event, 'rr1')">
+              </td>
 
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true">
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Urban Capital City</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rp1" (ngModelChange)="onTableValueUpdate($event, 'rp1')">
+              </td>
 
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rr1">
-                        </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.ur1" (ngModelChange)="onTableValueUpdate($event, 'ur1')">
+              </td>
 
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rp1">
-                        </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.up1" (ngModelChange)="onTableValueUpdate($event, 'up1')">
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Urban City</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rr2" (ngModelChange)="onTableValueUpdate($event, 'rr2')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rp2" (ngModelChange)="onTableValueUpdate($event, 'rp2')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.ur2" (ngModelChange)="onTableValueUpdate($event, 'ur2')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.up2" (ngModelChange)="onTableValueUpdate($event, 'up2')">
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Urban Town</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rr3" (ngModelChange)="onTableValueUpdate($event, 'rr3')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rp3" (ngModelChange)="onTableValueUpdate($event, 'rp3')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.ur3" (ngModelChange)="onTableValueUpdate($event, 'ur3')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.up3" (ngModelChange)="onTableValueUpdate($event, 'up3')">
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Rural Town</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rr4" (ngModelChange)="onTableValueUpdate($event, 'rr4')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rp4" (ngModelChange)="onTableValueUpdate($event, 'rp4')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.ur4" (ngModelChange)="onTableValueUpdate($event, 'ur4')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.up4" (ngModelChange)="onTableValueUpdate($event, 'up4')">
+              </td>
+            </tr>
 
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.ur1">
-                        </td>
+            <tr>
+              <th scope="row">Rural Village</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rr5" (ngModelChange)="onTableValueUpdate($event, 'rr5')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rp5" (ngModelChange)="onTableValueUpdate($event, 'rp5')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.ur5" (ngModelChange)="onTableValueUpdate($event, 'ur5')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.up5" (ngModelChange)="onTableValueUpdate($event, 'up5')">
+              </td>
+            </tr>
 
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.up1">
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Urban City</th>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rr2">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rp2">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.ur2">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.up2">
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Urban Town</th>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rr3">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rp3">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.ur3">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.up3">
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Rural Town</th>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rr4">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rp4">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.ur4">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.up4">
-                        </td>
-                      </tr>
+            <tr>
+              <th scope="row">Rural Hamlets</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rr6" (ngModelChange)="onTableValueUpdate($event, 'rr6')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rp6" (ngModelChange)="onTableValueUpdate($event, 'rp6')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.ur6" (ngModelChange)="onTableValueUpdate($event, 'ur6')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.up6" (ngModelChange)="onTableValueUpdate($event, 'up6')">
+              </td>
+            </tr>
 
-                      <tr>
-                        <th scope="row">Rural Village</th>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rr5">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rp5">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.ur5">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.up5">
-                        </td>
-                      </tr>
+            <tr>
+              <th scope="row">Rural Communities</th>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rr7" (ngModelChange)="onTableValueUpdate($event, 'rr7')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.rp7" (ngModelChange)="onTableValueUpdate($event, 'rp7')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.ur7" (ngModelChange)="onTableValueUpdate($event, 'ur7')">
+              </td>
+              <td>
+                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                  [ngModel]="selectedCalculationObject?.variables?.up7" (ngModelChange)="onTableValueUpdate($event, 'up7')">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </fieldset>
 
-                      <tr>
-                        <th scope="row">Rural Hamlets</th>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rr6">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rp6">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.ur6">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.up6">
-                        </td>
-                      </tr>
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+            <legend class="w-auto m-0">Capital</legend>
+            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
 
-                      <tr>
-                        <th scope="row">Rural Communities</th>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rr7">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.rp7">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.ur7">
-                        </td>
-                        <td>
-                          <input class="form-control table-input" type="text" digitOnly [decimal]="true" [ngModel]="selectedCalculationObject.variables.up7">
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-        </fieldset>
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Capital Population</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp1" disabled>
+            </mat-form-field>
 
+            <h4 class="m-2"></h4>
 
-      </div>
-    </mat-card>
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Capital Amount</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp2" disabled>
+            </mat-form-field>
+        </div>
+      </fieldset>
+
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+            <legend class="w-auto m-0">City</legend>
+            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>City Population</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp3" disabled>
+            </mat-form-field>
+
+            <h4 class="m-2"></h4>
+
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>City Amount</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp4" disabled>
+            </mat-form-field>
+        </div>
+      </fieldset>
+
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+            <legend class="w-auto m-0">Urban Towns</legend>
+            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Urban Towns Population</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp5" disabled>
+            </mat-form-field>
+
+            <h4 class="m-2"></h4>
+
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Urban Towns Amount</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp6" disabled>
+            </mat-form-field>
+        </div>
+      </fieldset>
+
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+            <legend class="w-auto m-0">Rural Towns</legend>
+            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Rural Towns Population</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp7" disabled>
+            </mat-form-field>
+
+            <h4 class="m-2"></h4>
+
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Rural Towns Amount</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp8" disabled>
+            </mat-form-field>
+        </div>
+      </fieldset>
+
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+            <legend class="w-auto m-0">Village Towns</legend>
+            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Village Population</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp9" disabled>
+            </mat-form-field>
+
+            <h4 class="m-2"></h4>
+
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Village Amount</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp10" disabled>
+            </mat-form-field>
+        </div>
+      </fieldset>
+
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+            <legend class="w-auto m-0">Hamlets</legend>
+            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Hamlets Population</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp11" disabled>
+            </mat-form-field>
+
+            <h4 class="m-2"></h4>
+
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Hamlets Amount</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp12" disabled>
+            </mat-form-field>
+        </div>
+      </fieldset>
+
+    </div>
+  </mat-card>
 </div>

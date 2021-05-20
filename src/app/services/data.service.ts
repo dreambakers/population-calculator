@@ -359,10 +359,11 @@ export class DataService {
       cp3_calc: function(p3) {
         let result;
         let variables = this.selectedCalculationObj?.variables;
+        let variable2 = this.selectedCalculation === 'rural' ? +variables?.rr2 : +variables?.ur2;
         if (variables?.cp2 === 0) {
-          result = (p3/100*variables.rr2)+variables.cp1;
+          result = (p3/100*variable2)+variables.cp1;
         } else {
-          result = p3/100*variables?.rr2;
+          result = p3/100*variable2;
         }
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp3 = result;
@@ -370,7 +371,8 @@ export class DataService {
       },
       cp4_calc: function(p3) {
         let variables = this.selectedCalculationObj?.variables;
-        let result = variables?.cp3/variables?.rp2;
+        let variable2 = this.selectedCalculation === 'rural' ? +variables?.rp2 : +variables?.up2;
+        let result = variables?.cp3/variable2;
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp4 = result;
         }
@@ -378,10 +380,11 @@ export class DataService {
       cp5_calc: function(p3) {
         let result;
         let variables = this.selectedCalculationObj?.variables;
+        let variable3 = this.selectedCalculation === 'rural' ? +variables?.rr3 : +variables?.ur3;
         if (variables?.cp4 === 0) {
-          result = (p3/100*variables.rr3)+variables.cp3;
+          result = (p3/100*variable3)+variables.cp3;
         } else {
-          result = p3/100*variables?.rr3;
+          result = p3/100*variable3;
         }
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp5 = result;
@@ -389,7 +392,8 @@ export class DataService {
       },
       cp6_calc: function(p3) {
         let variables = this.selectedCalculationObj?.variables;
-        let result = variables?.cp5/variables?.rp3;
+        let variable3 = this.selectedCalculation === 'rural' ? +variables?.rp3 : +variables?.up3;
+        let result = variables?.cp5/variable3;
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp6 = result;
         }
@@ -397,10 +401,11 @@ export class DataService {
       cp7_calc: function(p3) {
         let result;
         let variables = this.selectedCalculationObj?.variables;
+        let variable4 = this.selectedCalculation === 'rural' ? +variables?.rr4 : +variables?.ur4;
         if (variables?.cp6 === 0) {
-          result = (p3/100*variables.rr4)+variables.cp5;
+          result = (p3/100*variable4)+variables.cp5;
         } else {
-          result = p3/100*variables?.rr4;
+          result = p3/100*variable4;
         }
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp7 = result;
@@ -408,7 +413,8 @@ export class DataService {
       },
       cp8_calc: function(p3) {
         let variables = this.selectedCalculationObj?.variables;
-        let result = variables?.cp7/variables?.rp4;
+        let variable4 = this.selectedCalculation === 'rural' ? +variables?.rp4 : +variables?.up4;
+        let result = variables?.cp7/variable4;
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp8 = result;
         }
@@ -416,10 +422,11 @@ export class DataService {
       cp9_calc: function(p3) {
         let result;
         let variables = this.selectedCalculationObj?.variables;
+        let variable5 = this.selectedCalculation === 'rural' ? +variables?.rr5 : +variables?.ur5;
         if (variables?.cp8 === 0) {
-          result = (p3/100*variables.rr5)+variables.cp7;
+          result = (p3/100*variable5)+variables.cp7;
         } else {
-          result = p3/100*variables?.rr5;
+          result = p3/100*variable5;
         }
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp9 = result;
@@ -427,7 +434,8 @@ export class DataService {
       },
       cp10_calc: function(p3) {
         let variables = this.selectedCalculationObj?.variables;
-        let result = variables?.cp9/variables?.rp5;
+        let variable5 = this.selectedCalculation === 'rural' ? +variables?.rp5 : +variables?.up5;
+        let result = variables?.cp9/variable5;
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp10 = result;
         }
@@ -435,10 +443,11 @@ export class DataService {
       cp11_calc: function(p3) {
         let result;
         let variables = this.selectedCalculationObj?.variables;
+        let variable6 = this.selectedCalculation === 'rural' ? +variables?.rr6 : +variables?.ur6;
         if (variables?.cp10 === 0) {
-          result = (p3/100*variables.rr6)+variables.cp9;
+          result = (p3/100*variable6)+variables.cp9;
         } else {
-          result = p3/100*variables?.rr6;
+          result = p3/100*variable6;
         }
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp11 = result;
@@ -446,7 +455,8 @@ export class DataService {
       },
       cp12_calc: function(p3) {
         let variables = this.selectedCalculationObj?.variables;
-        let result = variables?.cp11/variables?.rp6;
+        let variable6 = this.selectedCalculation === 'rural' ? +variables?.rp6 : +variables?.up6;
+        let result = variables?.cp11/variable6;
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp12 = result;
         }
@@ -454,10 +464,11 @@ export class DataService {
       cp13_calc: function(p3) {
         let result;
         let variables = this.selectedCalculationObj?.variables;
+        let variable7 = this.selectedCalculation === 'rural' ? +variables?.rr7 : +variables?.ur7;
         if (variables?.cp12 === 0) {
-          result = (p3/100*variables.rr7)+variables.cp11;
+          result = (p3/100*variable7)+variables.cp11;
         } else {
-          result = p3/100*variables?.rr7;
+          result = p3/100*variable7;
         }
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp13 = result;
@@ -465,7 +476,8 @@ export class DataService {
       },
       cp14_calc: function(p3) {
         let variables = this.selectedCalculationObj?.variables;
-        let result = variables?.cp13/variables?.rp7;
+        let variable7 = this.selectedCalculation === 'rural' ? +variables?.rp7 : +variables?.up7;
+        let result = variables?.cp13/variable7;
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp14 = result;
         }
