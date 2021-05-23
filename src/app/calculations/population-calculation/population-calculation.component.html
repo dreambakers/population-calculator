@@ -53,28 +53,17 @@
                 calculations is it not important and could be ignored." class="ms-2">info</mat-icon>
             </div>
 
-            <div class="my-3">
-                <div class="d-flex align-items-between w-100 justify-content-between">
-                    <mat-label>Country Size Calculation Preference</mat-label>
-
-                    <mat-radio-group aria-label="Select an option" [(ngModel)]="nation.countrySizeCalculationPreference">
-                        <mat-radio-button value="area" class="me-2">Area (Km²)</mat-radio-button>
-                        <mat-radio-button value="percentage">Percentage (%)</mat-radio-button>
-                    </mat-radio-group>
-                </div>
-            </div>
-
             <div class="d-flex align-items-center justify-content-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Country Size in Km² </mat-label>
-                    <input [disabled]="nation.countrySizeCalculationPreference === 'percentage'" matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1" (ngModelChange)="onCountrySizeUpdate($event, nation)">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1" (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs1')">
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Country Size in %</mat-label>
-                    <input [disabled]="nation.countrySizeCalculationPreference === 'area'" matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2" (ngModelChange)="onCountrySizeUpdate($event, nation)">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2" (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs2')">
                 </mat-form-field>
             </div>
         </fieldset>

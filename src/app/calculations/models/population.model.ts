@@ -32,7 +32,6 @@ export interface NationCalculationVariables {
 export interface Nation {
     name: string;
     id: string;
-    countrySizeCalculationPreference: 'area' | 'percentage';
     variables: NationCalculationVariables;
     editing?: boolean;
     type: 'nation';

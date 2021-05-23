@@ -178,7 +178,6 @@ export class DataService {
       name: 'test',
       type: 'nation',
       id: uuid(),
-      countrySizeCalculationPreference: 'area',
       variables: {
         p3: 50, //TODO: REMOVE THIS!!
         m: 52,
@@ -200,16 +199,9 @@ export class DataService {
         }
       },
       popd_cacl: function() {
-        if (this.countrySizeCalculationPreference === 'area') {
-          const result = this.variables.p3/this.variables.cs1;
-          if (!isNaN(result)) {
-            this.variables.popd = result;
-          }
-        } else {
-          const result = this.variables.p3/this.variables.cs2;
-          if (!isNaN(result)) {
-            this.variables.popd = result;
-          }
+        const result = this.variables.p3/this.variables.cs1;
+        if (!isNaN(result)) {
+          this.variables.popd = result;
         }
       },
       ey2_calc: function() {
