@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { v4 as uuid } from 'uuid';
-import { Nation, PopulationCalculation } from '../models/population.model';
+import { Nation, NationCalculationVariables, PopulationCalculation } from '../models/population.model';
 
 @Component({
   selector: 'app-population-calculation',
@@ -44,7 +44,10 @@ export class PopulationCalculationComponent implements OnInit {
 
   copyNation(nation: Nation) {
     const newNationCopy = {
-      ...nation,
+      ...DataService.getDefaultNationObject(),
+      variables: {
+        ...nation.variables
+      },
       id: uuid()
     };
     this.populationCalculation.nations.push(newNationCopy);
@@ -76,8 +79,8 @@ export class PopulationCalculationComponent implements OnInit {
     }
   }
 
-  onCountrySizeUpdate(newVal: string, nation: Nation) {
-    if (nation.countrySizeCalculationPreference === 'area') {
+  onCountrySizeUpdate(newVal: string, nation: Nation, key: keyof NationCalculationVariables) {
+    if (key === 'cs1') {
       nation.variables.cs1 = +newVal;
       nation.cs2_calc(this.selectedLandmass.baseCalculation.variables.a1);
     } else {
