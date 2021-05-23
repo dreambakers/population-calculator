@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { ChartsModule } from 'ng2-charts';
@@ -65,7 +66,8 @@ import { CitiesComponent } from './calculations/cities/cities.component';
     DigitOnlyModule,
     MatTooltipModule,
     MatRadioModule,
-    ChartsModule
+    ChartsModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

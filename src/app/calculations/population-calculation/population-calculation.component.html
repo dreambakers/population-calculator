@@ -1,195 +1,242 @@
 <div>
-    <mat-card *ngFor="let nation of populationCalculation.nations" class="mb-3">
-        <div class="d-flex align-items-center">
-            <div class="p-2">
-                <button mat-icon-button (click)="nation.editing = !nation.editing">
-                    <mat-icon>{{ nation.editing ? 'done' : 'edit'}}</mat-icon>
-                </button>
-            </div>
-            <div class="p-2 flex-grow-1">
-                <h4 class="m-0" *ngIf="!nation.editing; else editMode">
-                    {{nation.name}}
-                </h4>
+    <div *ngFor="let nation of populationCalculation.nations" class="mb-3">
+        <mat-accordion>
+            <ng-template #nationHeader>
+                <div class="d-flex align-items-center">
+                    <div class="p-2">
+                        <button mat-icon-button (click)="nation.editing = !nation.editing">
+                            <mat-icon>{{ nation.editing ? 'done' : 'edit'}}</mat-icon>
+                        </button>
+                    </div>
+                    <div class="p-2 flex-grow-1">
+                        <h4 class="m-0" *ngIf="!nation.editing; else editMode">
+                            {{nation.name}}
+                        </h4>
 
-                <ng-template #editMode>
-                    <input matInput [(ngModel)]="nation.name" placeholder="Nation name..." autofocus>
-                </ng-template>
-            </div>
+                        <ng-template #editMode>
+                            <input matInput [(ngModel)]="nation.name" placeholder="Nation name..." autofocus>
+                        </ng-template>
+                    </div>
 
-            <div class="p-2">
-                <button mat-icon-button (click)="copyNation(nation)">
-                    <mat-icon>content_copy</mat-icon>
-                </button>
-            </div>
+                    <div class="p-2">
+                        <button mat-icon-button (click)="copyNation(nation)">
+                            <mat-icon>content_copy</mat-icon>
+                        </button>
+                    </div>
 
-            <div class="p-2">
-                <button mat-icon-button (click)="deleteNation(nation)">
-                    <mat-icon>clear</mat-icon>
-                </button>
-            </div>
-        </div>
+                    <div class="p-2">
+                        <button mat-icon-button (click)="deleteNation(nation)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </div>
 
-        <hr>
+                    <div class="p-2">
+                        <button mat-icon-button (click)="nation.expanded = !nation.expanded">
+                            <mat-icon>
+                                {{nation.expanded ? 'expand_less' : 'expand_more'}}
+                            </mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Total Population</legend>
-                <mat-icon matSuffix matTooltip="The “Total Population” is the same as the one in the *Base Calculation* Tab" class="ms-2">info</mat-icon>
-            </div>
+            <mat-card *ngIf="!nation.expanded">
+                <ng-template [ngTemplateOutlet]="nationHeader"></ng-template>
+            </mat-card>
 
-            <div class="d-flex">
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Total Population</mat-label>
-                    <input matInput disabled [ngModel]="selectedLandmass.baseCalculation.variables.pop1">
-                </mat-form-field>
-            </div>
-        </fieldset>
+            <mat-expansion-panel [expanded]='nation.expanded' class="mep-no-padding">
+                <mat-card>
+                    <ng-template [ngTemplateOutlet]="nationHeader"></ng-template>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Country Size</legend>
-                <mat-icon matSuffix matTooltip="The “Country Size” option shows the size of the current nation you want to calculate.
-                This is only important for the “Population Density” option, for other further
-                calculations is it not important and could be ignored." class="ms-2">info</mat-icon>
-            </div>
+                    <hr>
 
-            <div class="d-flex align-items-center justify-content-center">
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Country Size in Km² </mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1" (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs1')">
-                </mat-form-field>
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Total Population</legend>
+                            <mat-icon matSuffix
+                                matTooltip="The “Total Population” is the same as the one in the *Base Calculation* Tab"
+                                class="ms-2">info</mat-icon>
+                        </div>
 
-                <h4 class="m-2">=</h4>
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Total Population</mat-label>
+                                <input matInput disabled [ngModel]="selectedLandmass.baseCalculation.variables.pop1">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
 
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Country Size in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2" (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs2')">
-                </mat-form-field>
-            </div>
-        </fieldset>
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Country Size</legend>
+                            <mat-icon matSuffix matTooltip="The “Country Size” option shows the size of the current nation you want to calculate.
+                    This is only important for the “Population Density” option, for other further
+                    calculations is it not important and could be ignored." class="ms-2">info</mat-icon>
+                        </div>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Population Density</legend>
-                <mat-icon matSuffix matTooltip="The “Population Density” shows the amount of population per Km²" class="ms-2">info</mat-icon>
-            </div>
-            <mat-form-field appearance="fill" class="w-50">
-                <mat-label>Population Density</mat-label>
-                <input matInput type="text" [ngModel]="nation.variables.popd" disabled>
-            </mat-form-field>
-        </fieldset>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Country Size in Km² </mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1"
+                                    (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs1')">
+                            </mat-form-field>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Population Division</legend>
-            </div>
-                <table class="table table-hover w-100" id="populationDivision">
-                    <thead>
-                      <tr>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col">Males in %</th>
-                        <th scope="col">Females in %</th>
-                        <th scope="col">Total in %</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th></th>
-                        <th>Insert % Numbers</th>
-                        <td>
-                            <input class="form-control table-input"  type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.m" (ngModelChange)="onTableValueUpdate(nation)">
-                        </td>
-                        <td>
-                            <input class="form-control table-input"  type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.f" (ngModelChange)="onTableValueUpdate(nation)">
-                        </td>
-                        <td>{{(+nation.variables.m) + (+nation.variables.f)}}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Elderly in %</th>
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ey1" (ngModelChange)="onTableValueUpdate(nation)">
-                        </td>
-                        <td>{{nation.variables.ey2}}</td>
-                        <td>{{nation.variables.ey3}}</td>
-                        <td>{{nation.variables.ey4}}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Adults in %</th>
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ad1" (ngModelChange)="onTableValueUpdate(nation)">
-                        </td>
-                        <td>{{nation.variables.ad2}}</td>
-                        <td>{{nation.variables.ad3}}</td>
-                        <td>{{nation.variables.ad4}}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Children in %</th>
-                        <td>
-                            <input class="form-control table-input" type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ch1" (ngModelChange)="onTableValueUpdate(nation)">
-                        </td>
-                        <td>{{nation.variables.ch2}}</td>
-                        <td>{{nation.variables.ch3}}</td>
-                        <td>{{nation.variables.ch4}}</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Total in %</th>
-                        <td>
-                            {{+nation.variables.ey1 + (+nation.variables.ad1) + (+nation.variables.ch1) }}
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-        </fieldset>
+                            <h4 class="m-2">=</h4>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Country Aggression</legend>
-                <mat-icon matSuffix matTooltip="The “Country Aggression” shows how aggressive this country is towards its neighbours.
-                A more aggressive nation tends to field a bigger army by default." class="ms-2">info</mat-icon>
-            </div>
-            <mat-form-field appearance="fill" class="w-50">
-                <mat-label>Country Aggression</mat-label>
-                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ca" (ngModelChange)="updateTTM(nation)">
-            </mat-form-field>
-        </fieldset>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Country Size in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2"
+                                    (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs2')">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Internal Threats</legend>
-                <mat-icon matSuffix matTooltip="The “Internal Threats” shows how unstable the country is. The more unstable the more soldiers have to go around to secure the peace." class="ms-2">info</mat-icon>
-            </div>
-            <mat-form-field appearance="fill" class="w-50">
-                <mat-label>Internal Threats</mat-label>
-                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.it" (ngModelChange)="updateTTM(nation)">
-            </mat-form-field>
-        </fieldset>
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Population Density</legend>
+                            <mat-icon matSuffix
+                                matTooltip="The “Population Density” shows the amount of population per Km²"
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Population Density</mat-label>
+                            <input matInput type="text" [ngModel]="nation.variables.popd" disabled>
+                        </mat-form-field>
+                    </fieldset>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">External Threats</legend>
-                <mat-icon matSuffix matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies." class="ms-2">info</mat-icon>
-            </div>
-            <mat-form-field appearance="fill" class="w-50">
-                <mat-label>External Threats</mat-label>
-                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.et" (ngModelChange)="updateTTM(nation)">
-            </mat-form-field>
-        </fieldset>
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Population Division</legend>
+                        </div>
+                        <table class="table table-hover w-100" id="populationDivision">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Males in %</th>
+                                    <th scope="col">Females in %</th>
+                                    <th scope="col">Total in %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th>Insert % Numbers</th>
+                                    <td>
+                                        <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                                            [(ngModel)]="nation.variables.m"
+                                            (ngModelChange)="onTableValueUpdate(nation)">
+                                    </td>
+                                    <td>
+                                        <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                                            [(ngModel)]="nation.variables.f"
+                                            (ngModelChange)="onTableValueUpdate(nation)">
+                                    </td>
+                                    <td>{{(+nation.variables.m) + (+nation.variables.f)}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Elderly in %</th>
+                                    <td>
+                                        <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                                            [(ngModel)]="nation.variables.ey1"
+                                            (ngModelChange)="onTableValueUpdate(nation)">
+                                    </td>
+                                    <td>{{nation.variables.ey2}}</td>
+                                    <td>{{nation.variables.ey3}}</td>
+                                    <td>{{nation.variables.ey4}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Adults in %</th>
+                                    <td>
+                                        <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                                            [(ngModel)]="nation.variables.ad1"
+                                            (ngModelChange)="onTableValueUpdate(nation)">
+                                    </td>
+                                    <td>{{nation.variables.ad2}}</td>
+                                    <td>{{nation.variables.ad3}}</td>
+                                    <td>{{nation.variables.ad4}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Children in %</th>
+                                    <td>
+                                        <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                                            [(ngModel)]="nation.variables.ch1"
+                                            (ngModelChange)="onTableValueUpdate(nation)">
+                                    </td>
+                                    <td>{{nation.variables.ch2}}</td>
+                                    <td>{{nation.variables.ch3}}</td>
+                                    <td>{{nation.variables.ch4}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Total in %</th>
+                                    <td>
+                                        {{+nation.variables.ey1 + (+nation.variables.ad1) + (+nation.variables.ch1) }}
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
 
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Total Threat Modifier</legend>
-                <mat-icon matSuffix matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies." class="ms-2">info</mat-icon>
-            </div>
-            <mat-form-field appearance="fill" class="w-50">
-                <mat-label>Total Threat Modifier</mat-label>
-                <input matInput type="text" disabled [(ngModel)]="nation.variables.ttm">
-            </mat-form-field>
-        </fieldset>
-    </mat-card>
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Country Aggression</legend>
+                            <mat-icon matSuffix matTooltip="The “Country Aggression” shows how aggressive this country is towards its neighbours.
+                    A more aggressive nation tends to field a bigger army by default." class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Country Aggression</mat-label>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ca"
+                                (ngModelChange)="updateTTM(nation)">
+                        </mat-form-field>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Internal Threats</legend>
+                            <mat-icon matSuffix
+                                matTooltip="The “Internal Threats” shows how unstable the country is. The more unstable the more soldiers have to go around to secure the peace."
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Internal Threats</mat-label>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.it"
+                                (ngModelChange)="updateTTM(nation)">
+                        </mat-form-field>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">External Threats</legend>
+                            <mat-icon matSuffix
+                                matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies."
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>External Threats</mat-label>
+                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.et"
+                                (ngModelChange)="updateTTM(nation)">
+                        </mat-form-field>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Total Threat Modifier</legend>
+                            <mat-icon matSuffix
+                                matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies."
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Total Threat Modifier</mat-label>
+                            <input matInput type="text" disabled [(ngModel)]="nation.variables.ttm">
+                        </mat-form-field>
+                    </fieldset>
+                </mat-card>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 
     <mat-card>
         <div class="d-flex align-items-center">

@@ -8,3 +8,9 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background: #f5f5f5;
 }
+
+.mep-no-padding {
+    .mat-expansion-panel-body {
+        padding: 0;
+    }
+}

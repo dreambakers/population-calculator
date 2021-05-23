@@ -186,6 +186,7 @@ export class DataService {
         ad1: 58,
         ch1: 37,
       },
+      expanded: true,
       cs1_calc: function(area) {
         const result = area/100*this.variables.cs2;
         if (!isNaN(result)) {
