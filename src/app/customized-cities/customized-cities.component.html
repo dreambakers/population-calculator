@@ -1,0 +1,159 @@
+<div>
+    <div *ngFor="let city of customizedCityCalculation.cites" class="mb-3">
+        <mat-accordion>
+
+            <mat-expansion-panel [expanded]='city.expanded' class="mep-no-padding">
+                <mat-card>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                          <legend class="w-auto m-0">City Type</legend>
+                          <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Select City Type</mat-label>
+                            <mat-select [(ngModel)]="city.type">
+                              <mat-option value="tall">
+                                Tall
+                              </mat-option>
+                              <mat-option value="wide">
+                                Wide
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Population in the City</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Population in the City</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="city.variables.pic">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">City Centre Population</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>City Centre Population</mat-label>
+                                <input matInput disabled [ngModel]="city.variables.ccp">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">City Centre Area</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>City Centre Area</mat-label>
+                                <input matInput disabled [ngModel]="city.variables.ccp">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Urban Population</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Urban Population</mat-label>
+                                <input matInput disabled [ngModel]="city.variables.up">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Urban Area</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Urban Area</mat-label>
+                                <input matInput disabled [ngModel]="city.variables.ua">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Metropolitan Population</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Metropolitan Population</mat-label>
+                                <input matInput disabled [ngModel]="city.variables.mp">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Metropolitan Area</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Metropolitan Area</mat-label>
+                                <input matInput disabled [ngModel]="city.variables.ma">
+                            </mat-form-field>
+                        </div>
+                    </fieldset>
+
+                </mat-card>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <mat-card>
+        <div class="d-flex align-items-center cursor-pointer" (click)="addCity()">
+            <div class="p-2">
+                <button mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div>
+                Add city
+            </div>
+        </div>
+    </mat-card>
+</div>

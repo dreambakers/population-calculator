@@ -33,6 +33,7 @@ import { CalculationsComponent } from './calculations/calculations.component';
 import { PopulationCalculationComponent } from './calculations/population-calculation/population-calculation.component';
 import { SimpleAndPiechartDemographicsComponent } from './calculations/simple-and-piechart-demographics/simple-and-piechart-demographics.component';
 import { CitiesComponent } from './calculations/cities/cities.component';
+import { CustomizedCitiesComponent } from './customized-cities/customized-cities.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CitiesComponent } from './calculations/cities/cities.component';
     CalculationsComponent,
     PopulationCalculationComponent,
     SimpleAndPiechartDemographicsComponent,
-    CitiesComponent
+    CitiesComponent,
+    CustomizedCitiesComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { SimpleAndPiechartDemographics, SimpleAndPiechartDemographicsVariables }
 import { Utility } from '../utils/utility';
 import { World } from '../calculations/models/world.model';
 import { Landmass } from '../calculations/models/landmass.model';
+import { CustomizedCity, CustomizedCityCalculation } from '../calculations/models/customized-cities.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class DataService {
       populationCalculation: DataService.getDefaultPopulationCalculationObject(),
       simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject(),
       cityCalculation: DataService.getDefaultCityCalculationObject(),
+      customizedCityCalculation: DataService.getDefaultCustomizedCityCalculationObject(),
       type: 'landmass'
     }]
   };
@@ -483,6 +485,67 @@ export class DataService {
           }
         });
       }
+    };
+  }
+
+  public static getDefaultCustomizedCityObject(): CustomizedCity {
+    return {
+      type: 'tall',
+      variables: {},
+      expanded: true,
+      ccp_calc: function() {
+        let result = this.variables.pic/100;
+        if (!isNaN(result)) {
+          this.variables.ccp = result;
+        }
+      },
+      cca_calc: function() {
+        let result1 = this.variables.ccpt/100;
+        let result2 = this.variables.ccpt/100;
+        if (!isNaN(result1)) {
+          this.variables.cca = result1;
+        } else if (!isNaN(result2)) {
+          this.variables.cca = result2;
+        }
+      },
+      up_calc: function() {
+        let result = this.variables.pic/100;
+        if (!isNaN(result)) {
+          this.variables.up = result;
+        }
+      },
+      ua_calc: function() {
+        let result1 = this.variables.up/100;
+        let result2 = this.variables.up/100;
+        if (!isNaN(result1)) {
+          this.variables.ua = result1;
+        } else if (!isNaN(result2)) {
+          this.variables.ua = result2;
+        }
+      },
+      mp_calc: function() {
+        let result = this.variables.pic/100;
+        if (!isNaN(result)) {
+          this.variables.mp = result;
+        }
+      },
+      ma_calc: function() {
+        let result1 = this.variables.mp/100;
+        let result2 = this.variables.mp/100;
+        if (!isNaN(result1)) {
+          this.variables.ma = result1;
+        } else if (!isNaN(result2)) {
+          this.variables.ma = result2;
+        }
+      }
+    };
+  }
+
+  public static getDefaultCustomizedCityCalculationObject(): CustomizedCityCalculation {
+    return {
+      cites: [
+        DataService.getDefaultCustomizedCityObject()
+      ]
     };
   }
 
