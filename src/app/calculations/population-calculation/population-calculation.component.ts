@@ -16,10 +16,7 @@ export class PopulationCalculationComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-     // TODO: REMOVE THIS!
-     this.copyNation(DataService.getSelectedLandmass().populationCalculation.nations[0])
-  }
+  ngOnInit(): void { }
 
   addNation() {
     if (this.addNewNation) {
@@ -89,7 +86,25 @@ export class PopulationCalculationComponent implements OnInit {
     }
   }
 
-  onTableValueUpdate(nation: Nation) {
+  onPopulationDistributionChange(newVal: string, nation: Nation) {
+    nation.variables.npd1 = +newVal;
+    nation.npd2_calc(this.selectedLandmass.baseCalculation.variables.pop1);
+    this.runAllCalculations(nation);
+  }
+
+  onDisasterLossesChange(newVal: string, nation: Nation) {
+    nation.variables.p1 = +newVal;
+    this.runAllCalculations(nation);
+  }
+
+  runAllCalculations(nation: Nation) {
+    nation.p2_calc();
+    nation.p3_calc();
+    nation.popd_calc();
+    this.runTableCalculations(nation);
+  }
+
+  runTableCalculations(nation: Nation) {
     nation.ey2_calc();
     nation.ey3_calc();
     nation.ey4_calc();
@@ -101,6 +116,10 @@ export class PopulationCalculationComponent implements OnInit {
     nation.ch2_calc();
     nation.ch3_calc();
     nation.ch4_calc();
+  }
+
+  onTableValueUpdate(nation: Nation) {
+    this.runTableCalculations(nation);
   }
 
   updateTTM(nation: Nation) {

@@ -181,7 +181,6 @@ export class DataService {
       type: 'nation',
       id: uuid(),
       variables: {
-        p3: 50, //TODO: REMOVE THIS!!
         m: 52,
         f: 48,
         ey1: 5,
@@ -199,12 +198,6 @@ export class DataService {
         const result = this.variables.cs1/area*100;
         if (!isNaN(result)) {
           this.variables.cs2 = result;
-        }
-      },
-      popd_cacl: function() {
-        const result = this.variables.p3/this.variables.cs1;
-        if (!isNaN(result)) {
-          this.variables.popd = result;
         }
       },
       ey2_calc: function() {
@@ -265,6 +258,30 @@ export class DataService {
         const result = this.variables.ca + this.variables.it + this.variables.et;
         if (!isNaN(result)) {
           this.variables.ttm = result;
+        }
+      },
+      npd2_calc: function(pop1) {
+        const result = pop1/100*this.variables.npd1;
+        if (!isNaN(result)) {
+          this.variables.npd2 = result;
+        }
+      },
+      p2_calc: function() {
+        const result = this.variables.npd2/100*this.variables.p1;
+        if (!isNaN(result)) {
+          this.variables.p2 = result;
+        }
+      },
+      p3_calc: function() {
+        const result = this.variables.npd2 - this.variables.p2;
+        if (!isNaN(result)) {
+          this.variables.p3 = result;
+        }
+      },
+      popd_calc: function() {
+        const result = this.variables.p3/this.variables.cs1;
+        if (!isNaN(result)) {
+          this.variables.popd = result;
         }
       }
     };
@@ -490,7 +507,7 @@ export class DataService {
 
   public static getDefaultCustomizedCityObject(): CustomizedCity {
     return {
-      type: 'tall',
+      type: 'super_dense',
       variables: {},
       expanded: true,
       ccp_calc: function() {

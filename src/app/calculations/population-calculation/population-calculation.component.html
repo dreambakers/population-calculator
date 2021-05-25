@@ -106,6 +106,58 @@
 
                     <fieldset class="my-3">
                         <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Population Destribution %</legend>
+                            <mat-icon matSuffix
+                                matTooltip="The “Population Distribution” shows how many people are distributed into yourcountry defined from the “Total Population”"
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Population Destribution %</mat-label>
+                            <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.npd1" (ngModelChange)="onPopulationDistributionChange($event, nation)">
+                        </mat-form-field>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Total Regional Population</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Total Regional Population</mat-label>
+                            <input matInput type="text" [ngModel]="nation.variables.npd2" disabled>
+                        </mat-form-field>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Disaster Losses in %</legend>
+                            <mat-icon matSuffix
+                                matTooltip="The “Disaster Losses” show how much population might have died during a war, a plague or other causes of massive death. If you have no losses write the number 0 in the option field."
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Disaster Losses in %</mat-label>
+                            <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.p1" (ngModelChange)="onDisasterLossesChange($event, nation)">
+                        </mat-form-field>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Leftover population</legend>
+                            <mat-icon matSuffix
+                                matTooltip=""
+                                class="ms-2">info</mat-icon>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-50">
+                            <mat-label>Leftover population</mat-label>
+                            <input matInput type="text" [ngModel]="nation.variables.p3" disabled>
+                        </mat-form-field>
+                    </fieldset>
+
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
                             <legend class="w-auto m-0">Population Division</legend>
                         </div>
                         <table class="table table-hover w-100" id="populationDivision">

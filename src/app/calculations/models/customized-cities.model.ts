@@ -19,7 +19,7 @@ export interface CustomizedCityVariables {
 }
 
 export interface CustomizedCity {
-    type: 'tall' | 'wide';
+    type: 'super_dense' | 'dense' | 'sparse' | 'super_sparse';
     variables: CustomizedCityVariables;
     expanded: boolean;
     ccp_calc(): void;

@@ -47,7 +47,10 @@ export interface Nation {
     ch3_calc(): void;
     ch4_calc(): void;
     ttm_calc(): void;
-    popd_cacl(): void;
+    popd_calc(): void;
+    npd2_calc(pop1: number): void;
+    p2_calc(): void;
+    p3_calc(): void;
     expanded: boolean;
 }
 export interface PopulationCalculation {
