@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomizedCityCalculation } from '../calculations/models/customized-cities.model';
+import { CustomizedCity, CustomizedCityCalculation, CustomizedCityVariables } from '../calculations/models/customized-cities.model';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -18,6 +18,11 @@ export class CustomizedCitiesComponent implements OnInit {
 
   addCity() {
     this.customizedCityCalculation.cites.push(DataService.getDefaultCustomizedCityObject());
+  }
+
+  onTableValueUpdate(newValue: string, key: keyof CustomizedCityVariables, city: CustomizedCity) {
+    city.variables[key] = +newValue;
+    city.calculateAll();
   }
 
   get customizedCities() {

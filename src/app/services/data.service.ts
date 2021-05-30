@@ -7,7 +7,7 @@ import { SimpleAndPiechartDemographics, SimpleAndPiechartDemographicsVariables }
 import { Utility } from '../utils/utility';
 import { World } from '../calculations/models/world.model';
 import { Landmass } from '../calculations/models/landmass.model';
-import { CustomizedCity, CustomizedCityCalculation } from '../calculations/models/customized-cities.model';
+import { CustomizedCity, CustomizedCityCalculation, CustomizedCityVariables } from '../calculations/models/customized-cities.model';
 
 @Injectable({
   providedIn: 'root'
@@ -508,52 +508,172 @@ export class DataService {
   public static getDefaultCustomizedCityObject(): CustomizedCity {
     return {
       type: 'super_dense',
-      variables: {},
+      variables: {
+        ccsdc: 56.6,
+        ccdc: 44.5,
+        ccsc: 40.1,
+        ccssc: 33.2,
+
+        ccsdcp: 25000,
+        ccdcp: 20000,
+        ccscp: 5000,
+        ccsscp: 3500,
+
+        usdc: 33.2,
+        udc: 40.1,
+        usc: 44.5,
+        ussc: 40.1,
+
+        usdcp: 1500,
+        udcp: 1000,
+        uscp: 2500,
+        usscp: 3000,
+
+        msdc: 10.2,
+        mdc: 15.4,
+        msc: 15.4,
+        mssc: 26.7,
+
+        msdcp: 150,
+        mdcp: 200,
+        mscp: 500,
+        msscp: 1000
+      },
       expanded: true,
-      ccp_calc: function() {
-        let result = this.variables.pic/100;
+      cip_calc: function() {
+        let cc;
+        switch(this.type) {
+          case 'super_dense':
+            cc = this.variables.ccsdc;
+            break;
+          case 'dense':
+            cc = this.variables.ccdc;
+            break;
+          case 'sparse':
+            cc = this.variables.ccsc;
+            break;
+          case 'super_sparse':
+            cc = this.variables.ccssc;
+            break;
+        }
+
+        let result = this.variables.pic/cc;
         if (!isNaN(result)) {
-          this.variables.ccp = result;
+          this.variables.cip = result;
         }
       },
-      cca_calc: function() {
-        let result1 = this.variables.ccpt/100;
-        let result2 = this.variables.ccpt/100;
-        if (!isNaN(result1)) {
-          this.variables.cca = result1;
-        } else if (!isNaN(result2)) {
-          this.variables.cca = result2;
+      cia_calc: function() {
+        let ccp;
+        switch(this.type) {
+          case 'super_dense':
+            ccp = this.variables.ccsdcp;
+            break;
+          case 'dense':
+            ccp = this.variables.ccdcp;
+            break;
+          case 'sparse':
+            ccp = this.variables.ccscp;
+            break;
+          case 'super_sparse':
+            ccp = this.variables.ccsscp;
+            break;
         }
-      },
-      up_calc: function() {
-        let result = this.variables.pic/100;
+        let result = this.variables.cip/ccp;
         if (!isNaN(result)) {
-          this.variables.up = result;
+          this.variables.cia = result;
         }
       },
-      ua_calc: function() {
-        let result1 = this.variables.up/100;
-        let result2 = this.variables.up/100;
-        if (!isNaN(result1)) {
-          this.variables.ua = result1;
-        } else if (!isNaN(result2)) {
-          this.variables.ua = result2;
+      urp_calc: function() {
+        let u;
+        switch(this.type) {
+          case 'super_dense':
+            u = this.variables.usdc;
+            break;
+          case 'dense':
+            u = this.variables.udc;
+            break;
+          case 'sparse':
+            u = this.variables.usc;
+            break;
+          case 'super_sparse':
+            u = this.variables.ussc;
+            break;
         }
-      },
-      mp_calc: function() {
-        let result = this.variables.pic/100;
+        let result = this.variables.pic/100*u;
         if (!isNaN(result)) {
-          this.variables.mp = result;
+          this.variables.urp = result;
         }
       },
-      ma_calc: function() {
-        let result1 = this.variables.mp/100;
-        let result2 = this.variables.mp/100;
-        if (!isNaN(result1)) {
-          this.variables.ma = result1;
-        } else if (!isNaN(result2)) {
-          this.variables.ma = result2;
+      ura_calc: function() {
+        let up;
+        switch(this.type) {
+          case 'super_dense':
+            up = this.variables.usdcp;
+            break;
+          case 'dense':
+            up = this.variables.udcp;
+            break;
+          case 'sparse':
+            up = this.variables.uscp;
+            break;
+          case 'super_sparse':
+            up = this.variables.usscp;
+            break;
         }
+        let result = this.variables.urp*up;
+        if (!isNaN(result)) {
+          this.variables.ura = result;
+        }
+      },
+      mep_calc: function() {
+        let m;
+        switch(this.type) {
+          case 'super_dense':
+            m = this.variables.msdc;
+            break;
+          case 'dense':
+            m = this.variables.mdc;
+            break;
+          case 'sparse':
+            m = this.variables.msc;
+            break;
+          case 'super_sparse':
+            m = this.variables.mssc;
+            break;
+        }
+        let result = this.variables.pic/100*m;
+        if (!isNaN(result)) {
+          this.variables.mep = result;
+        }
+      },
+      mea_calc: function() {
+        let mp;
+        switch(this.type) {
+          case 'super_dense':
+            mp = this.variables.msdcp;
+            break;
+          case 'dense':
+            mp = this.variables.mdcp;
+            break;
+          case 'sparse':
+            mp = this.variables.mscp;
+            break;
+          case 'super_sparse':
+            mp = this.variables.msscp;
+            break;
+        }
+        let result = this.variables.mep*mp;
+        if (!isNaN(result)) {
+          this.variables.mea = result;
+        }
+      },
+      calculateAll: function() {
+        this.cip_calc();
+        this.cia_calc();
+        this.urp_calc();
+        this.ura_calc();
+        this.mep_calc();
+        this.mea_calc();
       }
     };
   }

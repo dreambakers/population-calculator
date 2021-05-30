@@ -1,33 +1,54 @@
 export interface CustomizedCityVariables {
-    twc1?: any;
-    ccpt?: any;
-    ccpw?: any;
-    twc2?: any;
-    upt?: any;
-    upw?: any;
-    twc3?: any;
-    mpt?: any;
-    mpw?: any;
+    ccsdc?: any;
+    ccdc?: any;
+    ccsc?: any;
+    ccssc?: any;
+
+    ccsdcp?: any;
+    ccdcp?: any;
+    ccscp?: any;
+    ccsscp?: any;
+
+    usdc?: any;
+    udc?: any;
+    usc?: any;
+    ussc?: any;
+
+    usdcp?: any;
+    udcp?: any;
+    uscp?: any;
+    usscp?: any;
+
+    msdc?: any;
+    mdc?: any;
+    msc?: any;
+    mssc?: any;
+
+    msdcp?: any;
+    mdcp?: any;
+    mscp?: any;
+    msscp?: any;
 
     pic?: any;
-    ccp?: any;
-    cca?: any;
-    up?: any;
-    ua?: any;
-    mp?: any;
-    ma?: any;
+    cip?: any;
+    cia?: any;
+    urp?: any;
+    ura?: any;
+    mep?: any;
+    mea?: any;
 }
 
 export interface CustomizedCity {
     type: 'super_dense' | 'dense' | 'sparse' | 'super_sparse';
     variables: CustomizedCityVariables;
     expanded: boolean;
-    ccp_calc(): void;
-    cca_calc(): void;
-    up_calc(): void;
-    ua_calc(): void;
-    mp_calc(): void;
-    ma_calc(): void;
+    cip_calc(): void;
+    cia_calc(): void;
+    urp_calc(): void;
+    ura_calc(): void;
+    mep_calc(): void;
+    mea_calc(): void;
+    calculateAll(): void;
 }
 
 export interface CustomizedCityCalculation {
