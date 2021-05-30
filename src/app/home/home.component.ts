@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
       res => {
         if (res) {
           DataService.world = {
+            ...DataService.getDefaultWorldObject(),
             name: res,
-            landmasses: []
           };
           this.router.navigate(['/landmasses']);
         }

@@ -7,27 +7,13 @@ import { SimpleAndPiechartDemographics, SimpleAndPiechartDemographicsVariables }
 import { Utility } from '../utils/utility';
 import { World } from '../calculations/models/world.model';
 import { Landmass } from '../calculations/models/landmass.model';
-import { CustomizedCity, CustomizedCityCalculation, CustomizedCityVariables } from '../calculations/models/customized-cities.model';
+import { CustomizedCity, CustomizedCityCalculation } from '../calculations/models/customized-cities.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  public static id = uuid(); //TODO: REMOVE
-  public static world: World = {
-    name: 'test',
-    selectedLandmass: DataService.id,
-    landmasses: [{
-      name: 'test',
-      id: DataService.id,
-      baseCalculation: DataService.getDefaultBaseCalculationsObject(),
-      populationCalculation: DataService.getDefaultPopulationCalculationObject(),
-      simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject(),
-      cityCalculation: DataService.getDefaultCityCalculationObject(),
-      customizedCityCalculation: DataService.getDefaultCustomizedCityCalculationObject(),
-      type: 'landmass'
-    }]
-  };
+  public static world: World = DataService.getDefaultWorldObject();
 
   public static setSelectedLandmass(selectedLandmassId: string) {
     DataService.world.selectedLandmass = selectedLandmassId;
@@ -35,6 +21,26 @@ export class DataService {
 
   public static getSelectedLandmass(): Landmass {
     return Utility.ensure(DataService.world.landmasses.find(landmass => landmass.id === DataService.world.selectedLandmass));
+  }
+
+  public static getDefaultWorldObject(): World {
+    return {
+      name: '',
+      landmasses: []
+    }
+  }
+
+  public static getDefaultLandmassObject(): Landmass {
+    return {
+      name: '',
+      id: uuid(),
+      baseCalculation: DataService.getDefaultBaseCalculationsObject(),
+      populationCalculation: DataService.getDefaultPopulationCalculationObject(),
+      simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject(),
+      cityCalculation: DataService.getDefaultCityCalculationObject(),
+      customizedCityCalculation: DataService.getDefaultCustomizedCityCalculationObject(),
+      type: 'landmass'
+    };
   }
 
   public static getDefaultBaseCalculationsObject(): BaseCalculation {

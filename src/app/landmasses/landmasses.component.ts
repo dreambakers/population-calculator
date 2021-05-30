@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { v4 as uuid } from 'uuid';
 import { Landmass } from '../calculations/models/landmass.model';
+import { World } from '../calculations/models/world.model';
 
 @Component({
   selector: 'app-landmasses',
@@ -35,17 +36,15 @@ export class LandmassesComponent implements OnInit {
   addLandmass() {
     if (this.addNewLandmass) {
       this.landmasses.push({
+        ...DataService.getDefaultLandmassObject(),
         name: this.newLandmass,
-        type: 'landmass',
-        id: uuid(),
-        baseCalculation: DataService.getDefaultBaseCalculationsObject(),
-        populationCalculation: DataService.getDefaultPopulationCalculationObject(),
-        simpleAndPiechartDemographics: DataService.getDefaultSimpleAndPiechartDemographicsObject(),
-        cityCalculation: DataService.getDefaultCityCalculationObject(),
-        customizedCityCalculation: DataService.getDefaultCustomizedCityCalculationObject()
       });
       this.newLandmass = '';
     }
     this.addNewLandmass = !this.addNewLandmass;
+  }
+
+  get world(): World {
+    return DataService.world;
   }
 }

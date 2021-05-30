@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../services/data.service';
+import { Landmass } from './models/landmass.model';
 
 @Component({
   selector: 'app-calculations',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalculationsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    if (this.route.snapshot.params.id) {
+      DataService.world.selectedLandmass = this.route.snapshot.params.id;
+    }
+  }
 
   ngOnInit(): void {
   }
 
+  get selectedLandmass(): Landmass {
+    return DataService.getSelectedLandmass();
+  }
 }

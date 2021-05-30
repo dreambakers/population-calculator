@@ -1,22 +1,22 @@
-<div class="mt-4">
-    <h1>Landmass Name</h1>
+<div class="mt-4 d-flex justify-content-between">
+    <h1>{{ selectedLandmass.name }}</h1>
+    <a routerLink="/landmasses">Back</a>
 </div>
 
-
 <mat-tab-group>
+    <mat-tab label="Base Calculation">
+        <app-base-calculation></app-base-calculation>
+    </mat-tab>
     <mat-tab label="Population Calculation">
         <app-population-calculation></app-population-calculation>
-    </mat-tab>
-    <mat-tab label="Customized Cities">
-        <app-customized-cities></app-customized-cities>
-    </mat-tab>
-    <mat-tab label="Cities">
-        <app-cities></app-cities>
     </mat-tab>
     <mat-tab label="Demographics">
         <app-simple-and-piechart-demographics></app-simple-and-piechart-demographics>
     </mat-tab>
-    <mat-tab label="Base Calculation">
-        <app-base-calculation></app-base-calculation>
+    <mat-tab label="Cities">
+        <app-cities></app-cities>
+    </mat-tab>
+    <mat-tab label="Customized Cities">
+        <app-customized-cities></app-customized-cities>
     </mat-tab>
 </mat-tab-group>
