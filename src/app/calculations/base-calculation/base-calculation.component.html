@@ -79,50 +79,6 @@
 
         <fieldset class="my-3">
             <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Mountains</legend>
-                <mat-icon matSuffix matTooltip="The “Mountain” are does not include the lush valley, only hard to inhabitable zones
-                like glaciers mountain peaks or rocky cliffs." class="ms-2">info</mat-icon>
-            </div>
-
-            <div class="d-flex align-items-center">
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Mountains in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m1" (ngModelChange)="onChange($event,'m1','m2')">
-                </mat-form-field>
-
-                <h4 class="m-2">=</h4>
-
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Mountains in Area%</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m2" (ngModelChange)="onChange($event,'m2','m1')">
-                </mat-form-field>
-            </div>
-        </fieldset>
-
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
-                <legend class="w-auto m-0">Rocky Hills</legend>
-                <mat-icon matSuffix matTooltip="The “Rocky Hills” show hills, or other areas that have a hard underground, usually
-                some rocks or gravel like substances which are tedious to remove for farmable land." class="ms-2">info</mat-icon>
-            </div>
-
-            <div class="d-flex align-items-center">
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Rocky Hills in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra1" (ngModelChange)="onChange($event,'ra1','ra2')">
-                </mat-form-field>
-
-                <h4 class="m-2">=</h4>
-
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Rocky Hills in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra2" (ngModelChange)="onChange($event,'ra2','ra1')">
-                </mat-form-field>
-            </div>
-        </fieldset>
-
-        <fieldset class="my-3">
-            <div class="d-flex align-items-center mb-2">
                 <legend class="w-auto m-0">Freshwater</legend>
                 <mat-icon matSuffix matTooltip="“Freshwater” similar to the “Forests” do not have a high impact on the population
                 amount. It shows rivers or lakes made out of freshwater." class="ms-2">info</mat-icon>
@@ -139,6 +95,28 @@
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Freshwater in %</mat-label>
                     <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.fw2" (ngModelChange)="onChange($event,'fw2','fw1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Mountains</legend>
+                <mat-icon matSuffix matTooltip="The “Mountain” are does not include the lush valley, only hard to inhabitable zones
+                like glaciers mountain peaks or rocky cliffs." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Mountains in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m1" (ngModelChange)="onChange($event,'m1','m2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Mountains in Area%</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m2" (ngModelChange)="onChange($event,'m2','m1')">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -162,6 +140,28 @@
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Desert & Tundra in %</mat-label>
                     <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.dt2" (ngModelChange)="onChange($event,'dt2','dt1')">
+                </mat-form-field>
+            </div>
+        </fieldset>
+
+        <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+                <legend class="w-auto m-0">Rocky Hills</legend>
+                <mat-icon matSuffix matTooltip="The “Rocky Hills” show hills, or other areas that have a hard underground, usually
+                some rocks or gravel like substances which are tedious to remove for farmable land." class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Rocky Hills in Area</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra1" (ngModelChange)="onChange($event,'ra1','ra2')">
+                </mat-form-field>
+
+                <h4 class="m-2">=</h4>
+
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Rocky Hills in %</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra2" (ngModelChange)="onChange($event,'ra2','ra1')">
                 </mat-form-field>
             </div>
         </fieldset>
