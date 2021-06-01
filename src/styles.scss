@@ -18,3 +18,9 @@ body {
 .cursor-pointer {
     cursor: pointer !important;
 }
+
+.mat-form-field-disabled {
+    input {
+        color: #0070C0 !important;
+    }
+}
