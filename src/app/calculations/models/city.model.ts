@@ -6,6 +6,7 @@ export interface CityCalculationVariables {
     rr5?: any;
     rr6?: any;
     rr7?: any;
+    rr8?: any;
     rp1?: any;
     rp2?: any;
     rp3?: any;
@@ -13,6 +14,7 @@ export interface CityCalculationVariables {
     rp5?: any;
     rp6?: any;
     rp7?: any;
+    rp8?: any;
 
     ur1?: any;
     ur2?: any;
@@ -21,6 +23,7 @@ export interface CityCalculationVariables {
     ur5?: any;
     ur6?: any;
     ur7?: any;
+    ur8?: any;
     up1?: any;
     up2?: any;
     up3?: any;
@@ -28,7 +31,10 @@ export interface CityCalculationVariables {
     up5?: any;
     up6?: any;
     up7?: any;
+    up8?: any;
 
+    cp15?: any;
+    cp16?: any;
     cp1?: any;
     cp2?: any;
     cp3?: any;
@@ -55,6 +61,8 @@ export interface NationCityCalculation {
 }
 
 export interface CityCalculationFunctions {
+    cp15_calc(p3: number): void;
+    cp16_calc(p3: number): void;
     cp1_calc(p3: number): void;
     cp2_calc(p3: number): void;
     cp3_calc(p3: number): void;

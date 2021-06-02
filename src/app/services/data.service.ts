@@ -319,13 +319,15 @@ export class DataService {
 
   public static getDefaultCityCalculationVariables(): CityCalculationVariables {
     return {
+      rr8: 0.1,
       rr1: 1.0,
       rr2: 2.5,
       rr3: 1.8,
       rr4: 4.1,
       rr5: 3.5,
-      rr6: 3.1,
+      rr6: 3,
       rr7: 84,
+      rp8: 1000000,
       rp1: 130000,
       rp2: 22000,
       rp3: 12000,
@@ -333,13 +335,15 @@ export class DataService {
       rp5: 2000,
       rp6: 500,
       rp7: 80,
-      ur1: 28,
-      ur2: 14,
-      ur3: 18,
-      ur4: 15,
-      ur5: 13,
-      ur6: 8,
-      ur7: 4,
+      ur8: 6.9,
+      ur1: 16.4,
+      ur2: 5.4,
+      ur3: 14,
+      ur4: 12.4,
+      ur5: 10.2,
+      ur6: 14.7,
+      ur7: 20,
+      up8: 10000000,
       up1: 1500000,
       up2: 800000,
       up3: 250000,
@@ -358,18 +362,39 @@ export class DataService {
       landmassCityCalculation: {
         variables: DataService.getDefaultCityCalculationVariables()
       },
+      cp15_calc:function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        result = p3/100*(this.selectedCalculation === 'rural' ? +variables?.rr8 : +variables?.ur8);
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp15 = result;
+        }
+      },
+      cp16_calc: function(p3) {
+        let result;
+        let variables = this.selectedCalculationObj?.variables;
+        result = variables?.cp15/(this.selectedCalculation === 'rural' ? +variables?.rp8 : +variables?.up8);
+        if (!isNaN(result)) {
+          this.selectedCalculationObj!.variables.cp16 = result;
+        }
+      },
       cp1_calc: function(p3) {
         let result;
         let variables = this.selectedCalculationObj?.variables;
-        result = p3/100*(this.selectedCalculation === 'rural' ? +variables?.rr1 : +variables?.ur1);
+        let variable2 = this.selectedCalculation === 'rural' ? +variables?.rr1 : +variables?.ur1;
+        if (variables?.cp1 === 0) {
+          result = (p3/100*variable2)+variables.cp15;
+        } else {
+          result = p3/100*variable2;
+        }
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp1 = result;
         }
       },
       cp2_calc: function(p3) {
-        let result;
         let variables = this.selectedCalculationObj?.variables;
-        result = variables?.cp1/(this.selectedCalculation === 'rural' ? +variables?.rp1 : +variables?.up1);
+        let variable2 = this.selectedCalculation === 'rural' ? +variables?.rp1 : +variables?.up1;
+        let result = variables?.cp1/variable2;
         if (!isNaN(result)) {
           this.selectedCalculationObj!.variables.cp2 = result;
         }

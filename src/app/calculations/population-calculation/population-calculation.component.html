@@ -132,28 +132,24 @@
 
                     <fieldset class="my-3">
                         <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Disaster Losses in %</legend>
+                            <legend class="w-auto m-0">Disaster Losses</legend>
                             <mat-icon matSuffix
                                 matTooltip="The “Disaster Losses” show how much population might have died during a war, a plague or other causes of massive death. If you have no losses write the number 0 in the option field."
                                 class="ms-2">info</mat-icon>
                         </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>Disaster Losses in %</mat-label>
-                            <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.p1" (ngModelChange)="onDisasterLossesChange($event, nation)">
-                        </mat-form-field>
-                    </fieldset>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Disaster Losses in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.p1" (ngModelChange)="onDisasterLossesChange($event, nation)">
+                            </mat-form-field>
 
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Leftover population</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
+                            <h4 class="m-2"></h4>
+
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Leftover population</mat-label>
+                                <input matInput type="text" [ngModel]="nation.variables.p3" disabled>
+                            </mat-form-field>
                         </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>Leftover population</mat-label>
-                            <input matInput type="text" [ngModel]="nation.variables.p3" disabled>
-                        </mat-form-field>
                     </fieldset>
 
                     <fieldset class="my-3">
