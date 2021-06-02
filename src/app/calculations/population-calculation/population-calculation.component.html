@@ -91,31 +91,35 @@
                         </div>
                     </fieldset>
 
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Population Density</legend>
-                            <mat-icon matSuffix
-                                matTooltip="The “Population Density” shows the amount of population per Km²"
-                                class="ms-2">info</mat-icon>
-                        </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>Population Density</mat-label>
-                            <input matInput type="text" [ngModel]="nation.variables.popd" disabled>
-                        </mat-form-field>
-                    </fieldset>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <fieldset class="my-3 w-50">
+                            <div class="d-flex align-items-center mb-2">
+                                <legend class="w-auto m-0">Population Destribution %</legend>
+                                <mat-icon matSuffix
+                                    matTooltip="The “Population Distribution” shows how many people are distributed into yourcountry defined from the “Total Population”"
+                                    class="ms-2">info</mat-icon>
+                            </div>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Population Destribution %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.npd1" (ngModelChange)="onPopulationDistributionChange($event, nation)">
+                            </mat-form-field>
+                        </fieldset>
 
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Population Destribution %</legend>
-                            <mat-icon matSuffix
-                                matTooltip="The “Population Distribution” shows how many people are distributed into yourcountry defined from the “Total Population”"
-                                class="ms-2">info</mat-icon>
-                        </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>Population Destribution %</mat-label>
-                            <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.npd1" (ngModelChange)="onPopulationDistributionChange($event, nation)">
-                        </mat-form-field>
-                    </fieldset>
+                        <h4 class="m-2"></h4>
+
+                        <fieldset class="my-3 w-50">
+                            <div class="d-flex align-items-center mb-2">
+                                <legend class="w-auto m-0">Population Density</legend>
+                                <mat-icon matSuffix
+                                    matTooltip="The “Population Density” shows the amount of population per Km²"
+                                    class="ms-2">info</mat-icon>
+                            </div>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Population Density</mat-label>
+                                <input matInput type="text" [ngModel]="nation.variables.popd" disabled>
+                            </mat-form-field>
+                        </fieldset>
+                    </div>
 
                     <fieldset class="my-3">
                         <div class="d-flex align-items-center mb-2">

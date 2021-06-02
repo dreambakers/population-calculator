@@ -31,6 +31,7 @@
             <mat-form-field appearance="fill" class="w-50">
                 <mat-label>Total Land Size</mat-label>
                 <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.a1" (ngModelChange)="onModifierSelect($event, 'a1')">
+                <span matSuffix>km²</span>
             </mat-form-field>
         </fieldset>
 
@@ -44,6 +45,7 @@
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Forest in Area</mat-label>
                     <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f1" (ngModelChange)="onChange($event,'f1','f2')">
+                    <span matSuffix>km²</span>
                 </mat-form-field>
 
                 <h4 class="m-2">=</h4>
@@ -51,6 +53,7 @@
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Forest in %</mat-label>
                     <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f2" (ngModelChange)="onChange($event,'f2','f1')">
+                    <span matSuffix>%</span>
                 </mat-form-field>
             </div>
         </fieldset>
