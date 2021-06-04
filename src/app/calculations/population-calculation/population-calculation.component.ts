@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { constants } from 'src/app/app.constants';
 import { DataService } from 'src/app/services/data.service';
 import { v4 as uuid } from 'uuid';
 import { Nation, NationCalculationVariables, PopulationCalculation } from '../models/population.model';
@@ -10,6 +11,7 @@ import { Nation, NationCalculationVariables, PopulationCalculation } from '../mo
 })
 export class PopulationCalculationComponent implements OnInit {
 
+  constants = constants;
   populationCalculation: PopulationCalculation = DataService.getSelectedLandmass().populationCalculation;
   addNewNation = false;
   newNation = '';
@@ -122,8 +124,36 @@ export class PopulationCalculationComponent implements OnInit {
     this.runTableCalculations(nation);
   }
 
-  updateTTM(nation: Nation) {
+  onThreatChange(newValue: string, key: keyof NationCalculationVariables, nation: Nation) {
+    nation.variables[key] = +newValue;
     nation.ttm_calc();
+  }
+
+  getSliderLabel(value: number, sliderKey: keyof typeof constants.sliderLabels) {
+    const labels = constants.sliderLabels[sliderKey];
+    if (value >= 91 && value <= 100) {
+      return labels[10];
+    } else if (value >= 81 && value <= 90) {
+      return labels[9];
+    } else if (value >= 71 && value <= 80) {
+      return labels[8];
+    } else if (value >= 61 && value <= 70) {
+      return labels[7];
+    } else if (value >= 51 && value <= 60) {
+      return labels[6];
+    } else if (value >= 41 && value <= 50) {
+      return labels[5];
+    } else if (value >= 31 && value <= 40) {
+      return labels[4];
+    } else if (value >= 21 && value <= 30) {
+      return labels[3];
+    } else if (value >= 11 && value <= 20) {
+      return labels[2];
+    } else if (value >= 1 && value <= 10) {
+      return labels[1];
+    } else {
+      return labels[0];
+    }
   }
 
   get selectedLandmass() {

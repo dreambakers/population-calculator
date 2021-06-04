@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { DigitOnlyModule } from '@uiowa/digit-only';
 import { ChartsModule } from 'ng2-charts';
@@ -69,7 +70,8 @@ import { CustomizedCitiesComponent } from './customized-cities/customized-cities
     MatTooltipModule,
     MatRadioModule,
     ChartsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

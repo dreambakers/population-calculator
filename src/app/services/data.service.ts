@@ -261,7 +261,7 @@ export class DataService {
         }
       },
       ttm_calc: function() {
-        const result = this.variables.ca + this.variables.it + this.variables.et;
+        const result = this.variables.ca/1000 + this.variables.it/2000 + this.variables.et/1500;
         if (!isNaN(result)) {
           this.variables.ttm = result;
         }

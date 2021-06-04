@@ -238,11 +238,11 @@
                             <mat-icon matSuffix matTooltip="The “Country Aggression” shows how aggressive this country is towards its neighbours.
                     A more aggressive nation tends to field a bigger army by default." class="ms-2">info</mat-icon>
                         </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>Country Aggression</mat-label>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.ca"
-                                (ngModelChange)="updateTTM(nation)">
-                        </mat-form-field>
+                        <div class="d-flex align-items-center">
+                            <mat-slider thumbLabel [ngModel]="nation.variables.ca" (ngModelChange)="onThreatChange($event,'ca',nation)"></mat-slider>
+                            <h4 class="m-2">=</h4>
+                            <mat-hint>{{ getSliderLabel(nation.variables.ca, 'ca') }}</mat-hint>
+                        </div>
                     </fieldset>
 
                     <fieldset class="my-3">
@@ -252,11 +252,11 @@
                                 matTooltip="The “Internal Threats” shows how unstable the country is. The more unstable the more soldiers have to go around to secure the peace."
                                 class="ms-2">info</mat-icon>
                         </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>Internal Threats</mat-label>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.it"
-                                (ngModelChange)="updateTTM(nation)">
-                        </mat-form-field>
+                        <div class="d-flex align-items-center">
+                            <mat-slider thumbLabel [ngModel]="nation.variables.it" (ngModelChange)="onThreatChange($event,'it',nation)"></mat-slider>
+                            <h4 class="m-2">=</h4>
+                            <mat-hint>{{ getSliderLabel(nation.variables.it, 'it') }}</mat-hint>
+                        </div>
                     </fieldset>
 
                     <fieldset class="my-3">
@@ -266,11 +266,11 @@
                                 matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies."
                                 class="ms-2">info</mat-icon>
                         </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>External Threats</mat-label>
-                            <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="nation.variables.et"
-                                (ngModelChange)="updateTTM(nation)">
-                        </mat-form-field>
+                        <div class="d-flex align-items-center">
+                            <mat-slider thumbLabel [ngModel]="nation.variables.et" (ngModelChange)="onThreatChange($event,'et',nation)"></mat-slider>
+                            <h4 class="m-2">=</h4>
+                            <mat-hint>{{ getSliderLabel(nation.variables.et, 'et') }}</mat-hint>
+                        </div>
                     </fieldset>
 
                     <fieldset class="my-3">
