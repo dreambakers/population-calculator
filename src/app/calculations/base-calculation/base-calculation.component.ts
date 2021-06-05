@@ -37,6 +37,10 @@ export class BaseCalculationComponent implements OnInit {
     this.baseCalculation.performBackgroundCalculations();
   }
 
+  onMagicModifierChange(newValue: number) {
+    this.baseCalculation.variables.mm1 = newValue/10;
+  }
+
   isNaN(value: any) {
     return isNaN(value);
   }
