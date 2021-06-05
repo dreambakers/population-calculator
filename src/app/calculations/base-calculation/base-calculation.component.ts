@@ -31,14 +31,14 @@ export class BaseCalculationComponent implements OnInit {
     this.baseCalculation.performBackgroundCalculations();
   }
 
-  onModifierSelect(newVal: string | MatSelectChange, key: keyof BaseCalculationVariables) {
+  onModifierSelect(newVal: string | MatSelectChange | number, key: keyof BaseCalculationVariables) {
     this.baseCalculation.variables[key] = +newVal;
     this.baseCalculation.calculateAll();
     this.baseCalculation.performBackgroundCalculations();
   }
 
   onMagicModifierChange(newValue: number) {
-    this.baseCalculation.variables.mm1 = newValue/10;
+    this.onModifierSelect(newValue/10, 'mm1');
   }
 
   isNaN(value: any) {
