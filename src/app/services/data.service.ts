@@ -264,6 +264,9 @@ export class DataService {
         const result = this.variables.ca/1000 + this.variables.it/2000 + this.variables.et/1500;
         if (!isNaN(result)) {
           this.variables.ttm = result;
+          this.maleArmySize_calc();
+          this.femaleArmySize_calc();
+          this.mixedArmySize_calc();
         }
       },
       npd2_calc: function(pop1) {
@@ -288,6 +291,24 @@ export class DataService {
         const result = this.variables.p3/this.variables.cs1;
         if (!isNaN(result)) {
           this.variables.popd = result;
+        }
+      },
+      maleArmySize_calc: function() {
+        const result = this.variables.ad2/100*this.variables.ttm;
+        if (!isNaN(result)) {
+          this.variables.maleArmySize = result;
+        }
+      },
+      femaleArmySize_calc: function() {
+        const result = this.variables.ad3/100*this.variables.ttm;
+        if (!isNaN(result)) {
+          this.variables.femaleArmySize = result;
+        }
+      },
+      mixedArmySize_calc: function() {
+        const result = this.variables.ad4/100*this.variables.ttm;
+        if (!isNaN(result)) {
+          this.variables.mixedArmySize = result;
         }
       }
     };

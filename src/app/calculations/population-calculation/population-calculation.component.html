@@ -232,59 +232,104 @@
                         </table>
                     </fieldset>
 
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Country Aggression</legend>
-                            <mat-icon matSuffix matTooltip="The “Country Aggression” shows how aggressive this country is towards its neighbours.
-                    A more aggressive nation tends to field a bigger army by default." class="ms-2">info</mat-icon>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <mat-slider thumbLabel [ngModel]="nation.variables.ca" (ngModelChange)="onThreatChange($event,'ca',nation)"></mat-slider>
-                            <h4 class="m-2">=</h4>
-                            <mat-hint>{{ getSliderLabel(nation.variables.ca, 'ca') }}</mat-hint>
-                        </div>
-                    </fieldset>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="w-50">
+                            <fieldset class="my-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <legend class="w-auto m-0">Country Aggression</legend>
+                                    <mat-icon matSuffix matTooltip="The “Country Aggression” shows how aggressive this country is towards its neighbours.
+                            A more aggressive nation tends to field a bigger army by default." class="ms-2">info</mat-icon>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <mat-slider thumbLabel [ngModel]="nation.variables.ca" (ngModelChange)="onThreatChange($event,'ca',nation)"></mat-slider>
+                                    <h4 class="m-2">=</h4>
+                                    <mat-hint>{{ getSliderLabel(nation.variables.ca, 'ca') }}</mat-hint>
+                                </div>
+                            </fieldset>
 
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Internal Threats</legend>
-                            <mat-icon matSuffix
-                                matTooltip="The “Internal Threats” shows how unstable the country is. The more unstable the more soldiers have to go around to secure the peace."
-                                class="ms-2">info</mat-icon>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <mat-slider thumbLabel [ngModel]="nation.variables.it" (ngModelChange)="onThreatChange($event,'it',nation)"></mat-slider>
-                            <h4 class="m-2">=</h4>
-                            <mat-hint>{{ getSliderLabel(nation.variables.it, 'it') }}</mat-hint>
-                        </div>
-                    </fieldset>
+                            <fieldset class="my-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <legend class="w-auto m-0">Internal Threats</legend>
+                                    <mat-icon matSuffix
+                                        matTooltip="The “Internal Threats” shows how unstable the country is. The more unstable the more soldiers have to go around to secure the peace."
+                                        class="ms-2">info</mat-icon>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <mat-slider thumbLabel [ngModel]="nation.variables.it" (ngModelChange)="onThreatChange($event,'it',nation)"></mat-slider>
+                                    <h4 class="m-2">=</h4>
+                                    <mat-hint>{{ getSliderLabel(nation.variables.it, 'it') }}</mat-hint>
+                                </div>
+                            </fieldset>
 
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">External Threats</legend>
-                            <mat-icon matSuffix
-                                matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies."
-                                class="ms-2">info</mat-icon>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <mat-slider thumbLabel [ngModel]="nation.variables.et" (ngModelChange)="onThreatChange($event,'et',nation)"></mat-slider>
-                            <h4 class="m-2">=</h4>
-                            <mat-hint>{{ getSliderLabel(nation.variables.et, 'et') }}</mat-hint>
-                        </div>
-                    </fieldset>
+                            <fieldset class="my-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <legend class="w-auto m-0">External Threats</legend>
+                                    <mat-icon matSuffix
+                                        matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies."
+                                        class="ms-2">info</mat-icon>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <mat-slider thumbLabel [ngModel]="nation.variables.et" (ngModelChange)="onThreatChange($event,'et',nation)"></mat-slider>
+                                    <h4 class="m-2">=</h4>
+                                    <mat-hint>{{ getSliderLabel(nation.variables.et, 'et') }}</mat-hint>
+                                </div>
+                            </fieldset>
 
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Total Threat Modifier</legend>
-                            <mat-icon matSuffix
-                                matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies."
-                                class="ms-2">info</mat-icon>
+                            <fieldset class="my-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <legend class="w-auto m-0">Total Threat Modifier</legend>
+                                    <mat-icon matSuffix
+                                        matTooltip="The “External Threats” shows how the external threats are, these can be another nation, multiple other nations or any other magical or godly threat defeat able by armies."
+                                        class="ms-2">info</mat-icon>
+                                </div>
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Total Threat Modifier</mat-label>
+                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.ttm">
+                                </mat-form-field>
+                            </fieldset>
+
                         </div>
-                        <mat-form-field appearance="fill" class="w-50">
-                            <mat-label>Total Threat Modifier</mat-label>
-                            <input matInput type="text" disabled [(ngModel)]="nation.variables.ttm">
-                        </mat-form-field>
-                    </fieldset>
+
+                        <div class="w-50 border p-3">
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <h4 class="w-auto text-center fw-bold m-0">Adult Army Size</h4>
+                                <mat-icon matSuffix
+                                    matTooltip="The “Army Size” Shows how many people could be in the army according to the previous threats. You can increase this number if you think it is too low or decrease if you think it is too high, either way this number is only a suggestive one."
+                                    class="ms-2">info</mat-icon>
+                            </div>
+
+                            <fieldset class="my-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <legend class="w-auto m-0">Male</legend>
+                                </div>
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Male</mat-label>
+                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.maleArmySize">
+                                </mat-form-field>
+                            </fieldset>
+
+                            <fieldset class="my-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <legend class="w-auto m-0">Female</legend>
+
+                                </div>
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Female</mat-label>
+                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.femaleArmySize">
+                                </mat-form-field>
+                            </fieldset>
+
+                            <fieldset class="my-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <legend class="w-auto m-0">Mixed</legend>
+                                </div>
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-label>Mixed</mat-label>
+                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.mixedArmySize">
+                                </mat-form-field>
+                            </fieldset>
+                        </div>
+                    </div>
                 </mat-card>
             </mat-expansion-panel>
         </mat-accordion>

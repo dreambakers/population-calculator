@@ -28,6 +28,9 @@ export interface NationCalculationVariables {
     it?: any;
     et?: any;
     ttm?: any;
+    maleArmySize?: any;
+    femaleArmySize?: any;
+    mixedArmySize?: any;
 }
 export interface Nation {
     name: string;
@@ -51,6 +54,9 @@ export interface Nation {
     npd2_calc(pop1: number): void;
     p2_calc(): void;
     p3_calc(): void;
+    maleArmySize_calc(): void;
+    femaleArmySize_calc(): void;
+    mixedArmySize_calc(): void;
     expanded: boolean;
 }
 export interface PopulationCalculation {
