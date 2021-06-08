@@ -33,35 +33,28 @@
 
 
         <div *ngIf="selectedDemographicsObject">
-            <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
-                    <legend class="w-auto m-0">Magical Population in %</legend>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex flex-column w-50">
+                    <fieldset class="my-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <legend class="w-auto m-0">Magical Population in %</legend>
+                        </div>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Magical Population in %</mat-label>
+                            <input matInput type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp1" (ngModelChange)="onMagicalPopulationUpdate($event)">
+                        </mat-form-field>
+                    </fieldset>
                 </div>
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Magical Population in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp1" (ngModelChange)="onMagicalPopulationUpdate($event)">
-                </mat-form-field>
-            </fieldset>
 
-            <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
-                    <legend class="w-auto m-0">Magical Population</legend>
+                <div *ngIf="selectedDemographicsObject.variables.mp2 && selectedDemographicsObject.variables.mp3">
+                    <canvas baseChart
+                        [data]="[selectedDemographicsObject.variables.mp2, selectedDemographicsObject.variables.mp3]"
+                        [labels]="['Magical Population', 'Non-Magical Population']"
+                        chartType="pie"
+                        style="height: 200px">
+                    </canvas>
                 </div>
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Magical Population</mat-label>
-                    <input matInput disabled type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp2">
-                </mat-form-field>
-            </fieldset>
-
-            <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
-                    <legend class="w-auto m-0">Non-Magical Population</legend>
-                </div>
-                <mat-form-field appearance="fill" class="w-50">
-                    <mat-label>Non-Magical Population</mat-label>
-                    <input matInput disabled type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp3">
-                </mat-form-field>
-            </fieldset>
+            </div>
 
             <div class="d-flex align-items-center justify-content-between">
 
