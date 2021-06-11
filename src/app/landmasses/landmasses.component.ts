@@ -3,6 +3,8 @@ import { DataService } from '../services/data.service';
 import { v4 as uuid } from 'uuid';
 import { Landmass } from '../calculations/models/landmass.model';
 import { World } from '../calculations/models/world.model';
+import { Nation } from '../calculations/models/population.model';
+import { CustomizedCity } from '../calculations/models/customized-cities.model';
 
 @Component({
   selector: 'app-landmasses',
@@ -20,11 +22,49 @@ export class LandmassesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  copyLandmass(landmass: Landmass) {
-    this.landmasses.push({
-      ...landmass,
-      id: uuid()
-    });
+  copyLandmass(lm: Landmass) {
+    // Making a deep copy without the object functions. Otherwise, new object gets functions of old reference
+    let landmass: Landmass = JSON.parse(JSON.stringify(lm));
+
+    const getNations = (nations: Nation[]): Nation[] => {
+      return nations.map(nation => {
+        return {
+          ...DataService.getDefaultNationObject(),
+          ...nation
+        }
+      });
+    }
+
+    const getCustomizedCities = (cities: CustomizedCity[]): CustomizedCity[] => {
+      return cities.map(city => {
+        return {
+          ...DataService.getDefaultCustomizedCityObject(),
+          ...city
+        }
+      });
+    }
+
+    const newLandmass: Landmass = {
+      id: uuid(),
+      name: landmass.name,
+      type: 'landmass',
+      baseCalculation: {
+        ...DataService.getDefaultBaseCalculationsObject(),
+        ...landmass.baseCalculation
+      },
+      populationCalculation: {
+        nations: getNations(landmass.populationCalculation.nations)
+      },
+      simpleAndPiechartDemographics: landmass.simpleAndPiechartDemographics,
+      cityCalculation: {
+        ...DataService.getDefaultCityCalculationObject(),
+        ...landmass.cityCalculation
+      },
+      customizedCityCalculation: {
+        cites: getCustomizedCities(landmass.customizedCityCalculation.cites)
+      }
+    }
+    this.landmasses.push(newLandmass);
   }
 
   deleteLandmass(landmass: Landmass) {
