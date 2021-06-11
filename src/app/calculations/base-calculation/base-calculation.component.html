@@ -9,14 +9,14 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Total Population</mat-label>
-                    <input matInput type="text" disabled [value]="!isNaN(baseCalculation.variables.pop1) ? baseCalculation.variables.pop1 : ''">
+                    <input matInput type="text" disabled [ngModel]="baseCalculation.variables.pop1 | number:'1.0-0'">
                 </mat-form-field>
 
                 <h4 class="m-2"></h4>
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Population in Million</mat-label>
-                    <input matInput type="text" disabled [value]="!isNaN(baseCalculation.variables.pop1) ? baseCalculation.variables.pop1 / 1000000 : ''">
+                    <input matInput type="text" disabled [value]="baseCalculation.variables.pop1 / 1000000 | number:'1.0-0'">
                 </mat-form-field>
             </div>
         </fieldset>
@@ -44,7 +44,7 @@
             <div class="d-flex align-items-center justify-content-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Forest in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f1" (ngModelChange)="onChange($event,'f1','f2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f1 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'f1','f2')">
                     <span matSuffix>km²</span>
                 </mat-form-field>
 
@@ -52,7 +52,7 @@
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Forest in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f2" (ngModelChange)="onChange($event,'f2','f1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.f2 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'f2','f1')">
                     <span matSuffix>%</span>
                 </mat-form-field>
             </div>
@@ -68,7 +68,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Dense Foliage in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.df1" (ngModelChange)="onChange($event,'df1','df2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.df1 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'df1','df2')">
                     <span matSuffix>km²</span>
                 </mat-form-field>
 
@@ -76,7 +76,7 @@
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Dense Foliage in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.df2" (ngModelChange)="onChange($event,'df2','df1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.df2 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'df2','df1')">
                     <span matSuffix>%</span>
                 </mat-form-field>
             </div>
@@ -92,7 +92,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Freshwater in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.fw1" (ngModelChange)="onChange($event,'fw1','fw2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.fw1 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'fw1','fw2')">
                     <span matSuffix>km²</span>
                 </mat-form-field>
 
@@ -100,7 +100,7 @@
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Freshwater in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.fw2" (ngModelChange)="onChange($event,'fw2','fw1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.fw2 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'fw2','fw1')">
                     <span matSuffix>%</span>
                 </mat-form-field>
             </div>
@@ -116,7 +116,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Mountains in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m1" (ngModelChange)="onChange($event,'m1','m2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m1 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'m1','m2')">
                     <span matSuffix>km²</span>
                 </mat-form-field>
 
@@ -124,7 +124,7 @@
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Mountains in Area%</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m2" (ngModelChange)="onChange($event,'m2','m1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.m2 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'m2','m1')">
                     <span matSuffix>%</span>
                 </mat-form-field>
             </div>
@@ -141,7 +141,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Desert & Tundra in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.dt1" (ngModelChange)="onChange($event,'dt1','dt2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.dt1 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'dt1','dt2')">
                     <span matSuffix>km²</span>
                 </mat-form-field>
 
@@ -149,7 +149,7 @@
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Desert & Tundra in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.dt2" (ngModelChange)="onChange($event,'dt2','dt1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.dt2 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'dt2','dt1')">
                     <span matSuffix>%</span>
                 </mat-form-field>
             </div>
@@ -165,7 +165,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Rocky Hills in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra1" (ngModelChange)="onChange($event,'ra1','ra2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra1 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'ra1','ra2')">
                     <span matSuffix>km²</span>
                 </mat-form-field>
 
@@ -173,7 +173,7 @@
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Rocky Hills in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra2" (ngModelChange)="onChange($event,'ra2','ra1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ra2 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'ra2','ra1')">
                     <span matSuffix>%</span>
                 </mat-form-field>
             </div>
@@ -190,7 +190,7 @@
             <div class="d-flex align-items-center">
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Cold & Hot Steppe in Area</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ds1" (ngModelChange)="onChange($event,'ds1','ds2')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ds1 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'ds1','ds2')">
                     <span matSuffix>km²</span>
                 </mat-form-field>
 
@@ -198,7 +198,7 @@
 
                 <mat-form-field appearance="fill" class="w-50">
                     <mat-label>Cold & Hot Steppe in %</mat-label>
-                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ds2" (ngModelChange)="onChange($event,'ds2','ds1')">
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.ds2 | number : '1.0-4' | noComma" (ngModelChange)="onChange($event,'ds2','ds1')">
                     <span matSuffix>%</span>
                 </mat-form-field>
             </div>
