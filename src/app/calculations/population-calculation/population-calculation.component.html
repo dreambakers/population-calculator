@@ -79,6 +79,7 @@
                                 <mat-label>Country Size in Km² </mat-label>
                                 <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1"
                                     (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs1')">
+                                <span matSuffix>km²</span>
                             </mat-form-field>
 
                             <h4 class="m-2">=</h4>
@@ -87,6 +88,7 @@
                                 <mat-label>Country Size in %</mat-label>
                                 <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2"
                                     (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs2')">
+                                <span matSuffix>%</span>
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -102,6 +104,7 @@
                             <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Population Destribution %</mat-label>
                                 <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.npd1" (ngModelChange)="onPopulationDistributionChange($event, nation)">
+                                <span matSuffix>%</span>
                             </mat-form-field>
                         </fieldset>
 
@@ -145,6 +148,7 @@
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Disaster Losses in %</mat-label>
                                 <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.p1" (ngModelChange)="onDisasterLossesChange($event, nation)">
+                                <span matSuffix>%</span>
                             </mat-form-field>
 
                             <h4 class="m-2"></h4>
