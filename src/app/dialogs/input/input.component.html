@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
-  <mat-form-field>
+  <mat-form-field appearance="fill" class="w-100">
     <mat-label>{{data.label}}</mat-label>
-    <input matInput [(ngModel)]="input">
+    <input matInput type="text" [(ngModel)]="input">
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">Cancel</button>
   <button mat-button mat-raised-button color="primary" [mat-dialog-close]="input" cdkFocusInitial>Done</button>
 </div>

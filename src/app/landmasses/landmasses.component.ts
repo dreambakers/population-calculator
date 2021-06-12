@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { v4 as uuid } from 'uuid';
 import { Landmass } from '../calculations/models/landmass.model';
 import { World } from '../calculations/models/world.model';
-import { Nation } from '../calculations/models/population.model';
-import { CustomizedCity } from '../calculations/models/customized-cities.model';
-
+import { Utility } from '../utils/utility';
 @Component({
   selector: 'app-landmasses',
   templateUrl: './landmasses.component.html',
@@ -23,47 +20,7 @@ export class LandmassesComponent implements OnInit {
   }
 
   copyLandmass(lm: Landmass) {
-    // Making a deep copy without the object functions. Otherwise, new object gets functions of old reference
-    let landmass: Landmass = JSON.parse(JSON.stringify(lm));
-
-    const getNations = (nations: Nation[]): Nation[] => {
-      return nations.map(nation => {
-        return {
-          ...DataService.getDefaultNationObject(),
-          ...nation
-        }
-      });
-    }
-
-    const getCustomizedCities = (cities: CustomizedCity[]): CustomizedCity[] => {
-      return cities.map(city => {
-        return {
-          ...DataService.getDefaultCustomizedCityObject(),
-          ...city
-        }
-      });
-    }
-
-    const newLandmass: Landmass = {
-      id: uuid(),
-      name: landmass.name,
-      type: 'landmass',
-      baseCalculation: {
-        ...DataService.getDefaultBaseCalculationsObject(),
-        ...landmass.baseCalculation
-      },
-      populationCalculation: {
-        nations: getNations(landmass.populationCalculation.nations)
-      },
-      simpleAndPiechartDemographics: landmass.simpleAndPiechartDemographics,
-      cityCalculation: {
-        ...DataService.getDefaultCityCalculationObject(),
-        ...landmass.cityCalculation
-      },
-      customizedCityCalculation: {
-        cites: getCustomizedCities(landmass.customizedCityCalculation.cites)
-      }
-    }
+    let newLandmass: Landmass = Utility.getLandmassCopy(lm);
     this.landmasses.push(newLandmass);
   }
 
@@ -82,6 +39,21 @@ export class LandmassesComponent implements OnInit {
       this.newLandmass = '';
     }
     this.addNewLandmass = !this.addNewLandmass;
+  }
+
+  onDownloadClick() {
+    this.downloadJson(this.world);
+  }
+
+  downloadJson(myJson: any){
+    let sJson = JSON.stringify(myJson);
+    let element = document.createElement('a');
+    element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
+    element.setAttribute('download', `${this.world.name}_world.json`);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click(); // simulate click
+    document.body.removeChild(element);
   }
 
   get world(): World {

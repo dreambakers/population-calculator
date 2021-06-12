@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    <mat-hint>Choose a {{data.label}} using the "Choose file" button</mat-hint>
+
+    <div class="input-group my-3">
+        <input type="file" class="form-control" type="file" name="files" accept="application/JSON" (change)="onFileSelected($event)">
+    </div>
+
+    <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="!isValid">
+        <mat-icon>warning</mat-icon>
+        <div class="ms-3">
+          Please select a valid world file.
+        </div>
+    </div>
+
+    <mat-hint *ngIf="world">World "<b>{{world?.name}}</b>" selected. This world contains {{world?.landmasses?.length}} landmass{{world?.landmasses?.length === 1 ? '' : 'es'}}.</mat-hint>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button mat-raised-button color="primary" [disabled]="!world" (click)="onUploadClick()">Upload</button>
+</div>

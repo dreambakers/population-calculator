@@ -36,6 +36,7 @@ import { SimpleAndPiechartDemographicsComponent } from './calculations/simple-an
 import { CitiesComponent } from './calculations/cities/cities.component';
 import { CustomizedCitiesComponent } from './customized-cities/customized-cities.component';
 import { NoCommaPipe } from './no-comma.pipe';
+import { FileComponent } from './dialogs/file/file.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { NoCommaPipe } from './no-comma.pipe';
     SimpleAndPiechartDemographicsComponent,
     CitiesComponent,
     CustomizedCitiesComponent,
-    NoCommaPipe
+    NoCommaPipe,
+    FileComponent
   ],
   imports: [
     BrowserModule,
