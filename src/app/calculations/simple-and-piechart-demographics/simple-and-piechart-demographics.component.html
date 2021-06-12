@@ -12,7 +12,9 @@
                     <mat-select (selectionChange)="onPopulationSelectionChange($event)">
                       <mat-optgroup label="Total Landmass Population">
                         <mat-option [value]="landmass" [disabled]="isNaN(landmass.baseCalculation.variables.pop1)">
-                            <span *ngIf="!isNaN(landmass.baseCalculation.variables.pop1); else noValue">{{landmass.baseCalculation.variables.pop1}}</span>
+                            <span *ngIf="!isNaN(landmass.baseCalculation.variables.pop1); else noValue">
+                                {{landmass.baseCalculation.variables.pop1 | number:'1.0-0'}}
+                            </span>
                             <ng-template #noValue>
                                 <i>Not calculated yet</i>
                             </ng-template>
@@ -20,7 +22,7 @@
                       </mat-optgroup>
                       <mat-optgroup label="Nations">
                         <mat-option [value]="nation" *ngFor="let nation of nations" [disabled]="isNaN(nation.variables.p3)">
-                            <span *ngIf="!isNaN(nation.variables.p3); else noValue">{{nation.name}} - {{nation.variables.p3}}</span>
+                            <span *ngIf="!isNaN(nation.variables.p3); else noValue">{{nation.name}} - {{nation.variables.p3 | number:'1.0-0'}}</span>
                             <ng-template #noValue>
                                 <i>Not calculated yet</i>
                             </ng-template>

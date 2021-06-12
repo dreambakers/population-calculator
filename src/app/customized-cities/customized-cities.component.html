@@ -40,7 +40,7 @@
                             </tr>
 
                             <tr>
-                                <th>City Centers in Pops/km2</th>
+                                <th>City Centers in Pops/km²</th>
                                 <td>
                                   <input class="form-control table-input" type="text" digitOnly [decimal]="true"
                                     [ngModel]="city?.variables?.ccsdcp" (ngModelChange)="onTableValueUpdate($event, 'ccsdcp', city)">
@@ -80,7 +80,7 @@
                             </tr>
 
                             <tr>
-                                <th>Urban in Pops/km2</th>
+                                <th>Urban in Pops/km²</th>
                                 <td>
                                   <input class="form-control table-input" type="text" digitOnly [decimal]="true"
                                     [ngModel]="city?.variables?.usdcp" (ngModelChange)="onTableValueUpdate($event, 'usdcp', city)">
@@ -120,7 +120,7 @@
                             </tr>
 
                             <tr>
-                                <th>Metropolitan in Pops/km2</th>
+                                <th>Metropolitan in Pops/km²</th>
                                 <td>
                                   <input class="form-control table-input" type="text" digitOnly [decimal]="true"
                                     [ngModel]="city?.variables?.msdcp" (ngModelChange)="onTableValueUpdate($event, 'msdcp', city)">
@@ -182,7 +182,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Population in the City</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="city.variables.pic" (ngModelChange)="onTableValueUpdate($event, 'pic', city)">
+                                <input matInput type="text" digitOnly [ngModel]="city.variables.pic" (ngModelChange)="onTableValueUpdate($event, 'pic', city)">
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -198,7 +198,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>City Centre Population</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.cip">
+                                <input matInput disabled [ngModel]="city.variables.cip | number:'1.0-0'">
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -214,7 +214,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>City Centre Area</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.cia">
+                                <input matInput disabled [ngModel]="city.variables.cia | number : '1.0-4'">
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -230,7 +230,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Urban Population</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.urp">
+                                <input matInput disabled [ngModel]="city.variables.urp | number:'1.0-0'">
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -246,7 +246,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Urban Area</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.ura">
+                                <input matInput disabled [ngModel]="city.variables.ura | number : '1.0-4'">
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -262,7 +262,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Metropolitan Population</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.mep">
+                                <input matInput disabled [ngModel]="city.variables.mep | number:'1.0-0'">
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -279,7 +279,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Metropolitan Area</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.mea">
+                                <input matInput disabled [ngModel]="city.variables.mea | number : '1.0-4'">
                             </mat-form-field>
                         </div>
                     </fieldset>

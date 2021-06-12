@@ -61,7 +61,7 @@
                         <div class="d-flex">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Total Population</mat-label>
-                                <input matInput disabled [ngModel]="selectedLandmass.baseCalculation.variables.pop1">
+                                <input matInput disabled [ngModel]="selectedLandmass.baseCalculation.variables.pop1 | number:'1.0-0'">
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -77,7 +77,7 @@
                         <div class="d-flex align-items-center justify-content-center">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Country Size in Km² </mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1"
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs1 | number : '1.0-4' | noComma"
                                     (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs1')">
                                 <span matSuffix>km²</span>
                             </mat-form-field>
@@ -86,7 +86,7 @@
 
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Country Size in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2"
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.cs2 | number : '1.0-4' | noComma"
                                     (ngModelChange)="onCountrySizeUpdate($event, nation, 'cs2')">
                                 <span matSuffix>%</span>
                             </mat-form-field>
@@ -103,7 +103,7 @@
                             </div>
                             <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Population Destribution %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.npd1" (ngModelChange)="onPopulationDistributionChange($event, nation)">
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.npd1 | number : '1.0-4' | noComma" (ngModelChange)="onPopulationDistributionChange($event, nation)">
                                 <span matSuffix>%</span>
                             </mat-form-field>
                         </fieldset>
@@ -119,7 +119,7 @@
                             </div>
                             <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Population Density</mat-label>
-                                <input matInput type="text" [ngModel]="nation.variables.popd" disabled>
+                                <input matInput type="text" [ngModel]="nation.variables.popd | number : '1.0-4'" disabled>
                             </mat-form-field>
                         </fieldset>
                     </div>
@@ -133,7 +133,7 @@
                         </div>
                         <mat-form-field appearance="fill" class="w-50">
                             <mat-label>Total Regional Population</mat-label>
-                            <input matInput type="text" [ngModel]="nation.variables.npd2" disabled>
+                            <input matInput type="text" [ngModel]="nation.variables.npd2 | number:'1.0-0'" disabled>
                         </mat-form-field>
                     </fieldset>
 
@@ -147,7 +147,7 @@
                         <div class="d-flex align-items-center justify-content-center">
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Disaster Losses in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.p1" (ngModelChange)="onDisasterLossesChange($event, nation)">
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="nation.variables.p1 | number : '1.0-4' | noComma" (ngModelChange)="onDisasterLossesChange($event, nation)">
                                 <span matSuffix>%</span>
                             </mat-form-field>
 
@@ -155,7 +155,7 @@
 
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Leftover population</mat-label>
-                                <input matInput type="text" [ngModel]="nation.variables.p3" disabled>
+                                <input matInput type="text" [ngModel]="nation.variables.p3 | number:'1.0-0'" disabled>
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -197,9 +197,9 @@
                                             [(ngModel)]="nation.variables.ey1"
                                             (ngModelChange)="onTableValueUpdate(nation)">
                                     </td>
-                                    <td>{{nation.variables.ey2}}</td>
-                                    <td>{{nation.variables.ey3}}</td>
-                                    <td>{{nation.variables.ey4}}</td>
+                                    <td>{{nation.variables.ey2 | number : '1.0-4' }}</td>
+                                    <td>{{nation.variables.ey3 | number : '1.0-4' }}</td>
+                                    <td>{{nation.variables.ey4 | number : '1.0-4' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Adults in %</th>
@@ -208,9 +208,9 @@
                                             [(ngModel)]="nation.variables.ad1"
                                             (ngModelChange)="onTableValueUpdate(nation)">
                                     </td>
-                                    <td>{{nation.variables.ad2}}</td>
-                                    <td>{{nation.variables.ad3}}</td>
-                                    <td>{{nation.variables.ad4}}</td>
+                                    <td>{{nation.variables.ad2 | number : '1.0-4' }}</td>
+                                    <td>{{nation.variables.ad3 | number : '1.0-4' }}</td>
+                                    <td>{{nation.variables.ad4 | number : '1.0-4' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Children in %</th>
@@ -219,9 +219,9 @@
                                             [(ngModel)]="nation.variables.ch1"
                                             (ngModelChange)="onTableValueUpdate(nation)">
                                     </td>
-                                    <td>{{nation.variables.ch2}}</td>
-                                    <td>{{nation.variables.ch3}}</td>
-                                    <td>{{nation.variables.ch4}}</td>
+                                    <td>{{nation.variables.ch2 | number : '1.0-4' }}</td>
+                                    <td>{{nation.variables.ch3 | number : '1.0-4' }}</td>
+                                    <td>{{nation.variables.ch4 | number : '1.0-4' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Total in %</th>
@@ -288,7 +288,7 @@
                                 </div>
                                 <mat-form-field appearance="fill" class="w-50">
                                     <mat-label>Total Threat Modifier</mat-label>
-                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.ttm">
+                                    <input matInput type="text" disabled [ngModel]="nation.variables.ttm | number : '1.0-4'">
                                 </mat-form-field>
                             </fieldset>
 
@@ -308,7 +308,7 @@
                                 </div>
                                 <mat-form-field appearance="fill" class="w-100">
                                     <mat-label>Male</mat-label>
-                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.maleArmySize">
+                                    <input matInput type="text" disabled [ngModel]="nation.variables.maleArmySize | number:'1.0-0'">
                                 </mat-form-field>
                             </fieldset>
 
@@ -319,7 +319,7 @@
                                 </div>
                                 <mat-form-field appearance="fill" class="w-100">
                                     <mat-label>Female</mat-label>
-                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.femaleArmySize">
+                                    <input matInput type="text" disabled [ngModel]="nation.variables.femaleArmySize | number:'1.0-0'">
                                 </mat-form-field>
                             </fieldset>
 
@@ -329,7 +329,7 @@
                                 </div>
                                 <mat-form-field appearance="fill" class="w-100">
                                     <mat-label>Mixed</mat-label>
-                                    <input matInput type="text" disabled [(ngModel)]="nation.variables.mixedArmySize">
+                                    <input matInput type="text" disabled [ngModel]="nation.variables.mixedArmySize | number:'1.0-0'">
                                 </mat-form-field>
                             </fieldset>
                         </div>
