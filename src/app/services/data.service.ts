@@ -176,7 +176,6 @@ export class DataService {
   public static getDefaultPopulationCalculationObject(): PopulationCalculation {
     return {
       nations: [
-        this.getDefaultNationObject()
       ]
     }
   }
