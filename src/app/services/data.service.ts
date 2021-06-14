@@ -148,7 +148,7 @@ export class DataService {
 
       performBackgroundCalculations: function () {
         if ([this.variables.a1, this.variables.f1, this.variables.df1, this.variables.ra1, this.variables.m1, this.variables.fw1, this.variables.ds1].every(val => !isNaN(val))) {
-          this.variables.fl1 = this.variables.a1 - ((this.variables.f1 / 7, 5) + (this.variables.df1 / 5) + (this.variables.ra1 / 2, 5) + (this.variables.m1 / 0, 5) + (this.variables.fw1 / 7, 5) + (this.variables.ds1 / 0, 5) + this.variables.dt1)
+          this.variables.fl1 = this.variables.a1 - ((this.variables.f1 / 7.5) + (this.variables.df1 / 5) + (this.variables.ra1 / 2.5) + (this.variables.m1 / 0.5) + (this.variables.fw1 / 7.5) + (this.variables.ds1 / 0.5) + this.variables.dt1)
           this.variables.fm1 = this.variables.fl1 / this.variables.a1 * 100;
           if (!isNaN(this.variables.tm1) && !isNaN(this.variables.mm1)) {
             this.variables.fmt1 = this.variables.fm1 * ((this.variables.tm1 / 10) + (this.variables.mm1 / 10 / 10));
