@@ -43,14 +43,18 @@ export class Utility {
         ...landmass.baseCalculation
       },
       populationCalculation: {
-        nations: getNations(landmass.populationCalculation.nations)
+        ...landmass.populationCalculation,
+        nations: getNations(landmass.populationCalculation.nations),
       },
-      simpleAndPiechartDemographics: landmass.simpleAndPiechartDemographics,
+      simpleAndPiechartDemographics: {
+        ...landmass.simpleAndPiechartDemographics
+      },
       cityCalculation: {
         ...DataService.getDefaultCityCalculationObject(),
         ...landmass.cityCalculation
       },
       customizedCityCalculation: {
+        ...landmass.customizedCityCalculation,
         cites: getCustomizedCities(landmass.customizedCityCalculation.cites)
       }
     }
