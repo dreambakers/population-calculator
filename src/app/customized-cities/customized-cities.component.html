@@ -215,6 +215,7 @@
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>City Centre Area</mat-label>
                                 <input matInput disabled [ngModel]="city.variables.cia | number : '1.0-4'">
+                                <span matSuffix>km²</span>
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -247,6 +248,7 @@
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Urban Area</mat-label>
                                 <input matInput disabled [ngModel]="city.variables.ura | number : '1.0-4'">
+                                <span matSuffix>km²</span>
                             </mat-form-field>
                         </div>
                     </fieldset>
@@ -280,10 +282,27 @@
                             <mat-form-field appearance="fill" class="w-50">
                                 <mat-label>Metropolitan Area</mat-label>
                                 <input matInput disabled [ngModel]="city.variables.mea | number : '1.0-4'">
+                                <span matSuffix>km²</span>
                             </mat-form-field>
                         </div>
                     </fieldset>
 
+                    <fieldset class="my-3">
+                      <div class="d-flex align-items-center mb-2">
+                          <legend class="w-auto m-0">Total City Area</legend>
+                          <mat-icon matSuffix
+                              matTooltip=""
+                              class="ms-2">info</mat-icon>
+                      </div>
+
+                      <div class="d-flex">
+                          <mat-form-field appearance="fill" class="w-50">
+                              <mat-label>Total City Area</mat-label>
+                              <input matInput disabled [value]="city.variables.cia + city.variables.ura + city.variables.mea | number : '1.0-4'">
+                              <span matSuffix>km²</span>
+                          </mat-form-field>
+                      </div>
+                  </fieldset>
                 </mat-card>
             </mat-expansion-panel>
         </mat-accordion>
