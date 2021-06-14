@@ -65,6 +65,22 @@
                     <fieldset class="my-3">
                         <div class="d-flex align-items-center mb-2">
                             <legend class="w-auto m-0">Class levels per population</legend>
+                            <div class="d-flex flex-fill">
+                                <ng-template let-color="color()" let-total="total"
+                                    [ngTemplateOutletContext]="getAccumulatedPercentageAndColor([
+                                        +classLevelsPerPopulation.wp,
+                                        +classLevelsPerPopulation.mc,
+                                        +classLevelsPerPopulation.pp,
+                                        +classLevelsPerPopulation.sp
+                                    ])"
+                                    [ngTemplateOutlet]="accumulatedClassLevels" #accumulatedClassLevels>
+
+                                    <div class="d-flex flex-fill align-items-center" *ngIf="+total >= 0">
+                                        <div class="flex-fill border-bottom mx-2"></div>
+                                        <span [ngStyle]="{'color': color}">{{total}}%</span>
+                                    </div>
+                                </ng-template>
+                            </div>
                         </div>
 
                         <div class="d-flex flex-column">
@@ -112,6 +128,21 @@
                     <fieldset class="my-3">
                         <div class="d-flex align-items-center mb-2">
                             <legend class="w-auto m-0">Education per population</legend>
+                            <div class="d-flex flex-fill">
+                                <ng-template let-color="color()" let-total="total"
+                                    [ngTemplateOutletContext]="getAccumulatedPercentageAndColor([
+                                        +educationPerPopulation.we,
+                                        +educationPerPopulation.me,
+                                        +educationPerPopulation.ir,
+                                    ])"
+                                    [ngTemplateOutlet]="accumulatedEducationPerPopulation" #accumulatedEducationPerPopulation>
+
+                                    <div class="d-flex flex-fill align-items-center" *ngIf="+total >= 0">
+                                        <div class="flex-fill border-bottom mx-2"></div>
+                                        <span [ngStyle]="{'color': color}">{{total}}%</span>
+                                    </div>
+                                </ng-template>
+                            </div>
                         </div>
 
                         <div class="d-flex flex-column">
@@ -148,8 +179,18 @@
             </div>
 
             <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
+                <div class="d-flex align-items-center mb-2 w-50">
                     <legend class="w-auto m-0">Ethnicity per population</legend>
+                    <div class="d-flex flex-fill">
+                        <ng-template let-color="color()" let-total="total"
+                            [ngTemplateOutletContext]="getAccumulatedPercentageAndColor(getDataForDynamicChart(ethnicities))"
+                            [ngTemplateOutlet]="accumulatedEthnicityPerPopulation" #accumulatedEthnicityPerPopulation>
+                            <div class="d-flex flex-fill align-items-center" *ngIf="ethnicities[0].name && +total >= 0">
+                                <div class="flex-fill border-bottom mx-2"></div>
+                                <span [ngStyle]="{'color': color}">{{total}}%</span>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center w-100">
@@ -205,8 +246,18 @@
             </fieldset>
 
             <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
+                <div class="d-flex align-items-center mb-2 w-50">
                     <legend class="w-auto m-0">Culture per population</legend>
+                    <div class="d-flex flex-fill">
+                        <ng-template let-color="color()" let-total="total"
+                            [ngTemplateOutletContext]="getAccumulatedPercentageAndColor(getDataForDynamicChart(cultures))"
+                            [ngTemplateOutlet]="accumulatedCultures" #accumulatedCultures>
+                            <div class="d-flex flex-fill align-items-center" *ngIf="cultures[0].name && +total >= 0">
+                                <div class="flex-fill border-bottom mx-2"></div>
+                                <span [ngStyle]="{'color': color}">{{total}}%</span>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center w-100">
@@ -262,8 +313,18 @@
             </fieldset>
 
             <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
+                <div class="d-flex align-items-center mb-2 w-50">
                     <legend class="w-auto m-0">Religion per population</legend>
+                    <div class="d-flex flex-fill">
+                        <ng-template let-color="color()" let-total="total"
+                            [ngTemplateOutletContext]="getAccumulatedPercentageAndColor(getDataForDynamicChart(religions))"
+                            [ngTemplateOutlet]="accumulatedReligions" #accumulatedReligions>
+                            <div class="d-flex flex-fill align-items-center" *ngIf="religions[0].name && +total >= 0">
+                                <div class="flex-fill border-bottom mx-2"></div>
+                                <span [ngStyle]="{'color': color}">{{total}}%</span>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center w-100">
@@ -319,8 +380,18 @@
             </fieldset>
 
             <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
+                <div class="d-flex align-items-center mb-2 w-50">
                     <legend class="w-auto m-0">Race per population</legend>
+                    <div class="d-flex flex-fill">
+                        <ng-template let-color="color()" let-total="total"
+                            [ngTemplateOutletContext]="getAccumulatedPercentageAndColor(getDataForDynamicChart(races))"
+                            [ngTemplateOutlet]="accumulatedRaces" #accumulatedRaces>
+                            <div class="d-flex flex-fill align-items-center" *ngIf="races[0].name && +total >= 0">
+                                <div class="flex-fill border-bottom mx-2"></div>
+                                <span [ngStyle]="{'color': color}">{{total}}%</span>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center w-100">
@@ -376,8 +447,18 @@
             </fieldset>
 
             <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
+                <div class="d-flex align-items-center mb-2 w-50">
                     <legend class="w-auto m-0">Language per population</legend>
+                    <div class="d-flex flex-fill">
+                        <ng-template let-color="color()" let-total="total"
+                            [ngTemplateOutletContext]="getAccumulatedPercentageAndColor(getDataForDynamicChart(languages))"
+                            [ngTemplateOutlet]="accumulatedLanguages" #accumulatedLanguages>
+                            <div class="d-flex flex-fill align-items-center" *ngIf="languages[0].name && +total >= 0">
+                                <div class="flex-fill border-bottom mx-2"></div>
+                                <span [ngStyle]="{'color': color}">{{total}}%</span>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center w-100">
@@ -433,8 +514,18 @@
             </fieldset>
 
             <fieldset class="my-3">
-                <div class="d-flex align-items-center mb-2">
+                <div class="d-flex align-items-center mb-2 w-50">
                     <legend class="w-auto m-0">Political Affliations per population</legend>
+                    <div class="d-flex flex-fill">
+                        <ng-template let-color="color()" let-total="total"
+                            [ngTemplateOutletContext]="getAccumulatedPercentageAndColor(getDataForDynamicChart(politicalAffliations))"
+                            [ngTemplateOutlet]="accumulatedPoliticalAffliations" #accumulatedPoliticalAffliations>
+                            <div class="d-flex flex-fill align-items-center" *ngIf="politicalAffliations[0].name && +total >= 0">
+                                <div class="flex-fill border-bottom mx-2"></div>
+                                <span [ngStyle]="{'color': color}">{{total}}%</span>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center w-100">

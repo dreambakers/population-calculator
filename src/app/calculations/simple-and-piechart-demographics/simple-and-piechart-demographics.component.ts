@@ -124,6 +124,20 @@ export class SimpleAndPiechartDemographicsComponent implements OnInit {
     );
   }
 
+  getAccumulatedPercentageAndColor(values: number[]) {
+    return {
+      total: values.reduce((a, b) => (+a) + (+b), 0),
+      color: function() {
+        if (this.total < 100) {
+          return '#0070C0';
+        } else if (this.total === 100) {
+          return '#28a745';
+        }
+        return '#dc3545';
+      }
+    }
+  }
+
   get cultures() {
     return this.selectedDemographicsObject.variables.culturePerPopulation;
   }
