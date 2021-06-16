@@ -39,13 +39,22 @@
                 <div class="d-flex flex-column w-50">
                     <fieldset class="my-3">
                         <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Magical Population in %</legend>
+                            <legend class="w-auto m-0">Magical Population</legend>
                         </div>
-                        <mat-form-field appearance="fill" class="w-100">
-                            <mat-label>Magical Population in %</mat-label>
-                            <input matInput type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp1" (ngModelChange)="onMagicalPopulationUpdate($event)">
-                            <span matSuffix>%</span>
-                        </mat-form-field>
+                        <div class="d-flex">
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Magical Population in %</mat-label>
+                                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="selectedDemographicsObject.variables.mp1" (ngModelChange)="onMagicalPopulationUpdate($event)">
+                                <span matSuffix>%</span>
+                            </mat-form-field>
+
+                            <h4 class="m-2"></h4>
+
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Amount of Magical Population</mat-label>
+                                <input matInput type="text" disabled [ngModel]="population/100*selectedDemographicsObject.variables.mp1 | number:'1.0-0'">
+                            </mat-form-field>
+                        </div>
                     </fieldset>
                 </div>
 
@@ -84,29 +93,66 @@
                         </div>
 
                         <div class="d-flex flex-column">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Wealthy Population in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.wp">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>Middle Class Population in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.mc">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Wealthy Population in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.wp">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>Poor Population in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.pp">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                                <h4 class="m-2"></h4>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>Slave Population in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.sp">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Wealthy Population</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*classLevelsPerPopulation.wp | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Middle Class Population in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.mc">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Middle Class Population</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*classLevelsPerPopulation.mc | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Poor Population in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.pp">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Poor Population</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*classLevelsPerPopulation.pp | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Slave Population in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="classLevelsPerPopulation.sp">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Slave Population</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*classLevelsPerPopulation.sp | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
                         </div>
 
                     </fieldset>
@@ -146,25 +192,51 @@
                         </div>
 
                         <div class="d-flex flex-column">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Well Educated in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.we">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Well Educated in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.we">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>Mediocre Educated in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.me">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                                <h4 class="m-2"></h4>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>Illiterate rate in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.ir">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Well Educated</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*educationPerPopulation.we | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Mediocre Educated in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.me">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Mediocre Educated</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*educationPerPopulation.me | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Illiterate rate in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.ir">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Illiterate rate</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*educationPerPopulation.ir | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
                         </div>
-
                     </fieldset>
                 </div>
 
@@ -208,11 +280,20 @@
                                 </mat-form-field>
                             </div>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="ethnicity.percentage" placeholder="Ethnicity percentage...">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="ethnicity.percentage" placeholder="Ethnicity percentage...">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*ethnicity.percentage | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
 
@@ -275,11 +356,20 @@
                                 </mat-form-field>
                             </div>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="culture.percentage" placeholder="Culture percentage...">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="culture.percentage" placeholder="Culture percentage...">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*culture.percentage | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
 
@@ -342,11 +432,20 @@
                                 </mat-form-field>
                             </div>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="religion.percentage" placeholder="Religion percentage...">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="religion.percentage" placeholder="Religion percentage...">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*religion.percentage | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
 
@@ -409,11 +508,21 @@
                                 </mat-form-field>
                             </div>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="race.percentage" placeholder="Race percentage...">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="race.percentage" placeholder="Race percentage...">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*race.percentage | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
+
                         </div>
                     </div>
 
@@ -476,11 +585,20 @@
                                 </mat-form-field>
                             </div>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="language.percentage" placeholder="Language percentage...">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="language.percentage" placeholder="Language percentage...">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*language.percentage | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
 
@@ -543,11 +661,20 @@
                                 </mat-form-field>
                             </div>
 
-                            <mat-form-field appearance="fill">
-                                <mat-label>in %</mat-label>
-                                <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="politicalAffliation.percentage" placeholder="Political Affliation percentage...">
-                                <span matSuffix>%</span>
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="politicalAffliation.percentage" placeholder="Political Affliation percentage...">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*politicalAffliation.percentage | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
 

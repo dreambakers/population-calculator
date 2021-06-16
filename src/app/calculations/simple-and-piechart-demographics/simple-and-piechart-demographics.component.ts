@@ -81,11 +81,8 @@ export class SimpleAndPiechartDemographicsComponent implements OnInit {
 
   onMagicalPopulationUpdate(newValue: string) {
     this.selectedDemographicsObject.variables.mp1 = +newValue;
-    const population = this.selectedPopulationObject.type === 'landmass' ?
-                          this.selectedPopulationObject.baseCalculation.variables.pop1 :
-                          this.selectedPopulationObject.variables.p3;
-    this.selectedDemographicsObject.variables.mp2 = population/100*this.selectedDemographicsObject.variables.mp1;
-    this.selectedDemographicsObject.variables.mp3 = population-(population/100*this.selectedDemographicsObject.variables.mp1);
+    this.selectedDemographicsObject.variables.mp2 = this.population/100*this.selectedDemographicsObject.variables.mp1;
+    this.selectedDemographicsObject.variables.mp3 = this.population-(this.population/100*this.selectedDemographicsObject.variables.mp1);
   }
 
   getObjectValuesForChart(obj: any) {
@@ -136,6 +133,12 @@ export class SimpleAndPiechartDemographicsComponent implements OnInit {
         return '#dc3545';
       }
     }
+  }
+
+  get population() {
+    return this.selectedPopulationObject.type === 'landmass' ?
+              this.selectedPopulationObject.baseCalculation.variables.pop1 :
+              this.selectedPopulationObject.variables.p3;
   }
 
   get cultures() {
