@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { constants } from 'src/app/app.constants';
 import { DataService } from 'src/app/services/data.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { v4 as uuid } from 'uuid';
 import { Nation, NationCalculationVariables, PopulationCalculation } from '../models/population.model';
 
@@ -16,7 +17,9 @@ export class PopulationCalculationComponent implements OnInit {
   addNewNation = false;
   newNation = '';
 
-  constructor() { }
+  constructor(
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit(): void { }
 
@@ -62,6 +65,9 @@ export class PopulationCalculationComponent implements OnInit {
   }
 
   deleteNation(nation: Nation) {
+    this.dialogService.confirm('Are you sure?', 'This will delete the selected nation.').subscribe(
+      res => {
+        if (res) {
     this.populationCalculation.nations = this.populationCalculation.nations.filter(
       _nation => _nation.id !== nation.id
     );
@@ -76,6 +82,9 @@ export class PopulationCalculationComponent implements OnInit {
     if (index2 > -1) {
       nationCityCalculation?.splice(index2, 1);
     }
+  }
+      }
+    );
   }
 
   onCountrySizeUpdate(newVal: string, nation: Nation, key: keyof NationCalculationVariables) {

@@ -37,6 +37,7 @@ import { CitiesComponent } from './calculations/cities/cities.component';
 import { CustomizedCitiesComponent } from './customized-cities/customized-cities.component';
 import { NoCommaPipe } from './no-comma.pipe';
 import { FileComponent } from './dialogs/file/file.component';
+import { ConfirmComponent } from './dialogs/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { FileComponent } from './dialogs/file/file.component';
     CitiesComponent,
     CustomizedCitiesComponent,
     NoCommaPipe,
-    FileComponent
+    FileComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,

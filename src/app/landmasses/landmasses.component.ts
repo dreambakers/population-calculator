@@ -3,6 +3,7 @@ import { DataService } from '../services/data.service';
 import { Landmass } from '../calculations/models/landmass.model';
 import { World } from '../calculations/models/world.model';
 import { Utility } from '../utils/utility';
+import { DialogService } from '../services/dialog.service';
 @Component({
   selector: 'app-landmasses',
   templateUrl: './landmasses.component.html',
@@ -14,7 +15,9 @@ export class LandmassesComponent implements OnInit {
   addNewLandmass = false;
   newLandmass = '';
 
-  constructor() { }
+  constructor(
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -25,8 +28,14 @@ export class LandmassesComponent implements OnInit {
   }
 
   deleteLandmass(landmass: Landmass) {
-    this.landmasses = this.landmasses.filter(
-      _landmass => _landmass.id !== landmass.id
+    this.dialogService.confirm('Are you sure?', 'This will delete the selected landmass.').subscribe(
+      res => {
+        if (res) {
+          this.landmasses = this.landmasses.filter(
+            _landmass => _landmass.id !== landmass.id
+          );
+        }
+      }
     );
   }
 
