@@ -60,6 +60,7 @@
 
                 <div *ngIf="selectedDemographicsObject.variables.mp2 && selectedDemographicsObject.variables.mp3">
                     <canvas baseChart
+                        [options] = "{ tooltips: { enabled: false }, events: [] }"
                         [data]="[selectedDemographicsObject.variables.mp2, selectedDemographicsObject.variables.mp3]"
                         [labels]="['Magical Population', 'Non-Magical Population']"
                         chartType="pie"
