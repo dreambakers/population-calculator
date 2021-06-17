@@ -4,6 +4,7 @@ import { Landmass } from '../calculations/models/landmass.model';
 import { World } from '../calculations/models/world.model';
 import { Utility } from '../utils/utility';
 import { DialogService } from '../services/dialog.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-landmasses',
   templateUrl: './landmasses.component.html',
@@ -16,7 +17,8 @@ export class LandmassesComponent implements OnInit {
   newLandmass = '';
 
   constructor(
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +65,18 @@ export class LandmassesComponent implements OnInit {
     document.body.appendChild(element);
     element.click(); // simulate click
     document.body.removeChild(element);
+  }
+
+  onNavigateToMainPage() {
+    this.dialogService.confirm(
+      'Are you sure you want to go back?',
+      'Navigating away from this page will cause all your current world data to be lost.').subscribe(
+        res => {
+          if (res) {
+            this.router.navigateByUrl('/');
+          }
+      }
+    );
   }
 
   get world(): World {
