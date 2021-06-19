@@ -608,7 +608,7 @@ export class DataService {
             break;
         }
 
-        let result = this.variables.pic/cc;
+        let result = this.variables.pic/100*cc;
         if (!isNaN(result)) {
           this.variables.cip = result;
         }
@@ -629,7 +629,7 @@ export class DataService {
             ccp = this.variables.ccsscp;
             break;
         }
-        let result = this.variables.cip/ccp;
+        let result = this.variables.cip*ccp;
         if (!isNaN(result)) {
           this.variables.cia = result;
         }

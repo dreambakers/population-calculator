@@ -391,6 +391,26 @@
         </div>
       </fieldset>
 
+      <fieldset class="my-3">
+        <div class="d-flex align-items-center mb-2">
+            <legend class="w-auto m-0">Communities</legend>
+            <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Communities Population</mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp13 | number:'1.0-0'" disabled>
+            </mat-form-field>
+
+            <h4 class="m-2"></h4>
+
+            <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Amount of Communities </mat-label>
+                <input matInput type="text" [ngModel]="selectedCalculationObject?.variables?.cp14 | number:'1.0-0'" disabled>
+            </mat-form-field>
+        </div>
+      </fieldset>
     </div>
   </mat-card>
 </div>
