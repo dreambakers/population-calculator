@@ -4,6 +4,19 @@
       <ng-template #cityHeader>
         <div class="d-flex justify-content-end align-items-center">
           <div class="p-2">
+            <button mat-icon-button (click)="city.editing = !city.editing">
+              <mat-icon>{{ city.editing ? 'done' : 'edit'}}</mat-icon>
+            </button>
+          </div>
+          <div class="p-2 flex-grow-1">
+            <h4 class="m-0" *ngIf="!city.editing; else editMode">
+              {{city.name}}
+            </h4>
+            <ng-template #editMode>
+              <input matInput [(ngModel)]="city.name" placeholder="City name..." autofocus>
+            </ng-template>
+          </div>
+          <div class="p-2">
             <button mat-icon-button (click)="copyCity(city)">
               <mat-icon>content_copy</mat-icon>
             </button>
@@ -324,14 +337,20 @@
   </div>
 
   <mat-card>
-    <div class="d-flex align-items-center cursor-pointer" (click)="addCity()">
+    <div class="d-flex align-items-center">
       <div class="p-2">
-        <button mat-icon-button>
-          <mat-icon>add</mat-icon>
+        <button mat-icon-button (click)="addCity()">
+          <mat-icon>{{ addNewCity ? 'done' : 'add'}}</mat-icon>
         </button>
       </div>
-      <div>
-        Add city
+      <div class="p-2 flex-grow-1">
+        <span *ngIf="!addNewCity; else addNew">
+          Add City
+        </span>
+
+        <ng-template #addNew>
+          <input matInput [(ngModel)]="newCity" placeholder="City name...">
+        </ng-template>
       </div>
     </div>
   </mat-card>

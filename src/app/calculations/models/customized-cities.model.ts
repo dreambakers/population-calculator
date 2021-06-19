@@ -41,6 +41,7 @@ export interface CustomizedCityVariables {
 export interface CustomizedCity {
     id: string;
     editing?: boolean;
+    name: string;
     type: 'super_dense' | 'dense' | 'sparse' | 'super_sparse';
     variables: CustomizedCityVariables;
     expanded: boolean;

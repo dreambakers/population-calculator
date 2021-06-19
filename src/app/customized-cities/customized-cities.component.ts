@@ -11,6 +11,8 @@ import { DialogService } from '../services/dialog.service';
 export class CustomizedCitiesComponent implements OnInit {
 
   customizedCityCalculation: CustomizedCityCalculation = DataService.getSelectedLandmass().customizedCityCalculation;
+  addNewCity = false;
+  newCity = '';
 
   constructor(
     private dialogService: DialogService
@@ -20,7 +22,14 @@ export class CustomizedCitiesComponent implements OnInit {
   }
 
   addCity() {
-    this.customizedCityCalculation.cites.push(DataService.getDefaultCustomizedCityObject());
+    if (this.addNewCity) {
+      this.customizedCityCalculation.cites.push({
+        ...DataService.getDefaultCustomizedCityObject(),
+        name: this.newCity
+      });
+      this.newCity = '';
+    }
+    this.addNewCity = !this.addNewCity;
   }
 
   onTableValueUpdate(newValue: string, key: keyof CustomizedCityVariables, city: CustomizedCity) {

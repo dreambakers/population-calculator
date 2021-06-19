@@ -560,36 +560,37 @@ export class DataService {
     return {
       id: uuid(),
       type: 'super_dense',
+      name: '',
       variables: {
         ccsdc: 56.6,
         ccdc: 44.5,
-        ccsc: 40.1,
-        ccssc: 33.2,
+        ccsc: 39.2,
+        ccssc: 31.6,
 
         ccsdcp: 25000,
-        ccdcp: 20000,
-        ccscp: 5000,
-        ccsscp: 3500,
+        ccdcp: 15000,
+        ccscp: 8000,
+        ccsscp: 4500,
 
         usdc: 33.2,
         udc: 40.1,
         usc: 44.5,
-        ussc: 40.1,
+        ussc: 38.7,
 
-        usdcp: 1500,
-        udcp: 1000,
-        uscp: 2500,
-        usscp: 3000,
+        usdcp: 3000,
+        udcp: 2500,
+        uscp: 2200,
+        usscp: 1800,
 
         msdc: 10.2,
         mdc: 15.4,
-        msc: 15.4,
-        mssc: 26.7,
+        msc: 16.3,
+        mssc: 29.7,
 
-        msdcp: 150,
-        mdcp: 200,
-        mscp: 500,
-        msscp: 1000
+        msdcp: 1000,
+        mdcp: 820,
+        mscp: 680,
+        msscp: 500
       },
       expanded: true,
       cip_calc: function() {
@@ -733,7 +734,6 @@ export class DataService {
   public static getDefaultCustomizedCityCalculationObject(): CustomizedCityCalculation {
     return {
       cites: [
-        DataService.getDefaultCustomizedCityObject()
       ]
     };
   }
