@@ -188,7 +188,7 @@
                                             [(ngModel)]="nation.variables.f"
                                             (ngModelChange)="onTableValueUpdate(nation)">
                                     </td>
-                                    <td>{{(+nation.variables.m) + (+nation.variables.f)}}</td>
+                                    <td class="color-calculated">{{(+nation.variables.m) + (+nation.variables.f)}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Elderly in %</th>
@@ -197,9 +197,9 @@
                                             [(ngModel)]="nation.variables.ey1"
                                             (ngModelChange)="onTableValueUpdate(nation)">
                                     </td>
-                                    <td>{{nation.variables.ey2 | number : '1.0-4' }}</td>
-                                    <td>{{nation.variables.ey3 | number : '1.0-4' }}</td>
-                                    <td>{{nation.variables.ey4 | number : '1.0-4' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ey2 | number:'1.0-0' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ey3 | number:'1.0-0' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ey4 | number:'1.0-0' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Adults in %</th>
@@ -208,9 +208,9 @@
                                             [(ngModel)]="nation.variables.ad1"
                                             (ngModelChange)="onTableValueUpdate(nation)">
                                     </td>
-                                    <td>{{nation.variables.ad2 | number : '1.0-4' }}</td>
-                                    <td>{{nation.variables.ad3 | number : '1.0-4' }}</td>
-                                    <td>{{nation.variables.ad4 | number : '1.0-4' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ad2 | number:'1.0-0' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ad3 | number:'1.0-0' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ad4 | number:'1.0-0' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Children in %</th>
@@ -219,18 +219,24 @@
                                             [(ngModel)]="nation.variables.ch1"
                                             (ngModelChange)="onTableValueUpdate(nation)">
                                     </td>
-                                    <td>{{nation.variables.ch2 | number : '1.0-4' }}</td>
-                                    <td>{{nation.variables.ch3 | number : '1.0-4' }}</td>
-                                    <td>{{nation.variables.ch4 | number : '1.0-4' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ch2 | number:'1.0-0' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ch3 | number:'1.0-0' }}</td>
+                                    <td class="color-calculated">{{nation.variables.ch4 | number:'1.0-0' }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Total in %</th>
-                                    <td>
+                                    <td class="color-calculated">
                                         {{+nation.variables.ey1 + (+nation.variables.ad1) + (+nation.variables.ch1) }}
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td class="color-calculated">
+                                        {{+nation.variables.ey2 + (+nation.variables.ad2) + (+nation.variables.ch2) | number:'1.0-0' }}
+                                    </td>
+                                    <td class="color-calculated">
+                                        {{+nation.variables.ey3 + (+nation.variables.ad3) + (+nation.variables.ch3) | number:'1.0-0' }}
+                                    </td>
+                                    <td class="color-calculated">
+                                        {{+nation.variables.ey4 + (+nation.variables.ad4) + (+nation.variables.ch4) | number:'1.0-0' }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

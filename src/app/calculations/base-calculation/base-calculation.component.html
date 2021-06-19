@@ -28,11 +28,21 @@
                 is preferable for this file to use larger landmasses like a Continent or the entire world.
                 Smaller areas are possible to calculate in this step but might get some false results." class="ms-2">info</mat-icon>
             </div>
-            <mat-form-field appearance="fill" class="w-50">
-                <mat-label>Total Land Size</mat-label>
-                <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.a1" (ngModelChange)="onModifierSelect($event, 'a1')">
-                <span matSuffix>km²</span>
-            </mat-form-field>
+            <div class="d-flex align-items-start">
+                <mat-form-field appearance="fill" class="w-50">
+                    <mat-label>Total Land Size</mat-label>
+                    <input matInput type="text" digitOnly [decimal]="true" [ngModel]="baseCalculation.variables.a1" (ngModelChange)="onModifierSelect($event, 'a1')">
+                    <span matSuffix>km²</span>
+                </mat-form-field>
+
+                <div class="m-2"></div>
+
+                <div class="d-flex flex-column">
+                    <a href="" style="margin-bottom: 0.85rem;">Calculating Landmasses in Gimp 2 (Free)</a>
+                    <a href="">Calculating Landmasses in Photoshop</a>
+                </div>
+            </div>
+
         </fieldset>
 
         <fieldset class="my-3">
