@@ -402,7 +402,7 @@ export class DataService {
         let result;
         let variables = this.selectedCalculationObj?.variables;
         let variable2 = this.selectedCalculation === 'rural' ? +variables?.rr1 : +variables?.ur1;
-        if (variables?.cp16 < 1) {
+        if (Math.round(variables?.cp16) === 0) {
           result = (p3/100*variable2)+variables?.cp15;
         } else {
           result = p3/100*variable2;
@@ -423,7 +423,7 @@ export class DataService {
         let result;
         let variables = this.selectedCalculationObj?.variables;
         let variable2 = this.selectedCalculation === 'rural' ? +variables?.rr2 : +variables?.ur2;
-        if (variables?.cp2 < 1) {
+        if (Math.round(variables?.cp2) === 0) {
           result = (p3/100*variable2)+variables?.cp1;
         } else {
           result = p3/100*variable2;
@@ -444,7 +444,7 @@ export class DataService {
         let result;
         let variables = this.selectedCalculationObj?.variables;
         let variable3 = this.selectedCalculation === 'rural' ? +variables?.rr3 : +variables?.ur3;
-        if (variables?.cp4 < 1) {
+        if (Math.round(variables?.cp4) === 0) {
           result = (p3/100*variable3)+variables?.cp3;
         } else {
           result = p3/100*variable3;
@@ -465,7 +465,7 @@ export class DataService {
         let result;
         let variables = this.selectedCalculationObj?.variables;
         let variable4 = this.selectedCalculation === 'rural' ? +variables?.rr4 : +variables?.ur4;
-        if (variables?.cp6 < 1) {
+        if (Math.round(variables?.cp6) === 0) {
           result = (p3/100*variable4)+variables?.cp5;
         } else {
           result = p3/100*variable4;
@@ -486,7 +486,7 @@ export class DataService {
         let result;
         let variables = this.selectedCalculationObj?.variables;
         let variable5 = this.selectedCalculation === 'rural' ? +variables?.rr5 : +variables?.ur5;
-        if (variables?.cp8 < 1) {
+        if (Math.round(variables?.cp8) === 1) {
           result = (p3/100*variable5)+variables?.cp7;
         } else {
           result = p3/100*variable5;
@@ -507,7 +507,7 @@ export class DataService {
         let result;
         let variables = this.selectedCalculationObj?.variables;
         let variable6 = this.selectedCalculation === 'rural' ? +variables?.rr6 : +variables?.ur6;
-        if (variables?.cp10 < 1) {
+        if (Math.round(variables?.cp10) === 1) {
           result = (p3/100*variable6)+variables?.cp9;
         } else {
           result = p3/100*variable6;
@@ -528,7 +528,7 @@ export class DataService {
         let result;
         let variables = this.selectedCalculationObj?.variables;
         let variable7 = this.selectedCalculation === 'rural' ? +variables?.rr7 : +variables?.ur7;
-        if (variables?.cp12 < 1) {
+        if (Math.round(variables?.cp12) === 1) {
           result = (p3/100*variable7)+variables?.cp11;
         } else {
           result = p3/100*variable7;
