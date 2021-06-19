@@ -558,6 +558,7 @@ export class DataService {
 
   public static getDefaultCustomizedCityObject(): CustomizedCity {
     return {
+      id: uuid(),
       type: 'super_dense',
       variables: {
         ccsdc: 56.6,

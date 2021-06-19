@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomizedCity, CustomizedCityCalculation, CustomizedCityVariables } from '../calculations/models/customized-cities.model';
 import { DataService } from '../services/data.service';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'app-customized-cities',
@@ -11,7 +12,9 @@ export class CustomizedCitiesComponent implements OnInit {
 
   customizedCityCalculation: CustomizedCityCalculation = DataService.getSelectedLandmass().customizedCityCalculation;
 
-  constructor() { }
+  constructor(
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -29,4 +32,25 @@ export class CustomizedCitiesComponent implements OnInit {
     return this.customizedCityCalculation.cites;
   }
 
+  deleteCity(city: CustomizedCity) {
+    this.dialogService.confirm('Are you sure?', 'This will delete the selected city.').subscribe(
+      res => {
+        if (res) {
+          this.customizedCityCalculation.cites = this.customizedCityCalculation.cites.filter(
+            _city=> _city.id !== city.id
+          );
+        }
+      }
+    );
+  }
+
+  copyCity(city: CustomizedCity) {
+    const newCityCopy = {
+      ...DataService.getDefaultCustomizedCityObject(),
+      variables: {
+        ...city.variables
+      },
+    };
+    this.customizedCityCalculation.cites.push(newCityCopy);
+  }
 }

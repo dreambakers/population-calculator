@@ -1,323 +1,338 @@
 <div>
-    <div *ngFor="let city of customizedCityCalculation.cites" class="mb-3">
-        <mat-accordion>
+  <div *ngFor="let city of customizedCityCalculation.cites" class="mb-3">
+    <mat-accordion>
+      <ng-template #cityHeader>
+        <div class="d-flex justify-content-end align-items-center">
+          <div class="p-2">
+            <button mat-icon-button (click)="copyCity(city)">
+              <mat-icon>content_copy</mat-icon>
+            </button>
+          </div>
 
-            <mat-expansion-panel [expanded]='city.expanded' class="mep-no-padding">
-                <mat-card>
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                          <legend class="w-auto m-0">Population Division</legend>
-                        </div>
-                        <table class="table table-bordered w-100" id="cityCalculation">
-                          <thead>
-                            <tr>
-                              <th scope="col">City Type</th>
-                              <th scope="col" class="text-center">Super Dense Cities</th>
-                              <th scope="col" class="text-center">Dense Cities</th>
-                              <th scope="col" class="text-center">Sparse Cities</th>
-                              <th scope="col" class="text-center">Super Sparse Cities</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th>City Center in % Population</th>
-                              <td>
-                                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                  [ngModel]="city?.variables?.ccsdc" (ngModelChange)="onTableValueUpdate($event, 'ccsdc', city)">
-                              </td>
-                              <td>
-                                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                  [ngModel]="city?.variables?.ccdc" (ngModelChange)="onTableValueUpdate($event, 'ccdc', city)">
-                              </td>
-                              <td>
-                                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                  [ngModel]="city?.variables?.ccsc" (ngModelChange)="onTableValueUpdate($event, 'ccsc', city)">
-                              </td>
-                              <td>
-                                <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                  [ngModel]="city?.variables?.ccssc" (ngModelChange)="onTableValueUpdate($event, 'ccssc', city)">
-                              </td>
-                            </tr>
+          <div class="p-2">
+            <button mat-icon-button (click)="deleteCity(city)">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
 
-                            <tr>
-                                <th>City Centers in Pops/km²</th>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.ccsdcp" (ngModelChange)="onTableValueUpdate($event, 'ccsdcp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.ccdcp" (ngModelChange)="onTableValueUpdate($event, 'ccdcp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.ccscp" (ngModelChange)="onTableValueUpdate($event, 'ccscp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.ccsscp" (ngModelChange)="onTableValueUpdate($event, 'ccsscp', city)">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>Urban in % Population</th>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.usdc" (ngModelChange)="onTableValueUpdate($event, 'usdc', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.udc" (ngModelChange)="onTableValueUpdate($event, 'udc', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.usc" (ngModelChange)="onTableValueUpdate($event, 'usc', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.ussc" (ngModelChange)="onTableValueUpdate($event, 'ussc', city)">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>Urban in Pops/km²</th>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.usdcp" (ngModelChange)="onTableValueUpdate($event, 'usdcp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.udcp" (ngModelChange)="onTableValueUpdate($event, 'udcp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.uscp" (ngModelChange)="onTableValueUpdate($event, 'uscp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.usscp" (ngModelChange)="onTableValueUpdate($event, 'usscp', city)">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>Metropolitan in % Population</th>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.msdc" (ngModelChange)="onTableValueUpdate($event, 'msdc', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.mdc" (ngModelChange)="onTableValueUpdate($event, 'mdc', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.msc" (ngModelChange)="onTableValueUpdate($event, 'msc', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.mssc" (ngModelChange)="onTableValueUpdate($event, 'mssc', city)">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th>Metropolitan in Pops/km²</th>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.msdcp" (ngModelChange)="onTableValueUpdate($event, 'msdcp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.mdcp" (ngModelChange)="onTableValueUpdate($event, 'mdcp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.mscp" (ngModelChange)="onTableValueUpdate($event, 'mscp', city)">
-                                </td>
-                                <td>
-                                  <input class="form-control table-input" type="text" digitOnly [decimal]="true"
-                                    [ngModel]="city?.variables?.msscp" (ngModelChange)="onTableValueUpdate($event, 'msscp', city)">
-                                </td>
-                            </tr>
-
-                          </tbody>
-                        </table>
-                    </fieldset>
-
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                          <legend class="w-auto m-0">City Type</legend>
-                          <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex align-items-center">
-                          <mat-form-field appearance="fill">
-                            <mat-label>Select City Type</mat-label>
-                            <mat-select [(ngModel)]="city.type" (selectionChange)="city.calculateAll()">
-                              <mat-option value="super_dense">
-                                Super Dense
-                              </mat-option>
-                              <mat-option value="dense">
-                                Dense
-                              </mat-option>
-                              <mat-option value="sparse">
-                                Sparse
-                              </mat-option>
-                              <mat-option value="super_sparse">
-                                Super Sparse
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Population in the City</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex">
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Population in the City</mat-label>
-                                <input matInput type="text" digitOnly [ngModel]="city.variables.pic" (ngModelChange)="onTableValueUpdate($event, 'pic', city)">
-                            </mat-form-field>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">City Centre Population</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex">
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>City Centre Population</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.cip | number:'1.0-0'">
-                            </mat-form-field>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">City Centre Area</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex">
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>City Centre Area</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.cia | number : '1.0-4'">
-                                <span matSuffix>km²</span>
-                            </mat-form-field>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Urban Population</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex">
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Urban Population</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.urp | number:'1.0-0'">
-                            </mat-form-field>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Urban Area</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex">
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Urban Area</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.ura | number : '1.0-4'">
-                                <span matSuffix>km²</span>
-                            </mat-form-field>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Metropolitan Population</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex">
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Metropolitan Population</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.mep | number:'1.0-0'">
-                            </mat-form-field>
-                        </div>
-                    </fieldset>
-
-
-                    <fieldset class="my-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <legend class="w-auto m-0">Metropolitan Area</legend>
-                            <mat-icon matSuffix
-                                matTooltip=""
-                                class="ms-2">info</mat-icon>
-                        </div>
-
-                        <div class="d-flex">
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Metropolitan Area</mat-label>
-                                <input matInput disabled [ngModel]="city.variables.mea | number : '1.0-4'">
-                                <span matSuffix>km²</span>
-                            </mat-form-field>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="my-3">
-                      <div class="d-flex align-items-center mb-2">
-                          <legend class="w-auto m-0">Total City Area</legend>
-                          <mat-icon matSuffix
-                              matTooltip=""
-                              class="ms-2">info</mat-icon>
-                      </div>
-
-                      <div class="d-flex">
-                          <mat-form-field appearance="fill" class="w-50">
-                              <mat-label>Total City Area</mat-label>
-                              <input matInput disabled [value]="city.variables.cia + city.variables.ura + city.variables.mea | number : '1.0-4'">
-                              <span matSuffix>km²</span>
-                          </mat-form-field>
-                      </div>
-                  </fieldset>
-                </mat-card>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
-
-    <mat-card>
-        <div class="d-flex align-items-center cursor-pointer" (click)="addCity()">
-            <div class="p-2">
-                <button mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-            <div>
-                Add city
-            </div>
+          <div class="p-2">
+            <button mat-icon-button (click)="city.expanded = !city.expanded">
+              <mat-icon>
+                {{city.expanded ? 'expand_less' : 'expand_more'}}
+              </mat-icon>
+            </button>
+          </div>
         </div>
-    </mat-card>
+      </ng-template>
+
+      <mat-card *ngIf="!city.expanded">
+        <ng-template [ngTemplateOutlet]="cityHeader"></ng-template>
+      </mat-card>
+
+      <mat-expansion-panel [expanded]='city.expanded' class="mep-no-padding">
+        <mat-card>
+          <ng-template [ngTemplateOutlet]="cityHeader"></ng-template>
+          <hr>
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">Population Division</legend>
+            </div>
+            <table class="table table-bordered w-100" id="cityCalculation">
+              <thead>
+                <tr>
+                  <th scope="col">City Type</th>
+                  <th scope="col" class="text-center">Super Dense Cities</th>
+                  <th scope="col" class="text-center">Dense Cities</th>
+                  <th scope="col" class="text-center">Sparse Cities</th>
+                  <th scope="col" class="text-center">Super Sparse Cities</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>City Center in % Population</th>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccsdc" (ngModelChange)="onTableValueUpdate($event, 'ccsdc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccdc" (ngModelChange)="onTableValueUpdate($event, 'ccdc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccsc" (ngModelChange)="onTableValueUpdate($event, 'ccsc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccssc" (ngModelChange)="onTableValueUpdate($event, 'ccssc', city)">
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>City Centers in Pops/km²</th>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccsdcp" (ngModelChange)="onTableValueUpdate($event, 'ccsdcp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccdcp" (ngModelChange)="onTableValueUpdate($event, 'ccdcp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccscp" (ngModelChange)="onTableValueUpdate($event, 'ccscp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ccsscp" (ngModelChange)="onTableValueUpdate($event, 'ccsscp', city)">
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Urban in % Population</th>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.usdc" (ngModelChange)="onTableValueUpdate($event, 'usdc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.udc" (ngModelChange)="onTableValueUpdate($event, 'udc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.usc" (ngModelChange)="onTableValueUpdate($event, 'usc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.ussc" (ngModelChange)="onTableValueUpdate($event, 'ussc', city)">
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Urban in Pops/km²</th>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.usdcp" (ngModelChange)="onTableValueUpdate($event, 'usdcp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.udcp" (ngModelChange)="onTableValueUpdate($event, 'udcp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.uscp" (ngModelChange)="onTableValueUpdate($event, 'uscp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.usscp" (ngModelChange)="onTableValueUpdate($event, 'usscp', city)">
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Metropolitan in % Population</th>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.msdc" (ngModelChange)="onTableValueUpdate($event, 'msdc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.mdc" (ngModelChange)="onTableValueUpdate($event, 'mdc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.msc" (ngModelChange)="onTableValueUpdate($event, 'msc', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.mssc" (ngModelChange)="onTableValueUpdate($event, 'mssc', city)">
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Metropolitan in Pops/km²</th>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.msdcp" (ngModelChange)="onTableValueUpdate($event, 'msdcp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.mdcp" (ngModelChange)="onTableValueUpdate($event, 'mdcp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.mscp" (ngModelChange)="onTableValueUpdate($event, 'mscp', city)">
+                  </td>
+                  <td>
+                    <input class="form-control table-input" type="text" digitOnly [decimal]="true"
+                      [ngModel]="city?.variables?.msscp" (ngModelChange)="onTableValueUpdate($event, 'msscp', city)">
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </fieldset>
+
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">City Type</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <mat-form-field appearance="fill">
+                <mat-label>Select City Type</mat-label>
+                <mat-select [(ngModel)]="city.type" (selectionChange)="city.calculateAll()">
+                  <mat-option value="super_dense">
+                    Super Dense
+                  </mat-option>
+                  <mat-option value="dense">
+                    Dense
+                  </mat-option>
+                  <mat-option value="sparse">
+                    Sparse
+                  </mat-option>
+                  <mat-option value="super_sparse">
+                    Super Sparse
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">Population in the City</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Population in the City</mat-label>
+                <input matInput type="text" digitOnly [ngModel]="city.variables.pic"
+                  (ngModelChange)="onTableValueUpdate($event, 'pic', city)">
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">City Centre Population</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>City Centre Population</mat-label>
+                <input matInput disabled [ngModel]="city.variables.cip | number:'1.0-0'">
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">City Centre Area</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>City Centre Area</mat-label>
+                <input matInput disabled [ngModel]="city.variables.cia | number : '1.0-4'">
+                <span matSuffix>km²</span>
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">Urban Population</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Urban Population</mat-label>
+                <input matInput disabled [ngModel]="city.variables.urp | number:'1.0-0'">
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">Urban Area</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Urban Area</mat-label>
+                <input matInput disabled [ngModel]="city.variables.ura | number : '1.0-4'">
+                <span matSuffix>km²</span>
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">Metropolitan Population</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Metropolitan Population</mat-label>
+                <input matInput disabled [ngModel]="city.variables.mep | number:'1.0-0'">
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">Metropolitan Area</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Metropolitan Area</mat-label>
+                <input matInput disabled [ngModel]="city.variables.mea | number : '1.0-4'">
+                <span matSuffix>km²</span>
+              </mat-form-field>
+            </div>
+          </fieldset>
+
+          <fieldset class="my-3">
+            <div class="d-flex align-items-center mb-2">
+              <legend class="w-auto m-0">Total City Area</legend>
+              <mat-icon matSuffix matTooltip="" class="ms-2">info</mat-icon>
+            </div>
+
+            <div class="d-flex">
+              <mat-form-field appearance="fill" class="w-50">
+                <mat-label>Total City Area</mat-label>
+                <input matInput disabled
+                  [value]="city.variables.cia + city.variables.ura + city.variables.mea | number : '1.0-4'">
+                <span matSuffix>km²</span>
+              </mat-form-field>
+            </div>
+          </fieldset>
+        </mat-card>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <mat-card>
+    <div class="d-flex align-items-center cursor-pointer" (click)="addCity()">
+      <div class="p-2">
+        <button mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div>
+        Add city
+      </div>
+    </div>
+  </mat-card>
 </div>
