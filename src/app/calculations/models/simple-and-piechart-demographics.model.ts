@@ -17,6 +17,7 @@ export interface SimpleAndPiechartDemographicsVariables {
     educationPerPopulation: {
         we?: any;
         me?: any;
+        pe?: any;
         ir?: any;
     };
     ethnicityPerPopulation: DynamicDemographicChart[];

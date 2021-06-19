@@ -180,6 +180,7 @@
                                     [ngTemplateOutletContext]="getAccumulatedPercentageAndColor([
                                         +educationPerPopulation.we,
                                         +educationPerPopulation.me,
+                                        +educationPerPopulation.pe,
                                         +educationPerPopulation.ir,
                                     ])"
                                     [ngTemplateOutlet]="accumulatedEducationPerPopulation" #accumulatedEducationPerPopulation>
@@ -225,6 +226,21 @@
 
                             <div class="d-flex">
                                 <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Poor Educated in %</mat-label>
+                                    <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.pe">
+                                    <span matSuffix>%</span>
+                                </mat-form-field>
+
+                                <h4 class="m-2"></h4>
+
+                                <mat-form-field appearance="fill" class="w-50">
+                                    <mat-label>Amount of Poor Educated</mat-label>
+                                    <input matInput type="text" disabled [ngModel]="population/100*educationPerPopulation.pe | number:'1.0-0'">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="d-flex">
+                                <mat-form-field appearance="fill" class="w-50">
                                     <mat-label>Illiterate rate in %</mat-label>
                                     <input matInput type="text" digitOnly [decimal]="true" [(ngModel)]="educationPerPopulation.ir">
                                     <span matSuffix>%</span>
@@ -241,7 +257,7 @@
                     </fieldset>
                 </div>
 
-                <div *ngIf="educationPerPopulation.we && educationPerPopulation.me && educationPerPopulation.ir">
+                <div *ngIf="educationPerPopulation.we && educationPerPopulation.me && educationPerPopulation.pe && educationPerPopulation.ir">
                     <canvas baseChart
                         [data]="getObjectValuesForChart(educationPerPopulation)"
                         [labels]="getChartLabelsForKey('education')"

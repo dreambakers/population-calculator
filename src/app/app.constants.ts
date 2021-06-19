@@ -9,6 +9,7 @@ export const constants = {
         education: {
             we: 'Well Educated in %',
             me: 'Mediocre Educated in %',
+            pe: 'Poor Educated in %',
             ir: 'Illiterate rate in %'
         }
     },
