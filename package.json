@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "package:win": "npm run build && cross-var electron-packager dist/population-calculation --out=packages --platform=win32 --arch=all --overwrite ",
+    "package:linux": "npm run build && cross-var electron-packager dist/population-calculation --out=packages --platform=linux --arch=all --overwrite ",
+    "package:osx": "npm run build && cross-var electron-packager dist/population-calculation --out=packages --platform=darwin --arch=all --overwrite ",
+    "package:all": "npm run build && cross-var electron-packager dist/population-calculation --out=packages --all --arch=all --overwrite "
   },
   "private": true,
   "dependencies": {
@@ -38,6 +42,9 @@
     "@types/node": "^12.11.1",
     "@types/uuid": "^8.3.0",
     "codelyzer": "^6.0.0",
+    "cross-var": "^1.1.0",
+    "electron": "^13.1.2",
+    "electron-packager": "^15.2.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.1.0",

@@ -1,0 +1,8 @@
+{
+    "name": "population-calculation",
+    "productName": "Population Calculator",
+    "version": "1.0.0",
+    "description": "Population Calculator",
+    "main": "electron.prod.js",
+    "license": "MIT"
+}
